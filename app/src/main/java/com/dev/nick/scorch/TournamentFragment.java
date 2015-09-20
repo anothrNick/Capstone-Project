@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,12 @@ import android.widget.LinearLayout;
 
 import com.dev.nick.scorch.canvas.TournamentCanvas;
 
+import java.util.ArrayList;
+
 public class TournamentFragment extends Fragment {
 
-    public static final String TAG = GameFragment.class.getSimpleName();
+    public static final String TAG = TournamentFragment.class.getSimpleName();
+    public static ArrayList<String> offSets = new ArrayList<String>();
 
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
@@ -45,6 +49,12 @@ public class TournamentFragment extends Fragment {
         View v = inflater.inflate(R.layout.tournament_fragment, container, false);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
+        mSectionsPagerAdapter.round_count = 4;
+
+        offSets.add("0");
+        offSets.add("0");
+        offSets.add("0");
+        offSets.add("0");
 
         mViewPager = (ViewPager) v.findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -63,7 +73,7 @@ public class TournamentFragment extends Fragment {
     }
 
     public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
-
+        public int round_count = 0;
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -79,23 +89,12 @@ public class TournamentFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 4;
+            return round_count;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            //Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return "Round 1";
-                case 1:
-                    return "Round 2";
-                case 2:
-                    return "Round 3";
-                case 3:
-                    return "Round 4";
-            }
-            return "Tab What";
+            return "Round " + (position + 1);
         }
 
     }
@@ -110,6 +109,7 @@ public class TournamentFragment extends Fragment {
         private RecyclerView.LayoutManager mLayoutManager;
 
         private int round = 0;
+        private int games = 0;
 
         public TabbedContentFragment() {
         }
@@ -121,8 +121,10 @@ public class TournamentFragment extends Fragment {
                 round = getArguments().getInt(ARG_ROUND_NUMBER);
 
                 // testing ui
-                if(round == 1) round = 4;
-                else if(round == 3 || round == 4) round = 1;
+                if(round == 1) games = 6;
+                else if(round == 2) games = 3;
+                else if(round == 3) games = 2;
+                else if(round == 4) games = 1;
             }
 
         }
@@ -133,12 +135,12 @@ public class TournamentFragment extends Fragment {
             View rootView = inflater.inflate(R.layout.tournament_page,
                     container, false);
 
-            mCanvas = new TournamentCanvas(getContext(), round);
+            mCanvas = new TournamentCanvas(getContext(), games);
             mCanvas.requestFocus();
             LinearLayout background = (LinearLayout) rootView.findViewById(R.id.canvas);
             background.addView(mCanvas);
 
-            mAdapter = new TournamentGameListAdapter(round);
+            mAdapter = new TournamentGameListAdapter(games);
 
             // Set the adapter
             mRecyclerView = (RecyclerView) rootView.findViewById(R.id.game_list);
@@ -149,6 +151,19 @@ public class TournamentFragment extends Fragment {
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             mRecyclerView.setAdapter(mAdapter);
+            //mCanvas.yOffset = mRecyclerView.computeVerticalScrollOffset();
+            //mCanvas.scrolledOffset = Integer.parseInt(offSets.get(round-1));
+            //mCanvas.invalidate();
+
+            Log.d(TAG, "round " + round + ": yOffset " + mCanvas.yOffset + ", scrolled offset " + mCanvas.scrolledOffset);
+            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    mCanvas.yOffset += dy;
+                    //offSets.set(round-1, Integer.toString(mCanvas.yOffset));
+                    mCanvas.invalidate();
+                }
+            });
 
             return rootView;
         }
