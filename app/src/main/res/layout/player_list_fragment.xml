@@ -16,5 +16,5 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android:src="@drawable/ic_action"
-        android:onClick="addPlayer"/>
+        android:id="@+id/newPlayer"/>
 </FrameLayout>

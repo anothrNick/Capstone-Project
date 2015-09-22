@@ -1,13 +1,27 @@
 package com.dev.nick.scorch;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.dev.nick.scorch.dao.ScorchContract;
+import com.dev.nick.scorch.dao.ScorchDbHelper;
+
+import java.util.Date;
 
 /**
  * A fragment representing a list of Items.
@@ -22,9 +36,18 @@ public class PlayerFragment extends Fragment{
 
     private OnFragmentInteractionListener mListener;
 
+    private ScorchDbHelper dbHelper;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private PlayerListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private String[] projection = {
+            ScorchContract.Players.COLUMN_NAME,
+            ScorchContract.Players.COLUMN_CREATED,
+            ScorchContract.Players.COLUMN_ID
+    };
+
+    private String sortOrder = ScorchContract.Players.COLUMN_CREATED + " DESC";
 
     public static PlayerFragment newInstance() {
         PlayerFragment fragment = new PlayerFragment();
@@ -48,8 +71,21 @@ public class PlayerFragment extends Fragment{
             //mParam1 = getArguments().getString(ARG_PARAM1);
             //mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        dbHelper = new ScorchDbHelper(getContext());
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        mAdapter = new PlayerListAdapter();
+        Cursor cursor = db.query(
+                ScorchContract.Players.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                sortOrder
+        );
+        mAdapter = new PlayerListAdapter(getContext(), cursor);
+
+
     }
 
     @Override
@@ -66,6 +102,63 @@ public class PlayerFragment extends Fragment{
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mRecyclerView.setAdapter(mAdapter);
+
+        final FloatingActionButton playerBtn = (FloatingActionButton) view.findViewById(R.id.newPlayer);
+        playerBtn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                // get prompts.xml view
+                LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+                View promptView = layoutInflater.inflate(R.layout.player_new, null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                alertDialogBuilder.setView(promptView);
+                alertDialogBuilder.setTitle("New Player");
+                final EditText editText = (EditText) promptView.findViewById(R.id.newPlayerName);
+                // setup a dialog window
+                alertDialogBuilder.setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //resultText.setText("Hello, " + editText.getText());
+                                String playerName = editText.getText().toString();
+                                if(!playerName.isEmpty()) {
+                                    String name = editText.getText().toString();
+                                    Toast.makeText(getActivity(), "Added " + name, Toast.LENGTH_SHORT).show();
+                                    if(dbHelper != null) {
+                                        SQLiteDatabase db = dbHelper.getWritableDatabase();
+                                        ContentValues values = new ContentValues();
+                                        values.put(ScorchContract.Players.COLUMN_NAME, name);
+                                        values.put(ScorchContract.Players.COLUMN_CREATED, new Date().toString());
+                                        db.insert(ScorchContract.Players.TABLE_NAME, "null", values);
+                                        //mAdapter.notifyDataSetChanged();
+                                        Cursor cursor = db.query(
+                                                ScorchContract.Players.TABLE_NAME,
+                                                projection,
+                                                null,
+                                                null,
+                                                null,
+                                                null,
+                                                sortOrder
+                                        );
+                                        mAdapter.changeCursor(cursor);
+                                        //mRecyclerView.swapAdapter(mAdapter, false);
+                                    }
+                                }
+                                else {
+                                    Toast.makeText(getActivity(), "Player name cannot be empty", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                Toast.makeText(getActivity(), "Cancelled", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                // create an alert dialog
+                AlertDialog alert = alertDialogBuilder.create();
+                alert.show();
+            }
+        });
 
         return view;
     }

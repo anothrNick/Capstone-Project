@@ -1,5 +1,7 @@
 package com.dev.nick.scorch;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,10 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dev.nick.scorch.dao.ScorchContract;
+
 /**
  * Created by Nick on 9/12/2015.
  */
-public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.ViewHolder> {
+public class PlayerListAdapter extends CursorRecyclerViewAdapter<PlayerListAdapter.ViewHolder> {
 
     // TODO: need cursor of player data
 
@@ -30,12 +34,12 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Vi
 
     }
 
-    PlayerListAdapter(){
-        //TODO: set cursor with player data
+    public PlayerListAdapter(Context context,Cursor cursor){
+        super(context,cursor);
     }
 
     @Override
-    public PlayerListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.player_list_item,parent,false);
 
@@ -45,14 +49,17 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(PlayerListAdapter.ViewHolder holder, int position) {
-        holder.textName.setText("Ulysses S. Butterbee");
-        holder.textJoined.setText("July 5, 1990");
+    public void onBindViewHolder(ViewHolder holder, Cursor cursor) {
+        holder.textName.setText(cursor.getString(cursor.getColumnIndex(ScorchContract.Players.COLUMN_NAME)));
+        holder.textJoined.setText(cursor.getString(cursor.getColumnIndex(ScorchContract.Players.COLUMN_CREATED)));
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        if(getCursor() != null)
+            return getCursor().getCount();
+        else
+            return 0;
     }
 
     @Override
