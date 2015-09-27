@@ -10,4 +10,13 @@
         android:paddingLeft="8sp"
         android:paddingRight="8sp"/>
 
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_action"
+        android:id="@+id/newTeam"/>
+
 </FrameLayout>

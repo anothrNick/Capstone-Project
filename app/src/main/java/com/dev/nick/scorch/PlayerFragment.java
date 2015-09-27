@@ -3,6 +3,7 @@ package com.dev.nick.scorch;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -41,13 +42,13 @@ public class PlayerFragment extends Fragment{
     private PlayerListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private String[] projection = {
+    public static String[] player_projection = {
             ScorchContract.Players.COLUMN_NAME,
             ScorchContract.Players.COLUMN_CREATED,
             ScorchContract.Players.COLUMN_ID
     };
 
-    private String sortOrder = ScorchContract.Players.COLUMN_CREATED + " DESC";
+    public static String player_sortOrder = ScorchContract.Players.COLUMN_CREATED + " DESC";
 
     public static PlayerFragment newInstance() {
         PlayerFragment fragment = new PlayerFragment();
@@ -76,16 +77,14 @@ public class PlayerFragment extends Fragment{
 
         Cursor cursor = db.query(
                 ScorchContract.Players.TABLE_NAME,
-                projection,
+                player_projection,
                 null,
                 null,
                 null,
                 null,
-                sortOrder
+                player_sortOrder
         );
         mAdapter = new PlayerListAdapter(getContext(), cursor);
-
-
     }
 
     @Override
@@ -102,6 +101,16 @@ public class PlayerFragment extends Fragment{
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        long playerid = mAdapter.getItemId(position);
+                        Intent intent = new Intent(getActivity(), PlayerDetailActivity.class);
+                        intent.putExtra(PlayerDetailActivity.PLAYER_ID, playerid);
+                        startActivity(intent);
+                    }
+                })
+        );
 
         final FloatingActionButton playerBtn = (FloatingActionButton) view.findViewById(R.id.newPlayer);
         playerBtn.setOnClickListener(new View.OnClickListener(){
@@ -131,12 +140,12 @@ public class PlayerFragment extends Fragment{
                                         //mAdapter.notifyDataSetChanged();
                                         Cursor cursor = db.query(
                                                 ScorchContract.Players.TABLE_NAME,
-                                                projection,
+                                                player_projection,
                                                 null,
                                                 null,
                                                 null,
                                                 null,
-                                                sortOrder
+                                                player_sortOrder
                                         );
                                         mAdapter.changeCursor(cursor);
                                         //mRecyclerView.swapAdapter(mAdapter, false);

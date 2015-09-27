@@ -16,8 +16,6 @@ import com.dev.nick.scorch.dao.ScorchContract;
  */
 public class PlayerListAdapter extends CursorRecyclerViewAdapter<PlayerListAdapter.ViewHolder> {
 
-    // TODO: need cursor of player data
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         int Holderid;
 

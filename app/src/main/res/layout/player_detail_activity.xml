@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#ECECEC"
+    tools:context="com.dev.nick.scorch.PlayerDetailActivity">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:background="#33b5e5"
+        android:id="@+id/colorHeader">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="160dp"
+            android:layout_marginTop="-15dp"
+            android:layout_marginRight="-20dp"
+            android:id="@+id/playerPositionWrap"
+            android:background="@drawable/player_position"
+            android:layout_gravity="right">
+
+            <TextView android:text="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/player_position"
+                android:textSize="112sp"
+                android:paddingTop="5dp"
+                android:paddingLeft="80dp"
+                android:paddingRight="80dp"
+                android:textColor="#66ECECEC"/>
+        </FrameLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:src="@drawable/ic_edit"
+            android:id="@+id/editPlayer"/>
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/player_icon"
+        android:src="@drawable/ic_player"
+        android:layout_marginTop="-30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@+id/colorHeader"
+        android:background="#FFF"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:elevation="1dp"/>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_toRightOf="@+id/player_icon"
+        android:layout_below="@+id/colorHeader">
+
+
+        <TextView android:text="no player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/player_name"
+            android:textSize="24sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
