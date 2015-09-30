@@ -67,6 +67,7 @@ public class DummyFragment extends Fragment {
         // if disabled, scaling can be done on x- and y-axis separately
         mChart.setPinchZoom(true);
 
+        mChart.setDoubleTapToZoomEnabled(false);
         // set an alternative background color
         // mChart.setBackgroundColor(Color.GRAY);
 
@@ -78,44 +79,44 @@ public class DummyFragment extends Fragment {
         // mChart.setMarkerView(mv);
 
         // x-axis limit line
-        LimitLine llXAxis = new LimitLine(10f, "Index 10");
-        llXAxis.setLineWidth(4f);
-        llXAxis.enableDashedLine(10f, 10f, 0f);
-        llXAxis.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-        llXAxis.setTextSize(10f);
+        //LimitLine llXAxis = new LimitLine(10f, "Index 10");
+        //llXAxis.setLineWidth(4f);
+        //llXAxis.enableDashedLine(10f, 10f, 0f);
+        //llXAxis.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
+        //llXAxis.setTextSize(10f);
 
-        XAxis xAxis = mChart.getXAxis();
+        //XAxis xAxis = mChart.getXAxis();
         //xAxis.setValueFormatter(new MyCustomXAxisValueFormatter());
         //xAxis.addLimitLine(llXAxis); // add x-axis limit line
 
         //Typeface tf = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
 
-        LimitLine ll1 = new LimitLine(130f, "Upper Limit");
-        ll1.setLineWidth(4f);
-        ll1.enableDashedLine(10f, 10f, 0f);
-        ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-        ll1.setTextSize(10f);
+        //LimitLine ll1 = new LimitLine(130f, "Upper Limit");
+        //ll1.setLineWidth(4f);
+        //ll1.enableDashedLine(10f, 10f, 0f);
+        //ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+        //ll1.setTextSize(10f);
         //ll1.setTypeface(tf);
 
-        LimitLine ll2 = new LimitLine(-30f, "Lower Limit");
-        ll2.setLineWidth(4f);
-        ll2.enableDashedLine(10f, 10f, 0f);
-        ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-        ll2.setTextSize(10f);
+        //LimitLine ll2 = new LimitLine(-30f, "Lower Limit");
+        //ll2.setLineWidth(4f);
+        //ll2.enableDashedLine(10f, 10f, 0f);
+        //ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
+        //ll2.setTextSize(10f);
         //ll2.setTypeface(tf);
 
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.addLimitLine(ll1);
-        leftAxis.addLimitLine(ll2);
-        leftAxis.setAxisMaxValue(220f);
-        leftAxis.setAxisMinValue(-50f);
-        leftAxis.setStartAtZero(false);
+        //leftAxis.addLimitLine(ll1);
+        //leftAxis.addLimitLine(ll2);
+        //leftAxis.setAxisMaxValue(150f);
+        //leftAxis.setAxisMinValue(0f);
+        //leftAxis.setStartAtZero(false);
         //leftAxis.setYOffset(20f);
-        leftAxis.enableGridDashedLine(10f, 10f, 0f);
+        //leftAxis.enableGridDashedLine(10f, 10f, 0f);
 
         // limit lines are drawn behind data (and not on top)
-        leftAxis.setDrawLimitLinesBehindData(true);
+        //leftAxis.setDrawLimitLinesBehindData(true);
 
         mChart.getAxisRight().setEnabled(false);
 
@@ -123,7 +124,7 @@ public class DummyFragment extends Fragment {
         //mChart.getViewPortHandler().setMaximumScaleX(2f);
 
         // add data
-        setData(45, 100);
+        setData(6, 20);
 
 //        mChart.setVisibleXRange(20);
 //        mChart.setVisibleYRange(20f, AxisDependency.LEFT);
@@ -164,17 +165,17 @@ public class DummyFragment extends Fragment {
         // set1.setFillColor(Color.RED);
 
         // set the line to be drawn like this "- - - - - -"
-        set1.enableDashedLine(10f, 5f, 0f);
-        set1.enableDashedHighlightLine(10f, 5f, 0f);
+         //set1.enableDashedLine(10f, 5f, 0f);
+       // set1.enableDashedHighlightLine(10f, 5f, 0f);
         set1.setColor(Color.BLACK);
         set1.setCircleColor(Color.BLACK);
         set1.setLineWidth(1f);
-        set1.setCircleSize(3f);
-        set1.setDrawCircleHole(false);
+        set1.setCircleSize(8f);
+        set1.setDrawCircleHole(true);
         set1.setValueTextSize(9f);
         set1.setFillAlpha(65);
         set1.setFillColor(Color.BLACK);
-//        set1.setDrawFilled(true);
+        set1.setDrawFilled(true);
         // set1.setShader(new LinearGradient(0, 0, 0, mChart.getHeight(),
         // Color.BLACK, Color.WHITE, Shader.TileMode.MIRROR));
 

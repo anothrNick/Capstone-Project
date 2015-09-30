@@ -1,4 +1,4 @@
-package com.dev.nick.scorch;
+package com.dev.nick.scorch.players;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -15,10 +15,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dev.nick.scorch.MainActivity;
+import com.dev.nick.scorch.R;
+import com.dev.nick.scorch.RecyclerItemClickListener;
 import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.dao.ScorchDbHelper;
 

@@ -1,4 +1,4 @@
-package com.dev.nick.scorch;
+package com.dev.nick.scorch.teams;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.dev.nick.scorch.CursorRecyclerViewAdapter;
+import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.dao.ScorchContract;
 
 /**

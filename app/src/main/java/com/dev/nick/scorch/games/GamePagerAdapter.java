@@ -1,4 +1,4 @@
-package com.dev.nick.scorch;
+package com.dev.nick.scorch.games;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

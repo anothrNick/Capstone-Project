@@ -1,36 +1,30 @@
-package com.dev.nick.scorch;
+package com.dev.nick.scorch.teams;
 
 import android.app.Activity;
-import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.Toast;
 
+import com.dev.nick.scorch.MainActivity;
+import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.dao.ScorchDbHelper;
-
-import java.util.Date;
 
 public class TeamFragment extends Fragment {
 
     private ScorchDbHelper dbHelper;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private TeamListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private boolean bStarted;
 
     public static String[] team_projection = {
             ScorchContract.Teams.COLUMN_NAME,
@@ -60,6 +54,7 @@ public class TeamFragment extends Fragment {
             //mParam1 = getArguments().getString(ARG_PARAM1);
             //mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        bStarted = false;
 
         dbHelper = new ScorchDbHelper(getContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -75,6 +70,8 @@ public class TeamFragment extends Fragment {
         );
 
         mAdapter = new TeamListAdapter(getActivity(), cursor);
+
+        //db.close();
     }
 
     @Override
@@ -100,6 +97,7 @@ public class TeamFragment extends Fragment {
             }
         });
 
+        bStarted = true;
         // Inflate the layout for this fragment
         return v;
     }
@@ -111,8 +109,29 @@ public class TeamFragment extends Fragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onResume() {
+        super.onResume();
+        if(bStarted)
+            reloadTeams();
     }
 
+    public void reloadTeams() {
+
+        if(mAdapter != null) {
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            Cursor cursor = db.query(
+                    ScorchContract.Teams.TABLE_NAME,
+                    team_projection,
+                    null,
+                    null,
+                    null,
+                    null,
+                    team_sortOrder
+            );
+            mAdapter.changeCursor(cursor);
+
+            //db.close();
+        }
+
+    }
 }

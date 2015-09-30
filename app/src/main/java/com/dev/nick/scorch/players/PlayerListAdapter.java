@@ -1,4 +1,4 @@
-package com.dev.nick.scorch;
+package com.dev.nick.scorch.players;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dev.nick.scorch.CursorRecyclerViewAdapter;
+import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.dao.ScorchContract;
 
 /**
@@ -17,8 +19,6 @@ import com.dev.nick.scorch.dao.ScorchContract;
 public class PlayerListAdapter extends CursorRecyclerViewAdapter<PlayerListAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        int Holderid;
-
         TextView textName;
         TextView textJoined;
         ImageView imageIcon;

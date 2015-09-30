@@ -1,4 +1,4 @@
-package com.dev.nick.scorch;
+package com.dev.nick.scorch.tournaments;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.dev.nick.scorch.R;
+
 /**
- * Created by Nick on 9/13/2015.
+ * Created by Nick on 9/15/2015.
  */
-public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHolder> {
+public class TournamentGameListAdapter extends RecyclerView.Adapter<TournamentGameListAdapter.ViewHolder> {
 
     private int count = 0;
     // TODO: need cursor of player data
@@ -28,15 +30,15 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
 
     }
 
-    GameListAdapter(int count){
+    TournamentGameListAdapter(int count){
         //TODO: set cursor with game data
         this.count = count;
     }
 
     @Override
-    public GameListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TournamentGameListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.game_list_item,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.tournament_game_list_item,parent,false);
 
         ViewHolder viewHolder = new ViewHolder(v,viewType);
 
@@ -44,9 +46,9 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(GameListAdapter.ViewHolder holder, int position) {
-        holder.teamOne.setText("Ulysses S. Butterbee");
-        holder.teamTwo.setText("Baba Booey");
+    public void onBindViewHolder(TournamentGameListAdapter.ViewHolder holder, int position) {
+        //holder.teamOne.setText("Ulysses S. Butterbee");
+        //holder.teamTwo.setText("Baba Booey");
     }
 
     @Override

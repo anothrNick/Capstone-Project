@@ -1,4 +1,4 @@
-package com.dev.nick.scorch;
+package com.dev.nick.scorch.games;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.dev.nick.scorch.MainActivity;
+import com.dev.nick.scorch.R;
 
 
 public class GameFragment extends Fragment {

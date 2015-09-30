@@ -1,4 +1,4 @@
-package com.dev.nick.scorch;
+package com.dev.nick.scorch.tournaments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.dev.nick.scorch.MainActivity;
+import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.canvas.TournamentCanvas;
 
 import java.util.ArrayList;
