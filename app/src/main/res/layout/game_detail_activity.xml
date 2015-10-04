@@ -124,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/circle"
                     android:gravity="center_vertical|center_horizontal"
+                    android:paddingBottom="5dp"
                     />
 
             </RelativeLayout>

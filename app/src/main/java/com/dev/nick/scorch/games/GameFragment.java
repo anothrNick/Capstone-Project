@@ -35,6 +35,21 @@ public class GameFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // Temporary solution to titles not appearing
+        if(mViewPager != null) {
+            mViewPager.setCurrentItem(1);
+            mViewPager.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mViewPager.setCurrentItem(0);
+                }
+            }, 100);
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -48,6 +63,7 @@ public class GameFragment extends Fragment {
 
         mViewPager = (ViewPager) v.findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
         return v;
     }
 

@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class TournamentFragment extends Fragment {
 
     public static final String TAG = TournamentFragment.class.getSimpleName();
-    public static ArrayList<String> offSets = new ArrayList<String>();
 
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
@@ -36,6 +35,21 @@ public class TournamentFragment extends Fragment {
 
     public TournamentFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Temporary solution to titles not appearing
+        if(mViewPager != null) {
+            mViewPager.setCurrentItem(1);
+            mViewPager.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mViewPager.setCurrentItem(0);
+                }
+            }, 100);
+        }
     }
 
     @Override
@@ -53,13 +67,9 @@ public class TournamentFragment extends Fragment {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
         mSectionsPagerAdapter.round_count = 4;
 
-        offSets.add("0");
-        offSets.add("0");
-        offSets.add("0");
-        offSets.add("0");
-
         mViewPager = (ViewPager) v.findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
         return v;
     }
 
@@ -153,16 +163,12 @@ public class TournamentFragment extends Fragment {
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             mRecyclerView.setAdapter(mAdapter);
-            //mCanvas.yOffset = mRecyclerView.computeVerticalScrollOffset();
-            //mCanvas.scrolledOffset = Integer.parseInt(offSets.get(round-1));
-            //mCanvas.invalidate();
 
             Log.d(TAG, "round " + round + ": yOffset " + mCanvas.yOffset + ", scrolled offset " + mCanvas.scrolledOffset);
             mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     mCanvas.yOffset += dy;
-                    //offSets.set(round-1, Integer.toString(mCanvas.yOffset));
                     mCanvas.invalidate();
                 }
             });

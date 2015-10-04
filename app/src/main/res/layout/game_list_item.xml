@@ -9,53 +9,74 @@
     android:layout_marginBottom="4sp"
     android:layout_marginLeft="16sp"
     android:layout_marginRight="16sp"
-    android:padding="10sp"
     android:background="#FFF"
     android:elevation="2sp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Baba Booey"
-            android:id="@+id/team_one" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal">
 
-        <FrameLayout
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3">
+
+                <TextView android:id="@+id/team_one"
+                    android:text="Team One"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:gravity="left"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:background="@drawable/border">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3">
+
+                <TextView android:id="@+id/team_two"
+                    android:text="Team One"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:gravity="right"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical|center_horizontal">
+        <TextView
+            android:textSize="20dp"
+            android:text="vs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/vs_wrap"
-            android:layout_below="@+id/player_name"
-            android:gravity="center"
-            android:layout_centerInParent="true"
-            android:background="@drawable/radius"
-            android:layout_margin="20sp"
-            >
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="VS"
-                android:textColor="#FFF"
-                android:id="@+id/vs" />
-
-        </FrameLayout>
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:paddingTop="10dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Do Bwow"
-            android:id="@+id/team_two"
-            android:layout_below="@+id/vs_wrap"/>
+            android:background="@drawable/circle_small"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingBottom="3dp"
+            />
 
     </RelativeLayout>
 
