@@ -1,12 +1,143 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
     tools:context="com.dev.nick.scorch.games.GameDetailActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="#FFF">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_arrow_down"/>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="3"
+                        android:gravity="center">
+
+                        <TextView android:id="@+id/team_one"
+                            android:text="Team One"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/team_one_score"
+                            android:text="20"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/team_one"
+                            android:textSize="50dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_arrow_up"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/border">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_arrow_down"/>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="3"
+                        android:gravity="center">
+
+                        <TextView android:id="@+id/team_two"
+                            android:text="Team One"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/team_two_score"
+                            android:text="20"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/team_two"
+                            android:textSize="50dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_arrow_up"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical|center_horizontal">
+                <TextView
+                    android:textSize="30dp"
+                    android:text="vs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle"
+                    android:gravity="center_vertical|center_horizontal"
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <Button
+            android:text="Finish Game"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/btnborder"
+            android:id="@+id/finishBtn"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

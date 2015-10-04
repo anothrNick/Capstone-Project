@@ -1,6 +1,7 @@
 package com.dev.nick.scorch.games;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 
 import com.dev.nick.scorch.MainActivity;
 import com.dev.nick.scorch.R;
+import com.dev.nick.scorch.RecyclerItemClickListener;
+import com.dev.nick.scorch.players.PlayerDetailActivity;
 
 
 public class GameFragment extends Fragment {
@@ -52,11 +55,6 @@ public class GameFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((MainActivity) activity).onSectionAttached(MainActivity.GAMES);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
     public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
@@ -123,6 +121,17 @@ public class GameFragment extends Fragment {
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             mRecyclerView.setAdapter(mAdapter);
+
+            mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            //long playerid = mAdapter.getItemId(position);
+                            Intent intent = new Intent(getActivity(), GameDetailActivity.class);
+                            //intent.putExtra(PlayerDetailActivity.PLAYER_ID, playerid);
+                            startActivity(intent);
+                        }
+                    })
+            );
 
             return rootView;
         }
