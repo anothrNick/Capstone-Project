@@ -4,15 +4,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.dev.nick.scorch.R;
 
 public class GameDetailActivity extends AppCompatActivity {
 
+    private Button finishGameBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_detail_activity);
+
+        finishGameBtn = (Button) findViewById(R.id.finishBtn);
+
+        finishGameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+        });
     }
 
     @Override
