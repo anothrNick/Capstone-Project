@@ -25,11 +25,14 @@
                     android:padding="@dimen/activity_horizontal_margin"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/score_one_down"
                         android:layout_width="0dp"
-                        android:layout_height="fill_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_arrow_down"/>
+                        android:src="@drawable/ic_arrow_down"
+                        android:background="@drawable/ripple"
+                        android:layout_gravity="center_vertical"/>
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -56,11 +59,14 @@
                             android:gravity="center"/>
                     </RelativeLayout>
 
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/score_one_up"
                         android:layout_width="0dp"
-                        android:layout_height="fill_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_arrow_up"/>
+                        android:src="@drawable/ic_arrow_up"
+                        android:background="@drawable/ripple"
+                        android:layout_gravity="center_vertical"/>
 
                 </LinearLayout>
 
@@ -72,11 +78,14 @@
                     android:padding="@dimen/activity_horizontal_margin"
                     android:background="@drawable/border">
 
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/score_two_down"
                         android:layout_width="0dp"
-                        android:layout_height="fill_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_arrow_down"/>
+                        android:src="@drawable/ic_arrow_down"
+                        android:background="@drawable/ripple"
+                        android:layout_gravity="center_vertical"/>
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -85,7 +94,7 @@
                         android:gravity="center">
 
                         <TextView android:id="@+id/team_two"
-                            android:text="Team One"
+                            android:text="Team Two"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:textSize="20dp"
@@ -104,11 +113,14 @@
 
                     </RelativeLayout>
 
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/score_two_up"
                         android:layout_width="0dp"
-                        android:layout_height="fill_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_arrow_up"/>
+                        android:src="@drawable/ic_arrow_up"
+                        android:background="@drawable/ripple"
+                        android:layout_gravity="center_vertical"/>
 
                 </LinearLayout>
             </LinearLayout>
