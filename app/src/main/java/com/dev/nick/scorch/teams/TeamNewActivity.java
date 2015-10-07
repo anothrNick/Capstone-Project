@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import com.dev.nick.scorch.R;
+import com.dev.nick.scorch.adapters.ViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,6 @@ public class TeamNewActivity extends AppCompatActivity {
 
     public static String teamName;
     public static ViewPager mPager;
-    private TabLayout tabLayout;
     private Toolbar toolbar;
 
     @Override
@@ -41,30 +41,6 @@ public class TeamNewActivity extends AppCompatActivity {
         adapter.addFrag(new TeamName(), "");
         adapter.addFrag(new TeamPlayerSelection(), "");
         viewPager.setAdapter(adapter);
-    }
-
-    private class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-        public void addFrag(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
     }
 
     public void incPager(){

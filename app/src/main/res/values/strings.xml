@@ -20,4 +20,5 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_team_new">New Team</string>
     <string name="title_activity_game_detail">GameDetailActivity</string>
+    <string name="title_activity_game_new">GameNewActivity</string>
 </resources>
