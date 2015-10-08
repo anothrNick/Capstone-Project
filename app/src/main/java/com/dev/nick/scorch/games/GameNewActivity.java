@@ -17,6 +17,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     private ViewPager mPager;
     private Toolbar toolbar;
     private GameSelectType gameSelectType;
+    private GameSelectMembersFragment gameSelectMembers;
     private int type; // 0 = players, 1 = teams
 
     @Override
@@ -29,6 +30,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
         toolbar = (Toolbar) findViewById(R.id.new_game_toolbar);
 
         gameSelectType = new GameSelectType();
+        gameSelectMembers = new GameSelectMembersFragment();
 
         setSupportActionBar(toolbar);
         setupViewPager(mPager);
@@ -81,7 +83,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         //TODO
         adapter.addFrag(gameSelectType, "");
-        adapter.addFrag(new DummyFragment(), "");
+        adapter.addFrag(gameSelectMembers, "");
         viewPager.setAdapter(adapter);
     }
 }

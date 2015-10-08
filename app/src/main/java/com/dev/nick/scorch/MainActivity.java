@@ -145,6 +145,11 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle.syncState();
 
         mTitle = getTitle();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, PlayerFragment.newInstance())
+                .commit();
     }
 
     public void onSectionAttached(int number) {
