@@ -88,7 +88,7 @@ public class GameSelectMembersFragment extends Fragment implements View.OnClickL
      */
     public interface OnFragmentInteractionListener {
         public void onStartGame();
-        public void onMemberSelected();
+        public void onMemberSelected(int id, boolean add);
         public void onBack();
     }
 

@@ -12,6 +12,8 @@ import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.adapters.ViewPagerAdapter;
 import com.dev.nick.scorch.dummy.DummyFragment;
 
+import java.util.ArrayList;
+
 public class GameNewActivity extends AppCompatActivity implements GameSelectType.OnFragmentInteractionListener, GameSelectMembersFragment.OnFragmentInteractionListener {
 
     private ViewPager mPager;
@@ -19,6 +21,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     private GameSelectType gameSelectType;
     private GameSelectMembersFragment gameSelectMembers;
     private int type; // 0 = players, 1 = teams
+    private ArrayList<Integer> members;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,8 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
 
         gameSelectType = new GameSelectType();
         gameSelectMembers = new GameSelectMembersFragment();
+
+        members = new ArrayList<>();
 
         setSupportActionBar(toolbar);
         setupViewPager(mPager);
@@ -68,7 +73,14 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     /**
      * GameSelectMembersFragment.OnFragmentInteractionListener
      */
-    public void onMemberSelected() {}
+    public void onMemberSelected(int id, boolean add) {
+        if(members.contains(id)) {
+            members.remove(id);
+        }
+        else {
+            members.add(id);
+        }
+    }
 
     public void onStartGame() {
         finish();
@@ -81,7 +93,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        //TODO
+
         adapter.addFrag(gameSelectType, "");
         adapter.addFrag(gameSelectMembers, "");
         viewPager.setAdapter(adapter);
