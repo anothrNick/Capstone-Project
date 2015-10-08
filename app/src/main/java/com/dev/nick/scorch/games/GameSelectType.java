@@ -15,7 +15,7 @@ import com.dev.nick.scorch.R;
 
 public class GameSelectType extends Fragment implements View.OnClickListener {
 
-    private OnSelectTypeInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
 
     private Button btnNext;
     private Button btnCancel;
@@ -61,7 +61,7 @@ public class GameSelectType extends Fragment implements View.OnClickListener {
         super.onAttach(context);
         try {
             if(context instanceof Activity)
-                mListener = (OnSelectTypeInteractionListener) context;
+                mListener = (OnFragmentInteractionListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.getClass().getName()
                     + " must implement OnSelectTypeInteractionListener");
@@ -106,7 +106,7 @@ public class GameSelectType extends Fragment implements View.OnClickListener {
      * to the activity and potentially other fragments contained in that
      * activity.
      */
-    public interface OnSelectTypeInteractionListener {
+    public interface OnFragmentInteractionListener {
         public void onNext();
         public void onSelect(int typ);
         public void onCancel();

@@ -12,7 +12,7 @@ import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.adapters.ViewPagerAdapter;
 import com.dev.nick.scorch.dummy.DummyFragment;
 
-public class GameNewActivity extends AppCompatActivity implements GameSelectType.OnSelectTypeInteractionListener {
+public class GameNewActivity extends AppCompatActivity implements GameSelectType.OnFragmentInteractionListener, GameSelectMembersFragment.OnFragmentInteractionListener {
 
     private ViewPager mPager;
     private Toolbar toolbar;
@@ -48,7 +48,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     }
 
     /**
-     * GameSelectType.OnSelectTypeInteractionListener
+     * GameSelectType.OnFragmentInteractionListener
      */
     public void onNext() {
         if(mPager != null)
@@ -62,6 +62,11 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     public void onCancel() {
         finish();
     }
+
+    /**
+     * GameSelectMembersFragment.OnFragmentInteractionListener
+     */
+    public void onMemberSelected() {}
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
