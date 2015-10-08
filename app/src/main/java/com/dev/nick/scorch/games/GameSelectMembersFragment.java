@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.dev.nick.scorch.R;
 
-public class GameSelectMembersFragment extends Fragment {
+public class GameSelectMembersFragment extends Fragment implements View.OnClickListener {
+
+    private Button btnBack;
+    private Button btnStart;
 
     private OnFragmentInteractionListener mListener;
 
@@ -31,8 +36,15 @@ public class GameSelectMembersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.game_select_members_fragment, container, false);
+        View v = inflater.inflate(R.layout.game_select_members_fragment, container, false);
+
+        btnBack = (Button) v.findViewById(R.id.cancelBtn);
+        btnStart = (Button) v.findViewById(R.id.nextBtn);
+
+        btnBack.setOnClickListener(this);
+        btnStart.setOnClickListener(this);
+
+        return v;
     }
 
     @Override
@@ -52,6 +64,23 @@ public class GameSelectMembersFragment extends Fragment {
         mListener = null;
     }
 
+    public void onClick(View v) {
+        final int id = v.getId();
+        Log.d("GameSelectType", "something pressed");
+        switch (id) {
+            case R.id.cancelBtn:
+                if(mListener != null) {
+                    mListener.onBack();
+                }
+                break;
+            case R.id.nextBtn:
+                if(mListener != null) {
+                    mListener.onStartGame();
+                }
+                break;
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -59,7 +88,9 @@ public class GameSelectMembersFragment extends Fragment {
      * activity.
      */
     public interface OnFragmentInteractionListener {
+        public void onStartGame();
         public void onMemberSelected();
+        public void onBack();
     }
 
 }

@@ -68,6 +68,15 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
      */
     public void onMemberSelected() {}
 
+    public void onStartGame() {
+        finish();
+    }
+
+    public void onBack() {
+        if(mPager != null)
+            mPager.setCurrentItem(0);
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         //TODO
