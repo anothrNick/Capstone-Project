@@ -21,7 +21,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     private GameSelectType gameSelectType;
     private GameSelectMembersFragment gameSelectMembers;
     private int type; // 0 = players, 1 = teams
-    private ArrayList<Integer> members;
+    private ArrayList<String> members;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     /**
      * GameSelectMembersFragment.OnFragmentInteractionListener
      */
-    public void onMemberSelected(int id, boolean add) {
+    public void onMemberSelected(String id) {
         if(members.contains(id)) {
             members.remove(id);
         }

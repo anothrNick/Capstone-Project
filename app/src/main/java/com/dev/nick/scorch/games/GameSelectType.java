@@ -107,9 +107,9 @@ public class GameSelectType extends Fragment implements View.OnClickListener {
      * activity.
      */
     public interface OnFragmentInteractionListener {
-        public void onNext();
-        public void onSelect(int typ);
-        public void onCancel();
+        void onNext();
+        void onSelect(int typ);
+        void onCancel();
     }
 
 }
