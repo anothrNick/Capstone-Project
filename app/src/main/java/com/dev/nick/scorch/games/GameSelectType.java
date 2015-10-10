@@ -90,11 +90,15 @@ public class GameSelectType extends Fragment implements View.OnClickListener {
             case R.id.radio_players:
                 if(mListener != null) {
                     mListener.onSelect(0);
+                    radioPlayer.setTextColor(getResources().getColor(R.color.white));
+                    radioTeam.setTextColor(getResources().getColor(R.color.grey));
                 }
                 break;
             case R.id.radio_teams:
                 if(mListener != null) {
                     mListener.onSelect(1);
+                    radioTeam.setTextColor(getResources().getColor(R.color.white));
+                    radioPlayer.setTextColor(getResources().getColor(R.color.grey));
                 }
                 break;
         }

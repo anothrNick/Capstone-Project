@@ -20,9 +20,6 @@ import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.dao.ScorchDbHelper;
 import com.dev.nick.scorch.players.PlayerFragment;
 import com.dev.nick.scorch.players.PlayerListAdapter;
-import com.dev.nick.scorch.teams.TeamListAdapter;
-
-import java.util.ArrayList;
 
 public class GameSelectMembersFragment extends Fragment implements View.OnClickListener {
 
