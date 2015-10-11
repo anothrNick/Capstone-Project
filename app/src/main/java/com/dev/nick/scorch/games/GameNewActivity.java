@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.adapters.ViewPagerAdapter;
@@ -64,6 +65,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
 
     public void onSelect(int typ) {
         type = typ;
+        gameSelectMembers.changeAdapter(type);
     }
 
     public void onCancel() {
@@ -83,6 +85,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     }
 
     public void onStartGame() {
+        Toast.makeText(this, "Game Type: " + type + ", Game Members: " + members.toString(), Toast.LENGTH_SHORT).show();
         finish();
     }
 

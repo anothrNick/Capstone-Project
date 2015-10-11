@@ -20,12 +20,16 @@ import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.dao.ScorchDbHelper;
 import com.dev.nick.scorch.players.PlayerFragment;
 import com.dev.nick.scorch.players.PlayerListAdapter;
+import com.dev.nick.scorch.teams.TeamFragment;
+import com.dev.nick.scorch.teams.TeamListAdapter;
 
 public class GameSelectMembersFragment extends Fragment implements View.OnClickListener {
 
     private ScorchDbHelper dbHelper;
-    private RecyclerView mRecyclerView;
-    private PlayerListAdapter mAdapter;
+    private RecyclerView mPlayerRecyclerView;
+    //private RecyclerView mTeamRecyclerView;
+    private PlayerListAdapter mPlayerAdapter;
+    //private TeamListAdapter mTeamAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private Button btnBack;
@@ -42,6 +46,17 @@ public class GameSelectMembersFragment extends Fragment implements View.OnClickL
         // Required empty public constructor
     }
 
+    public void changeAdapter(int type) {
+        switch(type) {
+            case 0:
+
+                break;
+            case 1:
+
+                break;
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +71,7 @@ public class GameSelectMembersFragment extends Fragment implements View.OnClickL
         dbHelper = new ScorchDbHelper(getActivity());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        Cursor cursor = db.query(
+        Cursor playerCursor = db.query(
                 ScorchContract.Players.TABLE_NAME,
                 PlayerFragment.player_projection,
                 null,
@@ -65,22 +80,32 @@ public class GameSelectMembersFragment extends Fragment implements View.OnClickL
                 null,
                 PlayerFragment.player_sortOrder
         );
-        mAdapter = new PlayerListAdapter(getActivity(), cursor);
+        mPlayerAdapter = new PlayerListAdapter(getActivity(), playerCursor);
+
+        /*
+        Cursor teamCursor = db.query(
+                ScorchContract.Teams.TABLE_NAME,
+                TeamFragment.team_projection,
+                null,
+                null,
+                null,
+                null,
+                TeamFragment.team_sortOrder
+        );
+        mTeamAdapter = new TeamListAdapter(getActivity(), teamCursor);
+        */
 
         // Set the adapter
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.list);
-        mRecyclerView.setHasFixedSize(true);
-
+        mPlayerRecyclerView = (RecyclerView) v.findViewById(R.id.playerList);
+        mPlayerRecyclerView.setHasFixedSize(true);
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        mRecyclerView.setAdapter(mAdapter);
-
-        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+        mPlayerRecyclerView.setLayoutManager(mLayoutManager);
+        mPlayerRecyclerView.setAdapter(mPlayerAdapter);
+        mPlayerRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        long playerid = mAdapter.getItemId(position);
+                        long playerid = mPlayerAdapter.getItemId(position);
                         ImageView check = (ImageView) view.findViewById(R.id.selected);
                         if (check != null) {
                             String pid = Long.toString(playerid);
