@@ -1,5 +1,7 @@
 package com.dev.nick.scorch.games;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,9 +13,12 @@ import android.widget.Toast;
 
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.adapters.ViewPagerAdapter;
+import com.dev.nick.scorch.dao.ScorchContract;
+import com.dev.nick.scorch.dao.ScorchDbHelper;
 import com.dev.nick.scorch.dummy.DummyFragment;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class GameNewActivity extends AppCompatActivity implements GameSelectType.OnFragmentInteractionListener, GameSelectMembersFragment.OnFragmentInteractionListener {
 
@@ -23,11 +28,13 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     private GameSelectMembersFragment gameSelectMembers;
     private int type; // 0 = players, 1 = teams
     private ArrayList<String> members;
+    private ScorchDbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_new_activity);
+        dbHelper = new ScorchDbHelper(this);
 
         type = -1;
         mPager = (ViewPager) findViewById(R.id.new_game_pager);
@@ -86,6 +93,24 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
 
     public void onStartGame() {
         Toast.makeText(this, "Game Type: " + type + ", Game Members: " + members.toString(), Toast.LENGTH_SHORT).show();
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(ScorchContract.Game.COLUMN_CREATED, new Date().toString());
+        long id = db.insert(ScorchContract.Teams.TABLE_NAME, "null", values);
+
+        if (id > 0) {
+            for (String mid : members) {
+                values = new ContentValues();
+                values.put(ScorchContract.GameTeams.COLUMN_TEAM, mid);
+                values.put(ScorchContract.GameTeams.COLUMN_TYPE, type);
+                values.put(ScorchContract.GameTeams.COLUMN_GAME, id);
+                db.insert(ScorchContract.GameTeams.TABLE_NAME, "null", values);
+            }
+        }
+
         finish();
     }
 
