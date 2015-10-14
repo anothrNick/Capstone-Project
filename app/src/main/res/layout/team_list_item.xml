@@ -33,4 +33,13 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/selected"
+        android:src="@drawable/ic_check"
+        android:layout_gravity="center_vertical|right"
+        android:paddingRight="16dp"
+        android:visibility="invisible"/>
+
 </FrameLayout>

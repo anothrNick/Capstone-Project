@@ -8,17 +8,17 @@ import android.widget.TextView;
 
 import com.dev.nick.scorch.R;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by Nick on 9/13/2015.
  */
 public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHolder> {
 
-    private int count = 0;
-    // TODO: need cursor of player data
+    ArrayList<GameBean> games;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        int Holderid;
-
         TextView teamOne;
         TextView teamTwo;
 
@@ -30,30 +30,26 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
 
     }
 
-    GameListAdapter(int count){
-        //TODO: set cursor with game data
-        this.count = count;
+    GameListAdapter(ArrayList<GameBean> games){
+        this.games = games;
     }
 
     @Override
     public GameListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.game_list_item,parent,false);
-
         ViewHolder viewHolder = new ViewHolder(v,viewType);
-
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(GameListAdapter.ViewHolder holder, int position) {
-        holder.teamOne.setText("Ulysses S. Butterbee");
-        holder.teamTwo.setText("Baba Booey");
+        holder.teamOne.setText(games.get(position).teamOne);
+        holder.teamTwo.setText(games.get(position).teamTwo);
     }
 
     @Override
     public int getItemCount() {
-        return count;
+        return games.size();
     }
 
     @Override

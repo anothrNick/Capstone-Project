@@ -34,6 +34,16 @@ public final class ScorchContract {
                 COLUMN_AVATAR + ScorchContract.TYPE_TEXT +
                 " )";
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+
+        public static String[] projection = {
+                COLUMN_CREATED,
+                COLUMN_NAME,
+                COLUMN_AVATAR,
+                COLUMN_RANK,
+                COLUMN_ID
+        };
+
+        public static String sortOrder = COLUMN_CREATED + " DESC";
     }
 
     /**
@@ -53,6 +63,15 @@ public final class ScorchContract {
                 COLUMN_AVATAR + ScorchContract.TYPE_TEXT +
                 " )";
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+
+        public static String[] projection = {
+                COLUMN_CREATED,
+                COLUMN_NAME,
+                COLUMN_AVATAR,
+                COLUMN_ID
+        };
+
+        public static String sortOrder = COLUMN_CREATED + " DESC";
     }
 
     /**
@@ -70,10 +89,18 @@ public final class ScorchContract {
                 COLUMN_PLAYER + ScorchContract.TYPE_TEXT +
                 " )";
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+
+        public static String[] projection = {
+                COLUMN_PLAYER,
+                COLUMN_TEAM,
+                COLUMN_ID
+        };
+
+        public static String sortOrder = COLUMN_PLAYER + " DESC";
     }
 
     /**
-     * Game table
+     * GameBean table
      */
     public static abstract class Game implements BaseColumns {
         public static final String TABLE_NAME = "game";
@@ -85,6 +112,13 @@ public final class ScorchContract {
                 COLUMN_CREATED + ScorchContract.TYPE_TEXT +
                 " )";
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+
+        public static String[] projection = {
+                COLUMN_CREATED,
+                COLUMN_ID
+        };
+
+        public static String sortOrder = COLUMN_CREATED + " DESC";
     }
 
     /**
@@ -106,5 +140,16 @@ public final class ScorchContract {
                 COLUMN_SCORE + ScorchContract.TYPE_TEXT +
                 " )";
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+
+        public static String[] projection = {
+                COLUMN_TEAM,
+                COLUMN_GAME,
+                COLUMN_TYPE,
+                COLUMN_SCORE,
+                COLUMN_ID
+        };
+
+        public static String sortOrder = COLUMN_TEAM + " DESC";
     }
+
 }

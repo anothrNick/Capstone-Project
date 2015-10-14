@@ -59,12 +59,12 @@ public class TeamPlayerSelection extends Fragment {
 
         Cursor cursor = db.query(
                 ScorchContract.Players.TABLE_NAME,
-                PlayerFragment.player_projection,
+                ScorchContract.Players.projection,
                 null,
                 null,
                 null,
                 null,
-                PlayerFragment.player_sortOrder
+                ScorchContract.Players.sortOrder
         );
         mAdapter = new PlayerListAdapter(getActivity(), cursor);
 

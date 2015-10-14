@@ -56,7 +56,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle("New Game");
+            actionBar.setTitle("New GameBean");
         }
 
         return true;
@@ -92,14 +92,14 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     }
 
     public void onStartGame() {
-        Toast.makeText(this, "Game Type: " + type + ", Game Members: " + members.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "GameBean Type: " + type + ", GameBean Members: " + members.toString(), Toast.LENGTH_SHORT).show();
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
         values.put(ScorchContract.Game.COLUMN_CREATED, new Date().toString());
-        long id = db.insert(ScorchContract.Teams.TABLE_NAME, "null", values);
+        long id = db.insert(ScorchContract.Game.TABLE_NAME, "null", values);
 
         if (id > 0) {
             for (String mid : members) {

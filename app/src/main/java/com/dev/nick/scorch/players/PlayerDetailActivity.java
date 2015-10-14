@@ -56,12 +56,12 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
                 Cursor cursor = db.query(
                         ScorchContract.Players.TABLE_NAME,
-                        PlayerFragment.player_projection,
+                        ScorchContract.Players.projection,
                         where,
                         whereArgs,
                         null,
                         null,
-                        PlayerFragment.player_sortOrder
+                        ScorchContract.Players.sortOrder
                 );
 
                 if(cursor.moveToFirst()) {

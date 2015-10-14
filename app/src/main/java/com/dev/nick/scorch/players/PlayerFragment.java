@@ -44,14 +44,6 @@ public class PlayerFragment extends Fragment{
     private PlayerListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public static String[] player_projection = {
-            ScorchContract.Players.COLUMN_NAME,
-            ScorchContract.Players.COLUMN_CREATED,
-            ScorchContract.Players.COLUMN_ID
-    };
-
-    public static String player_sortOrder = ScorchContract.Players.COLUMN_CREATED + " DESC";
-
     public static PlayerFragment newInstance() {
         PlayerFragment fragment = new PlayerFragment();
         //Bundle args = new Bundle();
@@ -79,12 +71,12 @@ public class PlayerFragment extends Fragment{
 
         Cursor cursor = db.query(
                 ScorchContract.Players.TABLE_NAME,
-                player_projection,
+                ScorchContract.Players.projection,
                 null,
                 null,
                 null,
                 null,
-                player_sortOrder
+                ScorchContract.Players.sortOrder
         );
         mAdapter = new PlayerListAdapter(getContext(), cursor);
     }
@@ -142,12 +134,12 @@ public class PlayerFragment extends Fragment{
                                         //mAdapter.notifyDataSetChanged();
                                         Cursor cursor = db.query(
                                                 ScorchContract.Players.TABLE_NAME,
-                                                player_projection,
+                                                ScorchContract.Players.projection,
                                                 null,
                                                 null,
                                                 null,
                                                 null,
-                                                player_sortOrder
+                                                ScorchContract.Players.sortOrder
                                         );
                                         mAdapter.changeCursor(cursor);
                                         //mRecyclerView.swapAdapter(mAdapter, false);

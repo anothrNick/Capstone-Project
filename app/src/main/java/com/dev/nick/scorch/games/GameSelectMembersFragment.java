@@ -27,10 +27,11 @@ public class GameSelectMembersFragment extends Fragment implements View.OnClickL
 
     private ScorchDbHelper dbHelper;
     private RecyclerView mPlayerRecyclerView;
-    //private RecyclerView mTeamRecyclerView;
+    private RecyclerView mTeamRecyclerView;
     private PlayerListAdapter mPlayerAdapter;
-    //private TeamListAdapter mTeamAdapter;
+    private TeamListAdapter mTeamAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView.LayoutManager mTeamLayoutManager;
 
     private Button btnBack;
     private Button btnStart;
@@ -49,10 +50,12 @@ public class GameSelectMembersFragment extends Fragment implements View.OnClickL
     public void changeAdapter(int type) {
         switch(type) {
             case 0:
-
+                mPlayerRecyclerView.setVisibility(View.VISIBLE);
+                mTeamRecyclerView.setVisibility(View.INVISIBLE);
                 break;
             case 1:
-
+                mPlayerRecyclerView.setVisibility(View.INVISIBLE);
+                mTeamRecyclerView.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -73,27 +76,25 @@ public class GameSelectMembersFragment extends Fragment implements View.OnClickL
 
         Cursor playerCursor = db.query(
                 ScorchContract.Players.TABLE_NAME,
-                PlayerFragment.player_projection,
+                ScorchContract.Players.projection,
                 null,
                 null,
                 null,
                 null,
-                PlayerFragment.player_sortOrder
+                ScorchContract.Players.sortOrder
         );
         mPlayerAdapter = new PlayerListAdapter(getActivity(), playerCursor);
 
-        /*
         Cursor teamCursor = db.query(
                 ScorchContract.Teams.TABLE_NAME,
-                TeamFragment.team_projection,
+                ScorchContract.Teams.projection,
                 null,
                 null,
                 null,
                 null,
-                TeamFragment.team_sortOrder
+                ScorchContract.Teams.sortOrder
         );
         mTeamAdapter = new TeamListAdapter(getActivity(), teamCursor);
-        */
 
         // Set the adapter
         mPlayerRecyclerView = (RecyclerView) v.findViewById(R.id.playerList);
@@ -109,6 +110,33 @@ public class GameSelectMembersFragment extends Fragment implements View.OnClickL
                         ImageView check = (ImageView) view.findViewById(R.id.selected);
                         if (check != null) {
                             String pid = Long.toString(playerid);
+                            //myButton.setAnimation(animFadeOut)
+                            if (check.getVisibility() == View.VISIBLE) {
+                                check.setVisibility(View.INVISIBLE);
+                                mListener.onMemberSelected(pid);
+                            } else if (check.getVisibility() == View.INVISIBLE) {
+                                check.setVisibility(View.VISIBLE);
+                                mListener.onMemberSelected(pid);
+                            }
+                        }
+                    }
+                })
+        );
+
+        // Set the adapter
+        mTeamRecyclerView = (RecyclerView) v.findViewById(R.id.teamList);
+        mTeamRecyclerView.setHasFixedSize(true);
+        // use a linear layout manager
+        mTeamLayoutManager = new LinearLayoutManager(getActivity());
+        mTeamRecyclerView.setLayoutManager(mTeamLayoutManager);
+        mTeamRecyclerView.setAdapter(mTeamAdapter);
+        mTeamRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        long teamid = mTeamAdapter.getItemId(position);
+                        ImageView check = (ImageView) view.findViewById(R.id.selected);
+                        if (check != null) {
+                            String pid = Long.toString(teamid);
                             //myButton.setAnimation(animFadeOut)
                             if (check.getVisibility() == View.VISIBLE) {
                                 check.setVisibility(View.INVISIBLE);

@@ -26,14 +26,6 @@ public class TeamFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private boolean bStarted;
 
-    public static String[] team_projection = {
-            ScorchContract.Teams.COLUMN_NAME,
-            ScorchContract.Teams.COLUMN_CREATED,
-            ScorchContract.Teams.COLUMN_ID
-    };
-
-    public static String team_sortOrder = ScorchContract.Teams.COLUMN_CREATED + " DESC";
-
     public static TeamFragment newInstance() {
         TeamFragment fragment = new TeamFragment();
         //Bundle args = new Bundle();
@@ -61,12 +53,12 @@ public class TeamFragment extends Fragment {
 
         Cursor cursor = db.query(
                 ScorchContract.Teams.TABLE_NAME,
-                team_projection,
+                ScorchContract.Teams.projection,
                 null,
                 null,
                 null,
                 null,
-                team_sortOrder
+                ScorchContract.Teams.sortOrder
         );
 
         mAdapter = new TeamListAdapter(getActivity(), cursor);
@@ -116,22 +108,18 @@ public class TeamFragment extends Fragment {
     }
 
     public void reloadTeams() {
-
         if(mAdapter != null) {
             SQLiteDatabase db = dbHelper.getReadableDatabase();
             Cursor cursor = db.query(
                     ScorchContract.Teams.TABLE_NAME,
-                    team_projection,
+                    ScorchContract.Teams.projection,
                     null,
                     null,
                     null,
                     null,
-                    team_sortOrder
+                    ScorchContract.Teams.sortOrder
             );
             mAdapter.changeCursor(cursor);
-
-            //db.close();
         }
-
     }
 }
