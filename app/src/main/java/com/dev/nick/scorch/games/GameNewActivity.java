@@ -62,6 +62,10 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
         return true;
     }
 
+    public int memberCount() {
+        return members.size();
+    }
+
     /**
      * GameSelectType.OnFragmentInteractionListener
      */

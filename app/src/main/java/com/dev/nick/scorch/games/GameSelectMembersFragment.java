@@ -115,8 +115,10 @@ public class GameSelectMembersFragment extends Fragment implements View.OnClickL
                                 check.setVisibility(View.INVISIBLE);
                                 mListener.onMemberSelected(pid);
                             } else if (check.getVisibility() == View.INVISIBLE) {
-                                check.setVisibility(View.VISIBLE);
-                                mListener.onMemberSelected(pid);
+                                if(((GameNewActivity)getActivity()).memberCount() < 2) {
+                                    check.setVisibility(View.VISIBLE);
+                                    mListener.onMemberSelected(pid);
+                                }
                             }
                         }
                     }
@@ -142,8 +144,10 @@ public class GameSelectMembersFragment extends Fragment implements View.OnClickL
                                 check.setVisibility(View.INVISIBLE);
                                 mListener.onMemberSelected(pid);
                             } else if (check.getVisibility() == View.INVISIBLE) {
-                                check.setVisibility(View.VISIBLE);
-                                mListener.onMemberSelected(pid);
+                                if(((GameNewActivity)getActivity()).memberCount() < 2) {
+                                    check.setVisibility(View.VISIBLE);
+                                    mListener.onMemberSelected(pid);
+                                }
                             }
                         }
                     }
