@@ -56,4 +56,13 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
     public int getItemViewType(int position) {
         return 1;
     }
+
+    @Override
+    public long getItemId(int position) {
+        return games.get(position).id;
+    }
+
+    public GameBean getGame(int position) {
+        return games.get(position);
+    }
 }

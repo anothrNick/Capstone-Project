@@ -66,6 +66,10 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
         return members.size();
     }
 
+    public void clearMembers() {
+        members.clear();
+    }
+
     /**
      * GameSelectType.OnFragmentInteractionListener
      */
@@ -77,6 +81,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     public void onSelect(int typ) {
         type = typ;
         gameSelectMembers.changeAdapter(type);
+        clearMembers();
     }
 
     public void onCancel() {

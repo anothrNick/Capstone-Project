@@ -1,7 +1,11 @@
 package com.dev.nick.scorch.games;
 
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,8 +14,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.dev.nick.scorch.R;
+import com.dev.nick.scorch.dao.ScorchContract;
+import com.dev.nick.scorch.dao.ScorchDbHelper;
 
 public class GameDetailActivity extends AppCompatActivity {
+
+    public static String GAME_ID = "com.dev.nick.scorch.GAME_ID";
+    public static String GAME = "com.dev.nick.scorch.GAME";
+    private ScorchDbHelper dbHelper;
 
     private Button finishGameBtn;
 
@@ -23,12 +33,22 @@ public class GameDetailActivity extends AppCompatActivity {
     private TextView scoreOne;
     private TextView scoreTwo;
 
+    private TextView teamOne;
+    private TextView teamTwo;
+
+    private GameBean bean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_detail_activity);
 
+        dbHelper = new ScorchDbHelper(this);
+
         finishGameBtn = (Button) findViewById(R.id.finishBtn);
+
+        teamOne = (TextView) findViewById(R.id.team_one);
+        teamTwo = (TextView) findViewById(R.id.team_two);
 
         scoreOne = (TextView) findViewById(R.id.team_one_score);
         scoreTwo = (TextView) findViewById(R.id.team_two_score);
@@ -43,7 +63,7 @@ public class GameDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int val = Integer.parseInt(scoreOne.getText().toString());
                 val--;
-                scoreOne.setText(Integer.toString(val));
+                updateScoreOne(val);
             }
         });
 
@@ -52,7 +72,7 @@ public class GameDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int val = Integer.parseInt(scoreOne.getText().toString());
                 val++;
-                scoreOne.setText(Integer.toString(val));
+                updateScoreOne(val);
             }
         });
 
@@ -61,7 +81,7 @@ public class GameDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int val = Integer.parseInt(scoreTwo.getText().toString());
                 val--;
-                scoreTwo.setText(Integer.toString(val));
+                updateScoreTwo(val);
             }
         });
 
@@ -70,7 +90,7 @@ public class GameDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int val = Integer.parseInt(scoreTwo.getText().toString());
                 val++;
-                scoreTwo.setText(Integer.toString(val));
+                updateScoreTwo(val);
             }
         });
 
@@ -82,6 +102,49 @@ public class GameDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Intent i = getIntent();
+
+        if(i != null) {
+            bean = i.getParcelableExtra(GameDetailActivity.GAME);
+            if(bean != null) {
+                teamOne.setText(bean.teamOne);
+                teamTwo.setText(bean.teamTwo);
+
+                scoreOne.setText(Integer.toString(bean.teamOneScore));
+                scoreTwo.setText(Integer.toString(bean.teamTwoScore));
+            }
+        }
+    }
+
+    public void updateScoreOne(int val) {
+        scoreOne.setText(Integer.toString(val));
+
+        if(bean != null) {
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            ContentValues newValues = new ContentValues();
+            newValues.put(ScorchContract.GameTeams.COLUMN_SCORE, val);
+
+            db.update(ScorchContract.GameTeams.TABLE_NAME, newValues, "id=" + bean.teamOneId, null);
+            db.close();
+
+            bean.teamOneScore = val;
+        }
+    }
+
+    public void updateScoreTwo(int val) {
+        scoreTwo.setText(Integer.toString(val));
+
+        if(bean != null) {
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            ContentValues newValues = new ContentValues();
+            newValues.put(ScorchContract.GameTeams.COLUMN_SCORE, val);
+
+            db.update(ScorchContract.GameTeams.TABLE_NAME, newValues, "id=" + bean.teamTwoId, null);
+            db.close();
+
+            bean.teamTwoScore = val;
+        }
     }
 
     @Override

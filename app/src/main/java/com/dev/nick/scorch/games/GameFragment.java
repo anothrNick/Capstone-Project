@@ -121,7 +121,7 @@ public class GameFragment extends Fragment {
                 case 1:
                     return "Tournament";
                 case 2:
-                    return "GameBean Over";
+                    return "Game Over";
             }
             return "Tab What";
         }
@@ -133,7 +133,7 @@ public class GameFragment extends Fragment {
         public static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView mRecyclerView;
-        private RecyclerView.Adapter mAdapter;
+        private GameListAdapter mAdapter;
         private RecyclerView.LayoutManager mLayoutManager;
         private ScorchDbHelper dbHelper;
         private ArrayList<GameBean> games;
@@ -192,6 +192,7 @@ public class GameFragment extends Fragment {
                         type = gameTeamsCursor.getInt(gameTeamsCursor.getColumnIndex(ScorchContract.GameTeams.COLUMN_TYPE));
                         gameBean.type = type;
                         gameBean.teamOneScore = gameTeamsCursor.getInt(gameTeamsCursor.getColumnIndex(ScorchContract.GameTeams.COLUMN_SCORE));
+                        gameBean.teamOneId = gameTeamsCursor.getLong(gameTeamsCursor.getColumnIndex(ScorchContract.GameTeams.COLUMN_ID));
 
                         where = ScorchContract.Teams.COLUMN_ID + " = ?";
                         whereArgs = new String[]{
@@ -228,9 +229,12 @@ public class GameFragment extends Fragment {
                     }
                     if(gameTeamsCursor.moveToNext()) {
                         gameBean.teamTwoScore = gameTeamsCursor.getInt(gameTeamsCursor.getColumnIndex(ScorchContract.GameTeams.COLUMN_SCORE));
+                        gameBean.teamTwoId = gameTeamsCursor.getLong(gameTeamsCursor.getColumnIndex(ScorchContract.GameTeams.COLUMN_ID));
+
                         whereArgs = new String[]{
                                 gameTeamsCursor.getString(gameTeamsCursor.getColumnIndex(ScorchContract.GameTeams.COLUMN_TEAM))
                         };
+
                         if(type > -1) {
                             teamCursor = db.query(
                                     TABLE_NAME,
@@ -266,9 +270,11 @@ public class GameFragment extends Fragment {
             mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
-                            //long playerid = mAdapter.getItemId(position);
+                            long gameid = mAdapter.getItemId(position);
+                            GameBean game = mAdapter.getGame(position);
                             Intent intent = new Intent(getActivity(), GameDetailActivity.class);
-                            //intent.putExtra(PlayerDetailActivity.PLAYER_ID, playerid);
+                            intent.putExtra(GameDetailActivity.GAME_ID, gameid);
+                            intent.putExtra(GameDetailActivity.GAME, game);
                             startActivity(intent);
                         }
                     })
