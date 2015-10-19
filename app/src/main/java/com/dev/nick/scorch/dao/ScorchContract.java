@@ -4,6 +4,8 @@ import android.provider.BaseColumns;
 
 /**
  * Created by Nick on 9/10/2015.
+ *
+ * Database contract. Contains schemas for scorch database.
  */
 public final class ScorchContract {
 
@@ -105,11 +107,13 @@ public final class ScorchContract {
     public static abstract class Game implements BaseColumns {
         public static final String TABLE_NAME = "game";
         public static final String COLUMN_ID = "id";
+        public static final String COLUMN_ISOVER = "isover";
         public static final String COLUMN_CREATED = "created";
 
         public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY," +
                 COLUMN_CREATED + ScorchContract.TYPE_TEXT +
+                COLUMN_ISOVER + ScorchContract.TYPE_TEXT +
                 " )";
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 

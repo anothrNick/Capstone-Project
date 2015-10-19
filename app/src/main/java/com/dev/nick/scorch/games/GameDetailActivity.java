@@ -24,6 +24,7 @@ public class GameDetailActivity extends AppCompatActivity {
     private ScorchDbHelper dbHelper;
 
     private Button finishGameBtn;
+    private Button closeGameBtn;
 
     private ImageButton scoreOneUp;
     private ImageButton scoreOneDown;
@@ -46,6 +47,7 @@ public class GameDetailActivity extends AppCompatActivity {
         dbHelper = new ScorchDbHelper(this);
 
         finishGameBtn = (Button) findViewById(R.id.finishBtn);
+        closeGameBtn = (Button) findViewById(R.id.closeBtn);
 
         teamOne = (TextView) findViewById(R.id.team_one);
         teamTwo = (TextView) findViewById(R.id.team_two);
@@ -97,8 +99,21 @@ public class GameDetailActivity extends AppCompatActivity {
         finishGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO
-                // complete game
+                if(bean != null) {
+                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+                    ContentValues newValues = new ContentValues();
+                    newValues.put(ScorchContract.Game.COLUMN_ISOVER, true);
+
+                    db.update(ScorchContract.Game.TABLE_NAME, newValues, "id=" + bean.id, null);
+                    db.close();
+                }
+                finish();
+            }
+        });
+
+        closeGameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
             }
         });
@@ -145,27 +160,5 @@ public class GameDetailActivity extends AppCompatActivity {
 
             bean.teamTwoScore = val;
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_game_detail, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

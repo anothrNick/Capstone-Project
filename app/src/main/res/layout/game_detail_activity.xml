@@ -143,13 +143,30 @@
 
         </RelativeLayout>
 
-        <Button
-            android:text="Finish Game"
-            android:layout_weight="1"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:background="@drawable/btnborder"
-            android:id="@+id/finishBtn"/>
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1">
+
+            <Button
+                android:text="Close"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/btnborder"
+                android:id="@+id/closeBtn"/>
+
+            <Button
+                android:text="Finish Game"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/btnborder"
+                android:id="@+id/finishBtn"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
