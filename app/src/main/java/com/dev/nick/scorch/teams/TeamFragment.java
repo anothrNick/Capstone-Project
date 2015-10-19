@@ -1,6 +1,7 @@
 package com.dev.nick.scorch.teams;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.dev.nick.scorch.MainActivity;
 import com.dev.nick.scorch.R;
@@ -27,12 +29,7 @@ public class TeamFragment extends Fragment {
     private boolean bStarted;
 
     public static TeamFragment newInstance() {
-        TeamFragment fragment = new TeamFragment();
-        //Bundle args = new Bundle();
-        //args.putString(ARG_PARAM1, param1);
-        //args.putString(ARG_PARAM2, param2);
-        //fragment.setArguments(args);
-        return fragment;
+        return new TeamFragment();
     }
 
     public TeamFragment() {
@@ -42,10 +39,10 @@ public class TeamFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        //if (getArguments() != null) {
             //mParam1 = getArguments().getString(ARG_PARAM1);
             //mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        //}
         bStarted = false;
 
         dbHelper = new ScorchDbHelper(getContext());
@@ -90,14 +87,20 @@ public class TeamFragment extends Fragment {
         });
 
         bStarted = true;
+
+        if(mAdapter.getCursor().getCount() <= 0) {
+            TextView empty = (TextView) v.findViewById(R.id.teams_empty);
+            empty.setVisibility(View.VISIBLE);
+        }
+
         // Inflate the layout for this fragment
         return v;
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(MainActivity.TEAMS);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((MainActivity) getActivity()).onSectionAttached(MainActivity.TEAMS);
     }
 
     @Override

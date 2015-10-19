@@ -2,6 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.dev.nick.scorch.teams.TeamFragment">
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="No teams :("
+        android:id="@+id/teams_empty"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal|center_vertical"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textColor="@color/grey"
+        android:visibility="invisible"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/team_list"
         android:scrollbars="vertical"

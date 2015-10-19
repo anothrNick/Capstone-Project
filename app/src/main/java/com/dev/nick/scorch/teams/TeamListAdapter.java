@@ -14,6 +14,8 @@ import com.dev.nick.scorch.dao.ScorchContract;
 
 /**
  * Created by Nick on 9/15/2015.
+ *
+ * Adapter for team list...
  */
 public class TeamListAdapter extends CursorRecyclerViewAdapter<TeamListAdapter.ViewHolder> {
 
@@ -34,8 +36,8 @@ public class TeamListAdapter extends CursorRecyclerViewAdapter<TeamListAdapter.V
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.team_list_item, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(v);
-        return viewHolder;
+
+        return new ViewHolder(v);
     }
 
     @Override
