@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.dao.ScorchContract;
@@ -99,15 +100,24 @@ public class GameDetailActivity extends AppCompatActivity {
         finishGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bean != null) {
-                    SQLiteDatabase db = dbHelper.getWritableDatabase();
-                    ContentValues newValues = new ContentValues();
-                    newValues.put(ScorchContract.Game.COLUMN_ISOVER, true);
+                Toast.makeText(v.getContext(), "Press and hold to finish game", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-                    db.update(ScorchContract.Game.TABLE_NAME, newValues, "id=" + bean.id, null);
-                    db.close();
-                }
+        finishGameBtn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+//                if(bean != null) {
+//                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+//                    ContentValues newValues = new ContentValues();
+//                    newValues.put(ScorchContract.Game.COLUMN_ISOVER, true);
+//
+//                    db.update(ScorchContract.Game.TABLE_NAME, newValues, "id=" + bean.id, null);
+//                    db.close();
+//                }
+                Toast.makeText(v.getContext(), "Game over! <player> wins!", Toast.LENGTH_SHORT).show();
                 finish();
+                return true;
             }
         });
 
