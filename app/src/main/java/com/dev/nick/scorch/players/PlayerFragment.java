@@ -2,6 +2,7 @@ package com.dev.nick.scorch.players;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -45,10 +46,7 @@ public class PlayerFragment extends Fragment{
     private RecyclerView.LayoutManager mLayoutManager;
 
     public static PlayerFragment newInstance() {
-        PlayerFragment fragment = new PlayerFragment();
-        //Bundle args = new Bundle();
-        //fragment.setArguments(args);
-        return fragment;
+        return new PlayerFragment();
     }
 
     /**
@@ -62,10 +60,10 @@ public class PlayerFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
+        //if (getArguments() != null) {
             //mParam1 = getArguments().getString(ARG_PARAM1);
             //mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        //}
         dbHelper = new ScorchDbHelper(getContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
@@ -167,9 +165,9 @@ public class PlayerFragment extends Fragment{
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(MainActivity.PLAYERS);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((MainActivity) getActivity()).onSectionAttached(MainActivity.PLAYERS);
     }
 
     @Override
@@ -184,14 +182,10 @@ public class PlayerFragment extends Fragment{
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        void onFragmentInteraction(String id);
     }
 
 }

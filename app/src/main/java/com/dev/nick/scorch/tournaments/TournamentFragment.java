@@ -1,6 +1,7 @@
 package com.dev.nick.scorch.tournaments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,9 +29,7 @@ public class TournamentFragment extends Fragment {
     ViewPager mViewPager;
 
     public static TournamentFragment newInstance() {
-        TournamentFragment fragment = new TournamentFragment();
-
-        return fragment;
+        return new TournamentFragment();
     }
 
     public TournamentFragment() {
@@ -55,8 +54,8 @@ public class TournamentFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
+        //if (getArguments() != null) {
+        //}
     }
 
     @Override
@@ -74,9 +73,9 @@ public class TournamentFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(MainActivity.TOURNAMENTS);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((MainActivity) getActivity()).onSectionAttached(MainActivity.TOURNAMENTS);
     }
 
     @Override

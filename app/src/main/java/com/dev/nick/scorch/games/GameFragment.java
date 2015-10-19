@@ -1,6 +1,7 @@
 package com.dev.nick.scorch.games;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -87,9 +88,9 @@ public class GameFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(MainActivity.GAMES);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((MainActivity) getActivity()).onSectionAttached(MainActivity.GAMES);
     }
 
     public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
