@@ -101,7 +101,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     }
 
     public void onStartGame() {
-        Toast.makeText(this, "GameBean Type: " + type + ", GameBean Members: " + members.toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "GameBean Type: " + type + ", GameBean Members: " + members.toString(), Toast.LENGTH_SHORT).show();
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
