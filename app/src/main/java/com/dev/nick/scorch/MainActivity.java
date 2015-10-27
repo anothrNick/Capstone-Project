@@ -19,6 +19,8 @@ import com.dev.nick.scorch.games.GameFragment;
 import com.dev.nick.scorch.players.PlayerFragment;
 import com.dev.nick.scorch.teams.TeamFragment;
 import com.dev.nick.scorch.tournaments.TournamentFragment;
+import com.dev.nick.scorch.tournaments.TournamentListAdapter;
+import com.dev.nick.scorch.tournaments.TournamentListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -86,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case TOURNAMENTS:
                             fragmentManager.beginTransaction()
-                                    .replace(R.id.container, TournamentFragment.newInstance())
+                                    .replace(R.id.container, TournamentListFragment.newInstance())
                                     .commit();
                             break;
                         case GAMES:

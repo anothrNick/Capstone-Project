@@ -1,6 +1,7 @@
 package com.dev.nick.scorch.games;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -164,12 +165,13 @@ public class GameSelectMembersFragment extends Fragment implements View.OnClickL
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            if(context instanceof Activity)
+            mListener = (OnFragmentInteractionListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.getClass().getName()
                     + " must implement OnFragmentInteractionListener");
         }
     }

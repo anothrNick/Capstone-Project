@@ -1,31 +1,19 @@
 package com.dev.nick.scorch.games;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.dev.nick.scorch.MainActivity;
 import com.dev.nick.scorch.R;
-import com.dev.nick.scorch.RecyclerItemClickListener;
-import com.dev.nick.scorch.dao.ScorchContract;
-import com.dev.nick.scorch.dao.ScorchDbHelper;
-import com.dev.nick.scorch.players.PlayerFragment;
-
-import java.util.ArrayList;
 
 public class GameFragment extends Fragment {
 

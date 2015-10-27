@@ -46,17 +46,18 @@ public class GameListFragment extends Fragment {
 
             itype = extras.getInt(GameFragment.GAME_TYPE);
 
-            if(itype == 0) {
+            if(itype == 1) {
                 id = extras.getLong(PlayerDetailActivity.PLAYER_ID);
                 games = Games.getPlayersGames(id, new ScorchDbHelper(getActivity()));
             }
             else {
-                games = new ArrayList<>();
+                games = Games.getAllGames(new ScorchDbHelper(getActivity()));
             }
         }
         else {
             games = Games.getAllGames(new ScorchDbHelper(getActivity()));
         }
+
     }
 
     @Override

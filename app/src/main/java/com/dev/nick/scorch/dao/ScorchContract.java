@@ -156,4 +156,32 @@ public final class ScorchContract {
         public static String sortOrder = COLUMN_TEAM + " DESC";
     }
 
+
+    /**
+     * Tournaments table
+     */
+    public static abstract class Tournaments implements BaseColumns {
+        public static final String TABLE_NAME = "tournaments";
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_DATE = "date";
+        public static final String COLUMN_TYPE = "type";
+
+        public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
+                COLUMN_ID + " INTEGER PRIMARY KEY," +
+                COLUMN_TITLE + ScorchContract.TYPE_TEXT + ScorchContract.COMMA_SEP +
+                COLUMN_DATE + ScorchContract.TYPE_TEXT + ScorchContract.COMMA_SEP +
+                COLUMN_TYPE + ScorchContract.TYPE_TEXT + ScorchContract.COMMA_SEP +
+                " )";
+        public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+
+        public static String[] projection = {
+                COLUMN_TITLE,
+                COLUMN_DATE,
+                COLUMN_TYPE,
+                COLUMN_ID
+        };
+
+        public static String sortOrder = COLUMN_DATE + " DESC";
+    }
 }
