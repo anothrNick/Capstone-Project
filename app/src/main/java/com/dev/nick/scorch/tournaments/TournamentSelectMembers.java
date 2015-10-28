@@ -108,15 +108,12 @@ public class TournamentSelectMembers extends Fragment implements View.OnClickLis
                         ImageView check = (ImageView) view.findViewById(R.id.selected);
                         if (check != null) {
                             String pid = Long.toString(playerid);
-                            //myButton.setAnimation(animFadeOut)
                             if (check.getVisibility() == View.VISIBLE) {
                                 check.setVisibility(View.INVISIBLE);
                                 mListener.onMemberSelected(pid);
                             } else if (check.getVisibility() == View.INVISIBLE) {
-                                if(((TournamentNewActivity)getActivity()).memberCount() < 2) {
-                                    check.setVisibility(View.VISIBLE);
-                                    mListener.onMemberSelected(pid);
-                                }
+                                check.setVisibility(View.VISIBLE);
+                                mListener.onMemberSelected(pid);
                             }
                         }
                     }
@@ -137,15 +134,12 @@ public class TournamentSelectMembers extends Fragment implements View.OnClickLis
                         ImageView check = (ImageView) view.findViewById(R.id.selected);
                         if (check != null) {
                             String pid = Long.toString(teamid);
-                            //myButton.setAnimation(animFadeOut)
                             if (check.getVisibility() == View.VISIBLE) {
                                 check.setVisibility(View.INVISIBLE);
                                 mListener.onMemberSelected(pid);
                             } else if (check.getVisibility() == View.INVISIBLE) {
-                                if(((TournamentNewActivity)getActivity()).memberCount() < 2) {
-                                    check.setVisibility(View.VISIBLE);
-                                    mListener.onMemberSelected(pid);
-                                }
+                                check.setVisibility(View.VISIBLE);
+                                mListener.onMemberSelected(pid);
                             }
                         }
                     }
@@ -184,7 +178,7 @@ public class TournamentSelectMembers extends Fragment implements View.OnClickLis
         switch (id) {
             case R.id.cancelBtn:
                 if(mListener != null) {
-                    mListener.onBack();
+                    mListener.onBack(1);
                 }
                 break;
             case R.id.nextBtn:
@@ -204,7 +198,7 @@ public class TournamentSelectMembers extends Fragment implements View.OnClickLis
     public interface OnFragmentInteractionListener {
         void onCreateTourney();
         void onMemberSelected(String id);
-        void onBack();
+        void onBack(int item);
     }
 
 }

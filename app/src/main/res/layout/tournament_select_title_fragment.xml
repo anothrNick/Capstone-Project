@@ -1,32 +1,25 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.dev.nick.scorch.tournaments.TournamentSelectMembers">
-
+    android:layout_height="match_parent" tools:context="com.dev.nick.scorch.tournaments.TournamentSelectTitle">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="7">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/playerList"
-                android:scrollbars="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="Tournament Title"
+                android:id="@+id/teamName"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/teamList"
-                android:scrollbars="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -37,14 +30,14 @@
             android:elevation="2dp">
 
             <Button
-                android:text="Back"
+                android:text="Cancel"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:background="@drawable/btnborder"
                 android:id="@+id/cancelBtn"/>
             <Button
-                android:text="Start Game"
+                android:text="Next"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"

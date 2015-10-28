@@ -47,12 +47,12 @@
             android:elevation="2dp">
 
             <Button
-                android:text="Cancel"
+                android:text="Back"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:background="@drawable/btnborder"
-                android:id="@+id/cancelBtn"/>
+                android:id="@+id/backBtn"/>
             <Button
                 android:text="Next"
                 android:layout_weight="1"

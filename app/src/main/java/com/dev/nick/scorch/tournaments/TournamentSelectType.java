@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ public class TournamentSelectType extends Fragment implements View.OnClickListen
     private OnFragmentInteractionListener mListener;
 
     private Button btnNext;
-    private Button btnCancel;
+    private Button btnBack;
 
     private RadioButton radioTeam;
     private RadioButton radioPlayer;
@@ -40,13 +39,13 @@ public class TournamentSelectType extends Fragment implements View.OnClickListen
         View v = inflater.inflate(R.layout.tournament_select_type_fragment, container, false);
 
         btnNext = (Button) v.findViewById(R.id.nextBtn);
-        btnCancel = (Button) v.findViewById(R.id.cancelBtn);
+        btnBack = (Button) v.findViewById(R.id.backBtn);
 
         radioTeam = (RadioButton) v.findViewById(R.id.radio_teams);
         radioPlayer = (RadioButton) v.findViewById(R.id.radio_players);
 
         btnNext.setOnClickListener(this);
-        btnCancel.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
 
         radioTeam.setOnClickListener(this);
         radioPlayer.setOnClickListener(this);
@@ -75,12 +74,12 @@ public class TournamentSelectType extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         final int id = v.getId();
         switch (id) {
-            case R.id.cancelBtn:
-                mListener.onCancel();
+            case R.id.backBtn:
+                mListener.onBack(0);
                 break;
             case R.id.nextBtn:
                 if(mListener != null) {
-                    mListener.onNext();
+                    mListener.onNext(2);
                 }
                 break;
             case R.id.radio_players:
@@ -101,9 +100,9 @@ public class TournamentSelectType extends Fragment implements View.OnClickListen
     }
 
     public interface OnFragmentInteractionListener {
-        void onNext();
+        void onNext(int item);
+        void onBack(int item);
         void onSelect(int typ);
-        void onCancel();
     }
 
 }

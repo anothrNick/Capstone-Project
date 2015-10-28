@@ -11,11 +11,12 @@ import com.dev.nick.scorch.adapters.ViewPagerAdapter;
 
 import java.util.ArrayList;
 
-public class TournamentNewActivity extends AppCompatActivity implements TournamentSelectType.OnFragmentInteractionListener, TournamentSelectMembers.OnFragmentInteractionListener {
+public class TournamentNewActivity extends AppCompatActivity implements TournamentSelectType.OnFragmentInteractionListener, TournamentSelectMembers.OnFragmentInteractionListener, TournamentSelectTitle.OnFragmentInteractionListener {
 
     private ViewPager mPager;
     private Toolbar toolbar;
 
+    private TournamentSelectTitle selectTitle;
     private TournamentSelectType selectType;
     private TournamentSelectMembers selectMembers;
     private int type; // 0 = player, 1 = teams
@@ -33,6 +34,7 @@ public class TournamentNewActivity extends AppCompatActivity implements Tourname
 
         selectType = new TournamentSelectType();
         selectMembers = new TournamentSelectMembers();
+        selectTitle = new TournamentSelectTitle();
 
         members = new ArrayList<>();
 
@@ -52,17 +54,13 @@ public class TournamentNewActivity extends AppCompatActivity implements Tourname
         return true;
     }
 
-    public int memberCount() {
-        return members.size();
-    }
-
     public void clearMembers() {
         members.clear();
     }
 
-    public void onNext() {
+    public void onNext(int item) {
         if(mPager != null)
-            mPager.setCurrentItem(1);
+            mPager.setCurrentItem(item);
     }
 
     public void onSelect(int typ) {
@@ -88,14 +86,19 @@ public class TournamentNewActivity extends AppCompatActivity implements Tourname
         }
     }
 
-    public void onBack() {
+    public void onBack(int item) {
         if(mPager != null)
-            mPager.setCurrentItem(0);
+            mPager.setCurrentItem(item);
+    }
+
+    public void updateTitle(String title) {
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
+        adapter.addFrag(selectTitle, "");
         adapter.addFrag(selectType, "");
         adapter.addFrag(selectMembers, "");
         viewPager.setAdapter(adapter);
