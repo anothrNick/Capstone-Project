@@ -53,7 +53,7 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle("New GameBean");
+            actionBar.setTitle("New Game");
         }
 
         return true;

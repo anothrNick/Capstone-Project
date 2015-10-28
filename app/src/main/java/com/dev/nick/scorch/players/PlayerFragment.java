@@ -1,6 +1,5 @@
 package com.dev.nick.scorch.players;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,18 +26,7 @@ import com.dev.nick.scorch.dao.ScorchDbHelper;
 
 import java.util.Date;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Large screen devices (such as tablets) are supported by replacing the ListView
- * with a GridView.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
- * interface.
- */
 public class PlayerFragment extends Fragment{
-
-    private OnFragmentInteractionListener mListener;
 
     private ScorchDbHelper dbHelper;
     private RecyclerView mRecyclerView;
@@ -165,23 +153,4 @@ public class PlayerFragment extends Fragment{
         super.onAttach(context);
         ((MainActivity) getActivity()).onSectionAttached(MainActivity.PLAYERS);
     }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(String id);
-    }
-
 }

@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
  */
 public final class ScorchContract {
 
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = "scorch.db";
 
     public static final String TYPE_TEXT = " TEXT";
@@ -171,7 +171,7 @@ public final class ScorchContract {
                 COLUMN_ID + " INTEGER PRIMARY KEY," +
                 COLUMN_TITLE + ScorchContract.TYPE_TEXT + ScorchContract.COMMA_SEP +
                 COLUMN_DATE + ScorchContract.TYPE_TEXT + ScorchContract.COMMA_SEP +
-                COLUMN_TYPE + ScorchContract.TYPE_TEXT + ScorchContract.COMMA_SEP +
+                COLUMN_TYPE + ScorchContract.TYPE_TEXT  +
                 " )";
         public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
