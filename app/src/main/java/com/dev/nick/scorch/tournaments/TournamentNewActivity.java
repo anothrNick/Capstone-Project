@@ -19,6 +19,7 @@ public class TournamentNewActivity extends AppCompatActivity implements Tourname
     private TournamentSelectTitle selectTitle;
     private TournamentSelectType selectType;
     private TournamentSelectMembers selectMembers;
+    private String title;
     private int type; // 0 = player, 1 = teams
     private ArrayList<String> members;
 
@@ -28,6 +29,7 @@ public class TournamentNewActivity extends AppCompatActivity implements Tourname
         setContentView(R.layout.tournament_new_activity);
 
         type = -1;
+        title = "";
 
         mPager = (ViewPager) findViewById(R.id.new_tournament_pager);
         toolbar = (Toolbar) findViewById(R.id.new_tourney_toolbar);
@@ -86,13 +88,21 @@ public class TournamentNewActivity extends AppCompatActivity implements Tourname
         }
     }
 
+    public int getType() {
+        return this.type;
+    }
+
     public void onBack(int item) {
         if(mPager != null)
             mPager.setCurrentItem(item);
     }
 
     public void updateTitle(String title) {
+        this.title = title;
+    }
 
+    public String getTournamentTitle() {
+        return this.title;
     }
 
     private void setupViewPager(ViewPager viewPager) {

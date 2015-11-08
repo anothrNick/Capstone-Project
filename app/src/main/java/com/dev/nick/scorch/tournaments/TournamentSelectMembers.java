@@ -59,6 +59,17 @@ public class TournamentSelectMembers extends Fragment implements View.OnClickLis
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if( mListener != null &&
+            mPlayerRecyclerView != null) {
+
+            changeAdapter(mListener.getType());
+
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -199,6 +210,7 @@ public class TournamentSelectMembers extends Fragment implements View.OnClickLis
         void onCreateTourney();
         void onMemberSelected(String id);
         void onBack(int item);
+        int getType();
     }
 
 }
