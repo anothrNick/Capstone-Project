@@ -63,9 +63,7 @@ public class TournamentSelectMembers extends Fragment implements View.OnClickLis
         super.onResume();
         if( mListener != null &&
             mPlayerRecyclerView != null) {
-
             changeAdapter(mListener.getType());
-
         }
     }
 
