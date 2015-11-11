@@ -1,8 +1,15 @@
 package com.dev.nick.scorch.players;
 
+import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,11 +17,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dev.nick.scorch.R;
@@ -31,6 +40,11 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +52,12 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
     public static String PLAYER_ID = "com.dev.nick.scorch.PLAYER_ID";
 
+    private String TAG = "PlayerDetailActivity";
     private TextView playerName;
-    private TextView playerPosition;
+    //private TextView playerPosition;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private ImageView playerIcon;
 
     private long pid;
 
@@ -53,8 +69,9 @@ public class PlayerDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player_detail_activity);
 
+        playerIcon = (ImageView) findViewById(R.id.player_icon);
         playerName = (TextView) findViewById(R.id.player_name);
-        playerPosition = (TextView) findViewById(R.id.player_position);
+        //playerPosition = (TextView) findViewById(R.id.player_position);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -82,8 +99,27 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
                 if(cursor.moveToFirst()) {
                     playerName.setText(cursor.getString(cursor.getColumnIndex(ScorchContract.Players.COLUMN_NAME)));
-                    playerPosition.setText(cursor.getString(cursor.getColumnIndex(ScorchContract.Players.COLUMN_ID)));
+                    //playerPosition.setText(cursor.getString(cursor.getColumnIndex(ScorchContract.Players.COLUMN_ID)));
+                    String imageUri = cursor.getString(cursor.getColumnIndex(ScorchContract.Players.COLUMN_AVATAR));
+
+                    if(imageUri != null && !imageUri.isEmpty()) {
+                        try {
+                            Uri selectedImage = Uri.parse(imageUri);
+                            InputStream is = getContentResolver().openInputStream(selectedImage);
+                            Bitmap bmp = BitmapFactory.decodeStream(is);
+                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                            bmp.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                            String path = MediaStore.Images.Media.insertImage(getContentResolver(), bmp, "User Avatar", null);
+
+                            playerIcon.setImageURI(Uri.parse(path));
+                        }
+                        catch(Exception e) {
+                            Log.w(TAG, e.getMessage());
+                        }
+                    }
                 }
+
+                db.close();
             }
         }
 
@@ -91,6 +127,58 @@ public class PlayerDetailActivity extends AppCompatActivity {
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabanim_tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        playerIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, 100);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        switch(requestCode) {
+            case 100:
+                if(resultCode == RESULT_OK){
+                    Uri selectedImage = imageReturnedIntent.getData();
+
+                    try {
+                        String filePath = new File(selectedImage.getPath()).getAbsolutePath();
+                        Cursor cursor = getContentResolver().query(
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                new String[] { MediaStore.Images.Media._ID },
+                                MediaStore.Images.Media.DATA + "=? ",
+                                new String[] { filePath }, null);
+                        if (cursor != null && cursor.moveToFirst()) {
+                            int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
+                            Uri realUri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);
+
+                            playerIcon.setImageURI(realUri);
+                            // update player image
+                            ScorchDbHelper dbHelper = new ScorchDbHelper(this);
+                            SQLiteDatabase db = dbHelper.getWritableDatabase();
+                            ContentValues newValues = new ContentValues();
+                            newValues.put(ScorchContract.Players.COLUMN_AVATAR, realUri.toString());
+
+                            db.update(ScorchContract.Players.TABLE_NAME, newValues, "id=" + pid, null);
+                            db.close();
+                        }
+
+
+                    }
+                    catch(Exception e) {
+                        Log.w(TAG, e.getMessage());
+                    }
+                }
+                else{
+                    Log.d(TAG, Integer.toString(resultCode));
+                }
+        }
     }
 
     private void setupViewPager(ViewPager viewPager) {
