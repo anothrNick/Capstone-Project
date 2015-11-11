@@ -42,18 +42,18 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
 
             // Here we set the appropriate view in accordance with the the view type as passed when the holder object is created
 
-            if(ViewType == TYPE_ITEM) {
+            //if(ViewType == TYPE_ITEM) {
                 textView = (TextView) itemView.findViewById(R.id.rowText); // Creating TextView object with the id of textView from item_row.xml
                 imageView = (ImageView) itemView.findViewById(R.id.rowIcon);// Creating ImageView object with the id of ImageView from item_row.xml
                 Holderid = 1;                                               // setting holder id as 1 as the object being populated are of type item row
-            }
-            else{
-
-                Name = (TextView) itemView.findViewById(R.id.name);         // Creating Text View object from header.xml for name
-                email = (TextView) itemView.findViewById(R.id.email);       // Creating Text View object from header.xml for email
-                profile = (ImageView) itemView.findViewById(R.id.circleView);// Creating Image view object from header.xml for profile pic
-                Holderid = 0;                                                // Setting holder id = 0 as the object being populated are of type header view
-            }
+            //}
+//            else{
+//
+//                Name = (TextView) itemView.findViewById(R.id.name);         // Creating Text View object from header.xml for name
+//                email = (TextView) itemView.findViewById(R.id.email);       // Creating Text View object from header.xml for email
+//                profile = (ImageView) itemView.findViewById(R.id.circleView);// Creating Image view object from header.xml for profile pic
+//                Holderid = 0;                                                // Setting holder id = 0 as the object being populated are of type header view
+//            }
         }
 
 
@@ -80,7 +80,7 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
     @Override
     public NavAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        if (viewType == TYPE_ITEM) {
+        //if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.nav_item,parent,false); //Inflating the layout
 
             ViewHolder vhItem = new ViewHolder(v,viewType); //Creating ViewHolder and passing the object of type view
@@ -89,15 +89,15 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
 
             //inflate your layout and pass it to view holder
 
-        } else if (viewType == TYPE_HEADER) {
-
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.nav_header,parent,false); //Inflating the layout
-
-            ViewHolder vhHeader = new ViewHolder(v,viewType); //Creating ViewHolder and passing the object of type view
-
-            return vhHeader; //returning the object created
-        }
-        return null;
+//        } else if (viewType == TYPE_HEADER) {
+//
+//            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.nav_header,parent,false); //Inflating the layout
+//
+//            ViewHolder vhHeader = new ViewHolder(v,viewType); //Creating ViewHolder and passing the object of type view
+//
+//            return vhHeader; //returning the object created
+//        }
+        //return null;
 
     }
 
@@ -106,31 +106,31 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
     // which view type is being created 1 for item row
     @Override
     public void onBindViewHolder(NavAdapter.ViewHolder holder, int position) {
-        if(holder.Holderid ==1) {                              // as the list view is going to be called after the header view so we decrement the
+        //if(holder.Holderid ==1) {                              // as the list view is going to be called after the header view so we decrement the
             // position by 1 and pass it to the holder while setting the text and image
-            holder.textView.setText(mNavTitles[position - 1]); // Setting the Text with the array of our Titles
-            holder.imageView.setImageResource(mIcons[position -1]);// Settimg the image with array of our icons
-        }
-        else{
-
-            holder.profile.setImageResource(profile);           // Similarly we set the resources for header view
-            holder.Name.setText(name);
-            holder.email.setText(email);
-        }
+            holder.textView.setText(mNavTitles[position]); // Setting the Text with the array of our Titles
+            holder.imageView.setImageResource(mIcons[position+1]);// Settimg the image with array of our icons
+//        }
+//        else{
+//
+//            holder.profile.setImageResource(profile);           // Similarly we set the resources for header view
+//            holder.Name.setText(name);
+//            holder.email.setText(email);
+//        }
     }
 
     // This method returns the number of items present in the list
     @Override
     public int getItemCount() {
-        return mNavTitles.length+1; // the number of items in the list will be +1 the titles including the header view.
+        return mNavTitles.length; // the number of items in the list will be +1 the titles including the header view.
     }
 
 
     // Witht the following method we check what type of view is being passed
     @Override
     public int getItemViewType(int position) {
-        if (isPositionHeader(position))
-            return TYPE_HEADER;
+        //if (isPositionHeader(position))
+        //   return TYPE_HEADER;
 
         return TYPE_ITEM;
     }

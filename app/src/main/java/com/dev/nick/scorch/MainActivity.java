@@ -25,11 +25,11 @@ import com.dev.nick.scorch.tournaments.TournamentListFragment;
 public class MainActivity extends AppCompatActivity {
 
     public static final int TOURNAMENTS = 1;
-    public static final int GAMES = 2;
-    public static final int PLAYERS = 3;
-    public static final int TEAMS = 4;
+    public static final int GAMES = 0;
+    public static final int PLAYERS = 1;
+    public static final int TEAMS = 2;
 
-    String NAV_TITLES[] = {"Tournaments", "Games", "Players", "Teams"};
+    String NAV_TITLES[] = {"Games", "Players", "Teams"};
     int NAV_ICONS[] = {R.drawable.ic_tourney, R.drawable.ic_games, R.drawable.ic_player, R.drawable.ic_team};
 
     String NAME = "Nick Sjostrom";
@@ -84,13 +84,11 @@ public class MainActivity extends AppCompatActivity {
                     //Toast.makeText(MainActivity.this, "The Item Clicked is: " + recyclerView.getChildPosition(child), Toast.LENGTH_SHORT).show();
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     switch(recyclerView.getChildPosition(child)){
-                        case 0:
-                            break;
-                        case TOURNAMENTS:
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.container, TournamentListFragment.newInstance())
-                                    .commit();
-                            break;
+//                        case TOURNAMENTS:
+//                            fragmentManager.beginTransaction()
+//                                    .replace(R.id.container, TournamentListFragment.newInstance())
+//                                    .commit();
+//                            break;
                         case GAMES:
                             fragmentManager.beginTransaction()
                                     .replace(R.id.container, GameFragment.newInstance())
@@ -156,9 +154,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void onSectionAttached(int number) {
         switch (number) {
-            case TOURNAMENTS:
-                mTitle = getString(R.string.nav_tournaments);
-                break;
+//            case TOURNAMENTS:
+//                mTitle = getString(R.string.nav_tournaments);
+//                break;
             case GAMES:
                 mTitle = getString(R.string.nav_games);
                 break;
