@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.dev.nick.scorch.games.GameDetailActivity">
 
     <LinearLayout
@@ -12,63 +13,83 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="6">
+            android:layout_weight="9">
+
+            <!--
+            <ImageView
+                android:id="@+id/team_one_image"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/beam_centerer"
+                android:alpha="0.6"/>-->
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:orientation="vertical">
-                <LinearLayout
+
+                <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:orientation="horizontal">
+                    android:layout_weight="1">
 
-                    <ImageButton
-                        android:id="@+id/score_one_down"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_arrow_down"
-                        android:background="@drawable/ripple"
-                        android:layout_gravity="center_vertical"/>
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_weight="3"
-                        android:gravity="center">
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:orientation="horizontal">
 
-                        <TextView android:id="@+id/team_one"
-                            android:text="Team One"
-                            android:layout_width="fill_parent"
+                        <ImageButton
+                            android:id="@+id/score_one_down"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:textSize="20dp"
-                            android:layout_gravity="center"
-                            android:gravity="center"/>
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_arrow_down"
+                            android:background="@drawable/ripple"
+                            android:layout_gravity="center_vertical"
+                            android:backgroundTint="@color/accent_orange"
+                            android:tint="@color/white"
+                            />
 
-                        <TextView
-                            android:id="@+id/team_one_score"
-                            android:text="20"
-                            android:layout_width="fill_parent"
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="3"
+                            android:gravity="center">
+
+                            <TextView android:id="@+id/team_one"
+                                android:text="Team One"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"/>
+
+                            <TextView
+                                android:id="@+id/team_one_score"
+                                android:text="20"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/team_one"
+                                android:textSize="50dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"/>
+                        </RelativeLayout>
+
+                        <ImageButton
+                            android:id="@+id/score_one_up"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/team_one"
-                            android:textSize="50dp"
-                            android:layout_gravity="center"
-                            android:gravity="center"/>
-                    </RelativeLayout>
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_arrow_up"
+                            android:background="@drawable/ripple"
+                            android:layout_gravity="center_vertical"
+                            android:backgroundTint="@color/primary"
+                            android:tint="@color/white"/>
 
-                    <ImageButton
-                        android:id="@+id/score_one_up"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_arrow_up"
-                        android:background="@drawable/ripple"
-                        android:layout_gravity="center_vertical"/>
+                    </LinearLayout>
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -85,7 +106,9 @@
                         android:layout_weight="1"
                         android:src="@drawable/ic_arrow_down"
                         android:background="@drawable/ripple"
-                        android:layout_gravity="center_vertical"/>
+                        android:layout_gravity="center_vertical"
+                        android:backgroundTint="@color/accent_orange"
+                        android:tint="@color/white"/>
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -120,7 +143,9 @@
                         android:layout_weight="1"
                         android:src="@drawable/ic_arrow_up"
                         android:background="@drawable/ripple"
-                        android:layout_gravity="center_vertical"/>
+                        android:layout_gravity="center_vertical"
+                        android:backgroundTint="@color/primary"
+                        android:tint="@color/white"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -137,6 +162,7 @@
                     android:background="@drawable/circle"
                     android:gravity="center_vertical|center_horizontal"
                     android:paddingBottom="5dp"
+                    android:textColor="@color/secondary_text"
                     />
 
             </RelativeLayout>
