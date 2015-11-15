@@ -4,12 +4,40 @@
     android:layout_height="match_parent" android:background="#EFEFEF"
     tools:context="com.dev.nick.scorch.players.PlayerDetailActivity">
 
+    <!-- Tabs and view pager for different info -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/player_info"
+        android:orientation="vertical"
+        android:background="#FFF">
+
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabanim_tabs"
+            app:tabIndicatorColor="@color/primary"/>
+
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/tabanim_viewpager" />
+
+    </LinearLayout>
+
     <!-- header section with player position -->
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="120dp"
-        android:background="@drawable/beam_center"
-        android:id="@+id/colorHeader">
+        android:background="#EFEFEF"
+        android:layout_height="180dp"
+        android:id="@+id/player_info">
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="140dp"
+            android:background="@drawable/beam_center"
+            android:id="@+id/colorHeader" />
 <!--
         <FrameLayout
             android:layout_width="wrap_content"
@@ -30,61 +58,39 @@
                 android:paddingRight="80dp"
                 android:textColor="#66ECECEC"/>
         </FrameLayout>-->
+        <!-- player image -->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <ImageView
+                android:id="@+id/player_icon"
+                android:src="@drawable/ic_player"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="16dp"
+                android:background="#FFF"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:elevation="2dp"
+                android:padding="3dp"
+                android:translationZ="4dp"/>
+
+        <!-- player name -->
+
+
+            <TextView android:text="no player"
+                android:layout_toRightOf="@+id/player_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/player_name"
+                android:textColor="@color/white"
+                android:textSize="24sp"/>
+
+        </RelativeLayout>
 
     </FrameLayout>
 
-    <!-- player image -->
-    <ImageView
-        android:id="@+id/player_icon"
-        android:src="@drawable/ic_player"
-        android:layout_marginTop="-30dp"
-        android:layout_marginLeft="16dp"
-        android:layout_below="@+id/colorHeader"
-        android:background="#FFF"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:elevation="2dp"
-        android:padding="3dp"/>
-
-    <!-- player name -->
-    <RelativeLayout
-        android:id="@+id/player_info"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:layout_toRightOf="@+id/player_icon"
-        android:layout_below="@+id/colorHeader">
-
-
-        <TextView android:text="no player"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/player_name"
-            android:textSize="24sp"/>
-
-    </RelativeLayout>
-
-    <!-- Tabs and view pager for different info -->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/player_icon"
-        android:orientation="vertical"
-        android:background="#FFF"
-        android:layout_marginTop="10dp">
-
-        <android.support.design.widget.TabLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tabanim_tabs"
-            app:tabIndicatorColor="@color/primary"/>
-
-        <android.support.v4.view.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:id="@+id/tabanim_viewpager" />
-
-    </LinearLayout>
 
 </RelativeLayout>

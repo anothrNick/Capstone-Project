@@ -23,12 +23,16 @@ import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.RecyclerItemClickListener;
 import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.dao.ScorchDbHelper;
+import com.dev.nick.scorch.model.Player;
 
 import java.util.Date;
+import java.util.List;
 
 public class PlayerFragment extends Fragment{
 
-    private ScorchDbHelper dbHelper;
+    public static String TAG = PlayerFragment.class.getSimpleName();
+
+    //private ScorchDbHelper dbHelper;
     private RecyclerView mRecyclerView;
     private PlayerListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -48,19 +52,20 @@ public class PlayerFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        dbHelper = new ScorchDbHelper(getContext());
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        //dbHelper = new ScorchDbHelper(getContext());
+        //SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        Cursor cursor = db.query(
-                ScorchContract.Players.TABLE_NAME,
-                ScorchContract.Players.projection,
-                null,
-                null,
-                null,
-                null,
-                ScorchContract.Players.sortOrder
-        );
-        mAdapter = new PlayerListAdapter(getContext(), cursor);
+//        Cursor cursor = db.query(
+//                ScorchContract.Players.TABLE_NAME,
+//                ScorchContract.Players.projection,
+//                null,
+//                null,
+//                null,
+//                null,
+//                ScorchContract.Players.sortOrder
+//        );
+        List<Player> lstPlayers = Player.listAll(Player.class);
+        mAdapter = new PlayerListAdapter(getContext(), lstPlayers);
     }
 
     @Override
@@ -107,25 +112,29 @@ public class PlayerFragment extends Fragment{
                                 if(!playerName.isEmpty()) {
                                     String name = editText.getText().toString();
                                     Toast.makeText(getActivity(), "Added " + name, Toast.LENGTH_SHORT).show();
-                                    if(dbHelper != null) {
-                                        SQLiteDatabase db = dbHelper.getWritableDatabase();
-                                        ContentValues values = new ContentValues();
-                                        values.put(ScorchContract.Players.COLUMN_NAME, name);
-                                        values.put(ScorchContract.Players.COLUMN_CREATED, new Date().toString());
-                                        db.insert(ScorchContract.Players.TABLE_NAME, "null", values);
-                                        //mAdapter.notifyDataSetChanged();
-                                        Cursor cursor = db.query(
-                                                ScorchContract.Players.TABLE_NAME,
-                                                ScorchContract.Players.projection,
-                                                null,
-                                                null,
-                                                null,
-                                                null,
-                                                ScorchContract.Players.sortOrder
-                                        );
-                                        mAdapter.changeCursor(cursor);
-                                        //mRecyclerView.swapAdapter(mAdapter, false);
-                                    }
+                                    Player mPlayer = new Player();
+                                    mPlayer.name = name;
+                                    mPlayer.created = new Date().toString();
+                                    mPlayer.save();
+//                                    if(dbHelper != null) {
+//                                        SQLiteDatabase db = dbHelper.getWritableDatabase();
+//                                        ContentValues values = new ContentValues();
+//                                        values.put(ScorchContract.Players.COLUMN_NAME, name);
+//                                        values.put(ScorchContract.Players.COLUMN_CREATED, new Date().toString());
+//                                        db.insert(ScorchContract.Players.TABLE_NAME, "null", values);
+//                                        //mAdapter.notifyDataSetChanged();
+//                                        Cursor cursor = db.query(
+//                                                ScorchContract.Players.TABLE_NAME,
+//                                                ScorchContract.Players.projection,
+//                                                null,
+//                                                null,
+//                                                null,
+//                                                null,
+//                                                ScorchContract.Players.sortOrder
+//                                        );
+//                                        mAdapter.changeCursor(cursor);
+//                                        //mRecyclerView.swapAdapter(mAdapter, false);
+//                                    }
                                 }
                                 else {
                                     Toast.makeText(getActivity(), "Player name cannot be empty", Toast.LENGTH_SHORT).show();
@@ -151,6 +160,12 @@ public class PlayerFragment extends Fragment{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        ((MainActivity) getActivity()).onSectionAttached(MainActivity.PLAYERS);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         ((MainActivity) getActivity()).onSectionAttached(MainActivity.PLAYERS);
     }
 }

@@ -18,8 +18,11 @@ import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.RecyclerItemClickListener;
 import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.dao.ScorchDbHelper;
+import com.dev.nick.scorch.model.Player;
 import com.dev.nick.scorch.players.PlayerListAdapter;
 import com.dev.nick.scorch.teams.TeamListAdapter;
+
+import java.util.List;
 
 public class TournamentSelectMembers extends Fragment implements View.OnClickListener {
 
@@ -81,16 +84,18 @@ public class TournamentSelectMembers extends Fragment implements View.OnClickLis
         dbHelper = new ScorchDbHelper(getActivity());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        Cursor playerCursor = db.query(
-                ScorchContract.Players.TABLE_NAME,
-                ScorchContract.Players.projection,
-                null,
-                null,
-                null,
-                null,
-                ScorchContract.Players.sortOrder
-        );
-        mPlayerAdapter = new PlayerListAdapter(getActivity(), playerCursor);
+//        Cursor playerCursor = db.query(
+//                ScorchContract.Players.TABLE_NAME,
+//                ScorchContract.Players.projection,
+//                null,
+//                null,
+//                null,
+//                null,
+//                ScorchContract.Players.sortOrder
+//        );
+//        mPlayerAdapter = new PlayerListAdapter(getActivity(), playerCursor);
+        List<Player> lstPlayers = Player.listAll(Player.class);
+        mPlayerAdapter = new PlayerListAdapter(getContext(), lstPlayers);
 
         Cursor teamCursor = db.query(
                 ScorchContract.Teams.TABLE_NAME,

@@ -22,6 +22,8 @@ import com.dev.nick.scorch.dao.ScorchDbHelper;
 
 public class TeamFragment extends Fragment {
 
+    public static String TAG = TeamFragment.class.getSimpleName();
+
     private ScorchDbHelper dbHelper;
     private RecyclerView mRecyclerView;
     private TeamListAdapter mAdapter;
@@ -106,8 +108,11 @@ public class TeamFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(bStarted)
+        if(bStarted) {
             reloadTeams();
+
+            ((MainActivity) getActivity()).onSectionAttached(MainActivity.TEAMS);
+        }
     }
 
     public void reloadTeams() {

@@ -18,11 +18,13 @@ import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.RecyclerItemClickListener;
 import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.dao.ScorchDbHelper;
+import com.dev.nick.scorch.model.Player;
 import com.dev.nick.scorch.players.PlayerFragment;
 import com.dev.nick.scorch.players.PlayerListAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TeamPlayerSelection extends Fragment {
 
@@ -57,16 +59,18 @@ public class TeamPlayerSelection extends Fragment {
         dbHelper = new ScorchDbHelper(getActivity());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        Cursor cursor = db.query(
-                ScorchContract.Players.TABLE_NAME,
-                ScorchContract.Players.projection,
-                null,
-                null,
-                null,
-                null,
-                ScorchContract.Players.sortOrder
-        );
-        mAdapter = new PlayerListAdapter(getActivity(), cursor);
+//        Cursor cursor = db.query(
+//                ScorchContract.Players.TABLE_NAME,
+//                ScorchContract.Players.projection,
+//                null,
+//                null,
+//                null,
+//                null,
+//                ScorchContract.Players.sortOrder
+//        );
+//        mAdapter = new PlayerListAdapter(getActivity(), cursor);
+        List<Player> lstPlayers = Player.listAll(Player.class);
+        mAdapter = new PlayerListAdapter(getContext(), lstPlayers);
 
         // Set the adapter
         mRecyclerView = (RecyclerView) view.findViewById(R.id.players);

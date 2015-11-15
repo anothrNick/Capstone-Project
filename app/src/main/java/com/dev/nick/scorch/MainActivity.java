@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private CharSequence mTitle;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,18 +94,15 @@ public class MainActivity extends AppCompatActivity {
 //                            break;
                         case GAMES:
                             fragmentManager.beginTransaction()
-                                    .replace(R.id.container, GameFragment.newInstance())
-                                    .commit();
+                                    .replace(R.id.container, GameFragment.newInstance()).addToBackStack(GameFragment.TAG).commit();
                             break;
                         case PLAYERS:
                             fragmentManager.beginTransaction()
-                                    .replace(R.id.container, PlayerFragment.newInstance())
-                                    .commit();
+                                    .replace(R.id.container, PlayerFragment.newInstance()).addToBackStack(PlayerFragment.TAG).commit();
                             break;
                         case TEAMS:
                             fragmentManager.beginTransaction()
-                                    .replace(R.id.container, TeamFragment.newInstance())
-                                    .commit();
+                                    .replace(R.id.container, TeamFragment.newInstance()).addToBackStack(TeamFragment.TAG).commit();
                             break;
                     }
                     return true;

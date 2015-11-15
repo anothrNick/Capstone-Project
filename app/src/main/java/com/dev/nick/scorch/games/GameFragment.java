@@ -79,6 +79,12 @@ public class GameFragment extends Fragment {
         ((MainActivity) getActivity()).onSectionAttached(MainActivity.GAMES);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).onSectionAttached(MainActivity.GAMES);
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         private final List<Fragment> mFragmentList = new ArrayList<>();

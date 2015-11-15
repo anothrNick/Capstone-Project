@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
  */
 public final class ScorchContract {
 
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "scorch.db";
 
     public static final String TYPE_TEXT = " TEXT";
@@ -20,6 +20,7 @@ public final class ScorchContract {
     /**
      * Players table
      */
+    @Deprecated
     public static abstract class Players implements BaseColumns {
         public static final String TABLE_NAME = "players";
         public static final String COLUMN_ID = "id";

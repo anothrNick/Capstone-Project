@@ -88,12 +88,12 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
             if(value != null && !value.isEmpty()){
 
-                Player mPlayer = new Player(pid, this);
+                Player mPlayer = Player.findById(Player.class, pid);
 
-                if(mPlayer.isLoaded()) {
+                if(mPlayer != null) {
 
-                    playerName.setText(mPlayer.getName());
-                    String imageUri = mPlayer.getAvatar();
+                    playerName.setText(mPlayer.name);
+                    String imageUri = mPlayer.avatar;
 
                     if (imageUri != null && !imageUri.isEmpty()) {
                         Log.d(TAG, imageUri);
