@@ -48,6 +48,8 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
         }
     }
 
+    public Context getContext() { return this.mContext; }
+
     public Cursor getCursor() {
         return mCursor;
     }

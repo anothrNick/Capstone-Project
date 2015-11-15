@@ -7,7 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
@@ -25,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.dao.ScorchContract;
@@ -32,6 +35,7 @@ import com.dev.nick.scorch.dao.ScorchDbHelper;
 import com.dev.nick.scorch.dummy.DummyFragment;
 import com.dev.nick.scorch.games.GameFragment;
 import com.dev.nick.scorch.games.GameListFragment;
+import com.dev.nick.scorch.model.Player;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -44,8 +48,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PlayerDetailActivity extends AppCompatActivity {
@@ -79,47 +86,28 @@ public class PlayerDetailActivity extends AppCompatActivity {
             String value = Long.toString(pid);
 
             if(value != null && !value.isEmpty()){
-                ScorchDbHelper dbHelper = new ScorchDbHelper(this);
-                SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-                String where = "id = ?";
-                String[] whereArgs = new String[]{
-                        value
-                };
+                Player mPlayer = new Player(pid, this);
 
-                Cursor cursor = db.query(
-                        ScorchContract.Players.TABLE_NAME,
-                        ScorchContract.Players.projection,
-                        where,
-                        whereArgs,
-                        null,
-                        null,
-                        ScorchContract.Players.sortOrder
-                );
+                if(mPlayer.isLoaded()) {
 
-                if(cursor.moveToFirst()) {
-                    playerName.setText(cursor.getString(cursor.getColumnIndex(ScorchContract.Players.COLUMN_NAME)));
-                    //playerPosition.setText(cursor.getString(cursor.getColumnIndex(ScorchContract.Players.COLUMN_ID)));
-                    String imageUri = cursor.getString(cursor.getColumnIndex(ScorchContract.Players.COLUMN_AVATAR));
+                    playerName.setText(mPlayer.getName());
+                    String imageUri = mPlayer.getAvatar();
 
-                    if(imageUri != null && !imageUri.isEmpty()) {
+                    if (imageUri != null && !imageUri.isEmpty()) {
+                        Log.d(TAG, imageUri);
                         try {
                             Uri selectedImage = Uri.parse(imageUri);
-                            InputStream is = getContentResolver().openInputStream(selectedImage);
-                            Bitmap bmp = BitmapFactory.decodeStream(is);
-                            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                            bmp.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-                            String path = MediaStore.Images.Media.insertImage(getContentResolver(), bmp, "User Avatar", null);
+                            final int takeFlags = (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                            // Check for the freshest data.
+                            getContentResolver().takePersistableUriPermission(selectedImage, takeFlags);
 
-                            playerIcon.setImageURI(Uri.parse(path));
-                        }
-                        catch(Exception e) {
+                            playerIcon.setImageURI(selectedImage);
+                        } catch (Exception e) {
                             Log.w(TAG, e.getMessage());
                         }
                     }
                 }
-
-                db.close();
             }
         }
 
@@ -131,7 +119,10 @@ public class PlayerDetailActivity extends AppCompatActivity {
         playerIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                Intent photoPickerIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                photoPickerIntent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                photoPickerIntent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                photoPickerIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, 100);
             }
@@ -146,30 +137,22 @@ public class PlayerDetailActivity extends AppCompatActivity {
             case 100:
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
-
+                    final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                    // Check for the freshest data.
                     try {
-                        String filePath = new File(selectedImage.getPath()).getAbsolutePath();
-                        Cursor cursor = getContentResolver().query(
-                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                                new String[] { MediaStore.Images.Media._ID },
-                                MediaStore.Images.Media.DATA + "=? ",
-                                new String[] { filePath }, null);
-                        if (cursor != null && cursor.moveToFirst()) {
-                            int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
-                            Uri realUri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);
+                        getContentResolver().takePersistableUriPermission(selectedImage, takeFlags);
+                        // update player image
+                        ScorchDbHelper dbHelper = new ScorchDbHelper(this);
+                        SQLiteDatabase db = dbHelper.getWritableDatabase();
+                        ContentValues newValues = new ContentValues();
+                        newValues.put(ScorchContract.Players.COLUMN_AVATAR, selectedImage.toString());
 
-                            playerIcon.setImageURI(realUri);
-                            // update player image
-                            ScorchDbHelper dbHelper = new ScorchDbHelper(this);
-                            SQLiteDatabase db = dbHelper.getWritableDatabase();
-                            ContentValues newValues = new ContentValues();
-                            newValues.put(ScorchContract.Players.COLUMN_AVATAR, realUri.toString());
+                        db.update(ScorchContract.Players.TABLE_NAME, newValues, "id=" + pid, null);
+                        db.close();
 
-                            db.update(ScorchContract.Players.TABLE_NAME, newValues, "id=" + pid, null);
-                            db.close();
-                        }
-
-
+                        //Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(getRealPathFromURI(selectedImageURI))),
+                        //        64, 64);
+                        playerIcon.setImageURI(selectedImage);
                     }
                     catch(Exception e) {
                         Log.w(TAG, e.getMessage());
