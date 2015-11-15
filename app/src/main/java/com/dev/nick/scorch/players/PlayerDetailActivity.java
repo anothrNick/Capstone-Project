@@ -43,6 +43,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -102,7 +103,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
                             // Check for the freshest data.
                             getContentResolver().takePersistableUriPermission(selectedImage, takeFlags);
 
-                            playerIcon.setImageURI(selectedImage);
+                            Picasso.with(this).load(selectedImage).into(playerIcon);
                         } catch (Exception e) {
                             Log.w(TAG, e.getMessage());
                         }
@@ -152,7 +153,8 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
                         //Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(getRealPathFromURI(selectedImageURI))),
                         //        64, 64);
-                        playerIcon.setImageURI(selectedImage);
+                        //playerIcon.setImageURI(selectedImage);
+                        Picasso.with(this).load(selectedImage).into(playerIcon);
                     }
                     catch(Exception e) {
                         Log.w(TAG, e.getMessage());

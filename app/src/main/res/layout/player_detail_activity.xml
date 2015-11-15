@@ -1,14 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="#ECECEC"
+    android:layout_height="match_parent" android:background="#EFEFEF"
     tools:context="com.dev.nick.scorch.players.PlayerDetailActivity">
 
     <!-- header section with player position -->
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="120dp"
-        android:background="@drawable/pattern"
+        android:background="@drawable/beam_center"
         android:id="@+id/colorHeader">
 <!--
         <FrameLayout
@@ -43,11 +43,12 @@
         android:background="#FFF"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:scaleType="fitXY"
-        android:elevation="1dp"/>
+        android:elevation="2dp"
+        android:padding="3dp"/>
 
     <!-- player name -->
     <RelativeLayout
+        android:id="@+id/player_info"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
@@ -75,7 +76,8 @@
         <android.support.design.widget.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tabanim_tabs"/>
+            android:id="@+id/tabanim_tabs"
+            app:tabIndicatorColor="@color/primary"/>
 
         <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
@@ -85,18 +87,4 @@
 
     </LinearLayout>
 
-    <!-- FAB -->
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:layout_margin="16dp"
-            android:clickable="true"
-            android:src="@drawable/ic_edit"
-            android:id="@+id/editPlayer"/>
-    </FrameLayout>
 </RelativeLayout>

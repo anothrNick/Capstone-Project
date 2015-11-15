@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -14,6 +16,9 @@ import android.view.ViewGroup;
 
 import com.dev.nick.scorch.MainActivity;
 import com.dev.nick.scorch.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameFragment extends Fragment {
 
@@ -24,6 +29,7 @@ public class GameFragment extends Fragment {
 
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
+    TabLayout tabLayout;
 
     public static GameFragment newInstance() {
         return new GameFragment();
@@ -31,21 +37,6 @@ public class GameFragment extends Fragment {
 
     public GameFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        // Temporary solution to titles not appearing
-        if(mViewPager != null) {
-            mViewPager.setCurrentItem(1);
-            mViewPager.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mViewPager.setCurrentItem(0);
-                }
-            }, 100);
-        }
     }
 
     @Override
@@ -61,7 +52,13 @@ public class GameFragment extends Fragment {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
 
         mViewPager = (ViewPager) v.findViewById(R.id.pager);
+
+        mSectionsPagerAdapter.addFrag(new GameListFragment(), "Open");
+        mSectionsPagerAdapter.addFrag(new GameListFragment(), "Finished");
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        tabLayout = (TabLayout) v.findViewById(R.id.tabanim_tabs);
+        tabLayout.setupWithViewPager(mViewPager);
 
         newGameBtn = (FloatingActionButton) v.findViewById(R.id.newGame);
 
@@ -82,38 +79,39 @@ public class GameFragment extends Fragment {
         ((MainActivity) getActivity()).onSectionAttached(MainActivity.GAMES);
     }
 
-    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
+//        @Override
+//        public Fragment getItem(int position) {
+//            Fragment fragment = new GameListFragment();
+//            Bundle args = new Bundle();
+//            args.putInt(GameListFragment.ARG_SECTION_NUMBER, position + 1);
+//            fragment.setArguments(args);
+//            return fragment;
+//        }
+
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = new GameListFragment();
-            Bundle args = new Bundle();
-            args.putInt(GameListFragment.ARG_SECTION_NUMBER, position + 1);
-            fragment.setArguments(args);
-            return fragment;
+            return mFragmentList.get(position);
         }
-
         @Override
         public int getCount() {
-            return 3;
+            return mFragmentList.size();
         }
-
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
         @Override
         public CharSequence getPageTitle(int position) {
-            //Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return "Current";
-                case 1:
-                    return "Tournament";
-                case 2:
-                    return "Game Over";
-            }
-            return "Tab What";
+            return mFragmentTitleList.get(position);
         }
 
     }

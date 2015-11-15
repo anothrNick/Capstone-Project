@@ -16,6 +16,7 @@ import com.dev.nick.scorch.CursorRecyclerViewAdapter;
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.model.Player;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Nick on 9/12/2015.
@@ -66,7 +67,8 @@ public class PlayerListAdapter extends CursorRecyclerViewAdapter<PlayerListAdapt
                 // Check for the freshest data.
                 getContext().getContentResolver().takePersistableUriPermission(selectedImage, takeFlags);
 
-                holder.imageIcon.setImageURI(selectedImage);
+                Picasso.with(getContext()).load(imageUri).into(holder.imageIcon);
+                //holder.imageIcon.setImageURI(selectedImage);
             } catch (Exception e) {
                 Log.w("PlayerListAdapter", e.getMessage());
             }

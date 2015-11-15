@@ -15,11 +15,12 @@
             android:id="@+id/my_awesome_toolbar"
             android:layout_height="?actionBarSize"
             android:layout_width="match_parent"
-            android:background="?attr/colorPrimary"
             app:navigationIcon="@drawable/ic_drawer"
-            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
             android:layout_above="@+id/container"
-            android:elevation="3dp"/>
+            android:elevation="3dp"
+            android:color="#FFF"
+            android:background="@color/primary"/>
         <!-- As the main content view, the view below consumes the entire
              space available using match_parent in both dimensions. -->
         <FrameLayout android:id="@+id/container"
