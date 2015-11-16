@@ -94,15 +94,6 @@ public class GameFragment extends Fragment {
             super(fm);
         }
 
-//        @Override
-//        public Fragment getItem(int position) {
-//            Fragment fragment = new GameListFragment();
-//            Bundle args = new Bundle();
-//            args.putInt(GameListFragment.ARG_SECTION_NUMBER, position + 1);
-//            fragment.setArguments(args);
-//            return fragment;
-//        }
-
         @Override
         public Fragment getItem(int position) {
             return mFragmentList.get(position);

@@ -7,16 +7,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dev.nick.scorch.R;
+import com.dev.nick.scorch.model.Game;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Nick on 9/13/2015.
  */
 public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHolder> {
 
-    ArrayList<GameBean> games;
+    List<Game> games;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView teamOne;
@@ -30,7 +32,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
 
     }
 
-    GameListAdapter(ArrayList<GameBean> games){
+    GameListAdapter(List<Game> games){
         this.games = games;
     }
 
@@ -43,8 +45,12 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(GameListAdapter.ViewHolder holder, int position) {
-        holder.teamOne.setText(games.get(position).teamOne);
-        holder.teamTwo.setText(games.get(position).teamTwo);
+        if(games.get(position).gameTeamList.size() <= 0) {
+            games.get(position).loadTeamList();
+        }
+
+        holder.teamOne.setText(games.get(position).gameTeamList.get(0).player.name);
+        holder.teamTwo.setText(games.get(position).gameTeamList.get(1).player.name);
     }
 
     @Override
@@ -59,10 +65,10 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
 
     @Override
     public long getItemId(int position) {
-        return games.get(position).id;
+        return games.get(position).getId();
     }
 
-    public GameBean getGame(int position) {
+    public Game getGame(int position) {
         return games.get(position);
     }
 }

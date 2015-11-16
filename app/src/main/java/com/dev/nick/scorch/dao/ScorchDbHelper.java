@@ -16,26 +16,26 @@ public class ScorchDbHelper extends SQLiteOpenHelper {
     }
     public void onCreate(SQLiteDatabase db) {
         //db.execSQL(ScorchContract.Players.CREATE_TABLE);
-        db.execSQL(ScorchContract.Teams.CREATE_TABLE);
-        db.execSQL(ScorchContract.TeamPlayers.CREATE_TABLE);
-        db.execSQL(ScorchContract.Game.CREATE_TABLE);
-        db.execSQL(ScorchContract.GameTeams.CREATE_TABLE);
-        db.execSQL(ScorchContract.Tournaments.CREATE_TABLE);
+//        db.execSQL(ScorchContract.Teams.CREATE_TABLE);
+//        db.execSQL(ScorchContract.TeamPlayers.CREATE_TABLE);
+//        db.execSQL(ScorchContract.Game.CREATE_TABLE);
+//        db.execSQL(ScorchContract.GameTeams.CREATE_TABLE);
+//        db.execSQL(ScorchContract.Tournaments.CREATE_TABLE);
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
         //db.execSQL(ScorchContract.Players.DELETE_TABLE);
-        db.execSQL(ScorchContract.Teams.DELETE_TABLE);
-        db.execSQL(ScorchContract.TeamPlayers.DELETE_TABLE);
-        db.execSQL(ScorchContract.Game.DELETE_TABLE);
-        db.execSQL(ScorchContract.GameTeams.DELETE_TABLE);
-        db.execSQL(ScorchContract.Tournaments.DELETE_TABLE);
-        onCreate(db);
+//        db.execSQL(ScorchContract.Teams.DELETE_TABLE);
+//        db.execSQL(ScorchContract.TeamPlayers.DELETE_TABLE);
+//        db.execSQL(ScorchContract.Game.DELETE_TABLE);
+//        db.execSQL(ScorchContract.GameTeams.DELETE_TABLE);
+//        db.execSQL(ScorchContract.Tournaments.DELETE_TABLE);
+//        onCreate(db);
     }
 
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        onUpgrade(db, oldVersion, newVersion);
+        //onUpgrade(db, oldVersion, newVersion);
     }
 }

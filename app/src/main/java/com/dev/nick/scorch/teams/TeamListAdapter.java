@@ -11,13 +11,19 @@ import android.widget.TextView;
 import com.dev.nick.scorch.CursorRecyclerViewAdapter;
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.dao.ScorchContract;
+import com.dev.nick.scorch.model.Team;
+
+import java.util.List;
 
 /**
  * Created by Nick on 9/15/2015.
  *
  * Adapter for team list...
  */
-public class TeamListAdapter extends CursorRecyclerViewAdapter<TeamListAdapter.ViewHolder> {
+public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.ViewHolder> {
+
+    private Context mContext;
+    private List<Team> teamList;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -29,8 +35,13 @@ public class TeamListAdapter extends CursorRecyclerViewAdapter<TeamListAdapter.V
         }
     }
 
-    public TeamListAdapter(Context context,Cursor cursor){
-        super(context,cursor);
+    public TeamListAdapter(Context context, List<Team> teamList){
+        this.mContext = context;
+        this.teamList = teamList;
+    }
+
+    public void resetTeamList(List<Team> teamList) {
+        this.teamList = teamList;
     }
 
     @Override
@@ -41,14 +52,14 @@ public class TeamListAdapter extends CursorRecyclerViewAdapter<TeamListAdapter.V
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
-        viewHolder.teamName.setText(cursor.getString(cursor.getColumnIndex(ScorchContract.Teams.COLUMN_NAME)));
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        viewHolder.teamName.setText(teamList.get(position).name);
     }
 
     @Override
     public int getItemCount() {
-        if(getCursor() != null)
-            return getCursor().getCount();
+        if(teamList != null)
+            return teamList.size();
         else
             return 0;
     }
@@ -56,5 +67,10 @@ public class TeamListAdapter extends CursorRecyclerViewAdapter<TeamListAdapter.V
     @Override
     public int getItemViewType(int position) {
         return 1;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return teamList.get(position).getId();
     }
 }

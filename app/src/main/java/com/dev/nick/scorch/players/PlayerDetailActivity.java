@@ -66,6 +66,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private ImageView playerIcon;
+    private Player mPlayer;
 
     private long pid;
 
@@ -88,7 +89,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
             if(value != null && !value.isEmpty()){
 
-                Player mPlayer = Player.findById(Player.class, pid);
+                mPlayer = Player.findById(Player.class, pid);
 
                 if(mPlayer != null) {
 
@@ -143,13 +144,10 @@ public class PlayerDetailActivity extends AppCompatActivity {
                     try {
                         getContentResolver().takePersistableUriPermission(selectedImage, takeFlags);
                         // update player image
-                        ScorchDbHelper dbHelper = new ScorchDbHelper(this);
-                        SQLiteDatabase db = dbHelper.getWritableDatabase();
-                        ContentValues newValues = new ContentValues();
-                        newValues.put(ScorchContract.Players.COLUMN_AVATAR, selectedImage.toString());
-
-                        db.update(ScorchContract.Players.TABLE_NAME, newValues, "id=" + pid, null);
-                        db.close();
+                        if(mPlayer != null) {
+                            mPlayer.avatar = selectedImage.toString();
+                            mPlayer.save();
+                        }
 
                         //Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(getRealPathFromURI(selectedImageURI))),
                         //        64, 64);

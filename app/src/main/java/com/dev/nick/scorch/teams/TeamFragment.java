@@ -19,12 +19,15 @@ import com.dev.nick.scorch.MainActivity;
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.dao.ScorchDbHelper;
+import com.dev.nick.scorch.model.Team;
+
+import java.util.List;
 
 public class TeamFragment extends Fragment {
 
     public static String TAG = TeamFragment.class.getSimpleName();
 
-    private ScorchDbHelper dbHelper;
+    //private ScorchDbHelper dbHelper;
     private RecyclerView mRecyclerView;
     private TeamListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -47,20 +50,9 @@ public class TeamFragment extends Fragment {
         //}
         bStarted = false;
 
-        dbHelper = new ScorchDbHelper(getContext());
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        List<Team> lstTeams = Team.listAll(Team.class);
 
-        Cursor cursor = db.query(
-                ScorchContract.Teams.TABLE_NAME,
-                ScorchContract.Teams.projection,
-                null,
-                null,
-                null,
-                null,
-                ScorchContract.Teams.sortOrder
-        );
-
-        mAdapter = new TeamListAdapter(getActivity(), cursor);
+        mAdapter = new TeamListAdapter(getActivity(), lstTeams);
 
         //db.close();
     }
@@ -90,7 +82,7 @@ public class TeamFragment extends Fragment {
 
         bStarted = true;
 
-        if(mAdapter.getCursor().getCount() <= 0) {
+        if(mAdapter.getItemCount() <= 0) {
             TextView empty = (TextView) v.findViewById(R.id.teams_empty);
             empty.setVisibility(View.VISIBLE);
         }
@@ -117,17 +109,9 @@ public class TeamFragment extends Fragment {
 
     public void reloadTeams() {
         if(mAdapter != null) {
-            SQLiteDatabase db = dbHelper.getReadableDatabase();
-            Cursor cursor = db.query(
-                    ScorchContract.Teams.TABLE_NAME,
-                    ScorchContract.Teams.projection,
-                    null,
-                    null,
-                    null,
-                    null,
-                    ScorchContract.Teams.sortOrder
-            );
-            mAdapter.changeCursor(cursor);
+            List<Team> lstTeams = Team.listAll(Team.class);
+            mAdapter.resetTeamList(lstTeams);
+            mAdapter.notifyDataSetChanged();
         }
     }
 }

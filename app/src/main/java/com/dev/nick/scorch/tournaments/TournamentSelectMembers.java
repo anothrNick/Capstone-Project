@@ -19,6 +19,7 @@ import com.dev.nick.scorch.RecyclerItemClickListener;
 import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.dao.ScorchDbHelper;
 import com.dev.nick.scorch.model.Player;
+import com.dev.nick.scorch.model.Team;
 import com.dev.nick.scorch.players.PlayerListAdapter;
 import com.dev.nick.scorch.teams.TeamListAdapter;
 
@@ -97,16 +98,8 @@ public class TournamentSelectMembers extends Fragment implements View.OnClickLis
         List<Player> lstPlayers = Player.listAll(Player.class);
         mPlayerAdapter = new PlayerListAdapter(getContext(), lstPlayers);
 
-        Cursor teamCursor = db.query(
-                ScorchContract.Teams.TABLE_NAME,
-                ScorchContract.Teams.projection,
-                null,
-                null,
-                null,
-                null,
-                ScorchContract.Teams.sortOrder
-        );
-        mTeamAdapter = new TeamListAdapter(getActivity(), teamCursor);
+        List<Team> lstTeams = Team.listAll(Team.class);
+        mTeamAdapter = new TeamListAdapter(getActivity(), lstTeams);
 
         // Set the adapter
         mPlayerRecyclerView = (RecyclerView) v.findViewById(R.id.playerList);

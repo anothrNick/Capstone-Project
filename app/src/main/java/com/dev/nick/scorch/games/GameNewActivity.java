@@ -13,6 +13,10 @@ import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.adapters.ViewPagerAdapter;
 import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.dao.ScorchDbHelper;
+import com.dev.nick.scorch.model.Game;
+import com.dev.nick.scorch.model.GameTeam;
+import com.dev.nick.scorch.model.Player;
+import com.dev.nick.scorch.model.Team;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,13 +29,13 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     private GameSelectMembersFragment gameSelectMembers;
     private int type; // 0 = players, 1 = teams
     private ArrayList<String> members;
-    private ScorchDbHelper dbHelper;
+    //private ScorchDbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_new_activity);
-        dbHelper = new ScorchDbHelper(this);
+        //dbHelper = new ScorchDbHelper(this);
 
         type = -1;
         mPager = (ViewPager) findViewById(R.id.new_game_pager);
@@ -100,20 +104,26 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     public void onStartGame() {
         //Toast.makeText(this, "GameBean Type: " + type + ", GameBean Members: " + members.toString(), Toast.LENGTH_SHORT).show();
 
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        //SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        //ContentValues values = new ContentValues();
 
-        values.put(ScorchContract.Game.COLUMN_CREATED, new Date().toString());
-        long id = db.insert(ScorchContract.Game.TABLE_NAME, "null", values);
+        //values.put(ScorchContract.Game.COLUMN_CREATED, new Date().toString());
+        Game game = new Game();
+        game.created = new Date().toString();
+        game.save();
+        long id = game.getId();
 
         if (id > 0) {
             for (String mid : members) {
-                values = new ContentValues();
-                values.put(ScorchContract.GameTeams.COLUMN_TEAM, mid);
-                values.put(ScorchContract.GameTeams.COLUMN_TYPE, type);
-                values.put(ScorchContract.GameTeams.COLUMN_GAME, id);
-                db.insert(ScorchContract.GameTeams.TABLE_NAME, "null", values);
+                GameTeam gameTeam = new GameTeam();
+                if(type == 0)
+                    gameTeam.player = Player.findById(Player.class, Long.parseLong(mid));
+                else if(type == 1)
+                    gameTeam.team = Team.findById(Team.class, Long.parseLong(mid));
+                gameTeam.type = type;
+                gameTeam.game = Game.findById(Game.class, id);
+                gameTeam.save();
             }
         }
 

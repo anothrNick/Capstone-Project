@@ -17,12 +17,14 @@ import android.widget.Toast;
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.dao.ScorchDbHelper;
+import com.dev.nick.scorch.model.Game;
+import com.dev.nick.scorch.model.GameTeam;
 
 public class GameDetailActivity extends AppCompatActivity {
 
     public static String GAME_ID = "com.dev.nick.scorch.GAME_ID";
     public static String GAME = "com.dev.nick.scorch.GAME";
-    private ScorchDbHelper dbHelper;
+    //private ScorchDbHelper dbHelper;
 
     private Button finishGameBtn;
     private Button closeGameBtn;
@@ -45,7 +47,7 @@ public class GameDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_detail_activity);
 
-        dbHelper = new ScorchDbHelper(this);
+        //dbHelper = new ScorchDbHelper(this);
 
         finishGameBtn = (Button) findViewById(R.id.finishBtn);
         closeGameBtn = (Button) findViewById(R.id.closeBtn);
@@ -107,14 +109,6 @@ public class GameDetailActivity extends AppCompatActivity {
         finishGameBtn.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-//                if(bean != null) {
-//                    SQLiteDatabase db = dbHelper.getWritableDatabase();
-//                    ContentValues newValues = new ContentValues();
-//                    newValues.put(ScorchContract.Game.COLUMN_ISOVER, true);
-//
-//                    db.update(ScorchContract.Game.TABLE_NAME, newValues, "id=" + bean.id, null);
-//                    db.close();
-//                }
                 Toast.makeText(v.getContext(), "Game over! <player> wins!", Toast.LENGTH_SHORT).show();
                 finish();
                 return true;
@@ -131,13 +125,15 @@ public class GameDetailActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         if(i != null) {
-            bean = i.getParcelableExtra(GameDetailActivity.GAME);
-            if(bean != null) {
-                teamOne.setText(bean.teamOne);
-                teamTwo.setText(bean.teamTwo);
+            Game game = Game.findById(Game.class, i.getLongExtra(GameDetailActivity.GAME_ID, 0));
 
-                scoreOne.setText(Integer.toString(bean.teamOneScore));
-                scoreTwo.setText(Integer.toString(bean.teamTwoScore));
+            if(game != null) {
+
+                teamOne.setText(game.gameTeamList.get(0).player.name);
+                teamTwo.setText(game.gameTeamList.get(1).player.name);
+
+                scoreOne.setText(game.gameTeamList.get(0).score);
+                scoreTwo.setText(game.gameTeamList.get(1).score);
             }
         }
     }
@@ -146,12 +142,9 @@ public class GameDetailActivity extends AppCompatActivity {
         scoreOne.setText(Integer.toString(val));
 
         if(bean != null) {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-            ContentValues newValues = new ContentValues();
-            newValues.put(ScorchContract.GameTeams.COLUMN_SCORE, val);
-
-            db.update(ScorchContract.GameTeams.TABLE_NAME, newValues, "id=" + bean.teamOneId, null);
-            db.close();
+            GameTeam gameTeam = GameTeam.findById(GameTeam.class, bean.teamOneId);
+            gameTeam.score = val;
+            gameTeam.save();
 
             bean.teamOneScore = val;
         }
@@ -161,12 +154,9 @@ public class GameDetailActivity extends AppCompatActivity {
         scoreTwo.setText(Integer.toString(val));
 
         if(bean != null) {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-            ContentValues newValues = new ContentValues();
-            newValues.put(ScorchContract.GameTeams.COLUMN_SCORE, val);
-
-            db.update(ScorchContract.GameTeams.TABLE_NAME, newValues, "id=" + bean.teamTwoId, null);
-            db.close();
+            GameTeam gameTeam = GameTeam.findById(GameTeam.class, bean.teamTwoId);
+            gameTeam.score = val;
+            gameTeam.save();
 
             bean.teamTwoScore = val;
         }

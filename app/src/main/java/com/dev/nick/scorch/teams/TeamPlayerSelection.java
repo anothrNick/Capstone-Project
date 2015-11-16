@@ -19,6 +19,7 @@ import com.dev.nick.scorch.RecyclerItemClickListener;
 import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.dao.ScorchDbHelper;
 import com.dev.nick.scorch.model.Player;
+import com.dev.nick.scorch.model.Team;
 import com.dev.nick.scorch.players.PlayerFragment;
 import com.dev.nick.scorch.players.PlayerListAdapter;
 
@@ -123,8 +124,9 @@ public class TeamPlayerSelection extends Fragment {
                 else {
                     Toast.makeText(getActivity(), "Team created", Toast.LENGTH_SHORT).show();
                     if (dbHelper != null) {
-                        SQLiteDatabase db = dbHelper.getWritableDatabase();
+                        //SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+                        Team team = new Team();
                         ContentValues values = new ContentValues();
                         values.put(ScorchContract.Teams.COLUMN_NAME, tn);
                         values.put(ScorchContract.Teams.COLUMN_CREATED, new Date().toString());

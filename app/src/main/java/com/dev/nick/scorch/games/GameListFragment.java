@@ -16,10 +16,12 @@ import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.RecyclerItemClickListener;
 import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.dao.ScorchDbHelper;
+import com.dev.nick.scorch.model.Game;
 import com.dev.nick.scorch.model.Games;
 import com.dev.nick.scorch.players.PlayerDetailActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Nick on 10/20/2015.
@@ -30,7 +32,7 @@ public class GameListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private GameListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<GameBean> games;
+    private List<Game> games;
 
     public GameListFragment() {
     }
@@ -48,14 +50,14 @@ public class GameListFragment extends Fragment {
 
             if(itype == 1) {
                 id = extras.getLong(PlayerDetailActivity.PLAYER_ID);
-                games = Games.getPlayersGames(id, new ScorchDbHelper(getActivity()));
+                games = Game.listAll(Game.class);
             }
             else {
-                games = Games.getAllGames(new ScorchDbHelper(getActivity()));
+                games = Game.listAll(Game.class);
             }
         }
         else {
-            games = Games.getAllGames(new ScorchDbHelper(getActivity()));
+            games = Game.listAll(Game.class);
         }
 
     }
@@ -82,10 +84,8 @@ public class GameListFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         long gameid = mAdapter.getItemId(position);
-                        GameBean game = mAdapter.getGame(position);
                         Intent intent = new Intent(getActivity(), GameDetailActivity.class);
                         intent.putExtra(GameDetailActivity.GAME_ID, gameid);
-                        intent.putExtra(GameDetailActivity.GAME, game);
                         getActivity().startActivity(intent);
                     }
                 })

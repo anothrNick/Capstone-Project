@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
  */
 public final class ScorchContract {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "scorch.db";
 
     public static final String TYPE_TEXT = " TEXT";
@@ -52,6 +52,7 @@ public final class ScorchContract {
     /**
      * Teams table
      */
+    @Deprecated
     public static abstract class Teams implements BaseColumns {
         public static final String TABLE_NAME = "teams";
         public static final String COLUMN_ID = "id";
@@ -80,6 +81,7 @@ public final class ScorchContract {
     /**
      * TeamPlayers table
      */
+    @Deprecated
     public static abstract class TeamPlayers implements BaseColumns {
         public static final String TABLE_NAME = "teamplayers";
         public static final String COLUMN_ID = "id";
@@ -105,6 +107,7 @@ public final class ScorchContract {
     /**
      * GameBean table
      */
+    @Deprecated
     public static abstract class Game implements BaseColumns {
         public static final String TABLE_NAME = "game";
         public static final String COLUMN_ID = "id";
@@ -129,6 +132,7 @@ public final class ScorchContract {
     /**
      * GameTeams table
      */
+    @Deprecated
     public static abstract class GameTeams implements BaseColumns {
         public static final String TABLE_NAME = "gameteams";
         public static final String COLUMN_ID = "id";
@@ -161,6 +165,7 @@ public final class ScorchContract {
     /**
      * Tournaments table
      */
+    @Deprecated
     public static abstract class Tournaments implements BaseColumns {
         public static final String TABLE_NAME = "tournaments";
         public static final String COLUMN_ID = "id";
