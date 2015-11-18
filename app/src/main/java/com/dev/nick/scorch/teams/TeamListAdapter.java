@@ -1,15 +1,21 @@
 package com.dev.nick.scorch.teams;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dev.nick.scorch.R;
+import com.dev.nick.scorch.model.Player;
 import com.dev.nick.scorch.model.Team;
+import com.dev.nick.scorch.model.TeamPlayer;
+import com.dev.nick.scorch.players.PlayerImageListAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,10 +31,14 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView teamName;
+        public RecyclerView membersList;
+
+        private RecyclerView.LayoutManager mLayoutManager;
 
         public ViewHolder(View itemView) {
             super(itemView);
             teamName = (TextView)itemView.findViewById(R.id.team_name);
+            membersList = (RecyclerView) itemView.findViewById(R.id.team_member_list);
         }
     }
 
@@ -50,7 +60,23 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        viewHolder.mLayoutManager = new GridLayoutManager(mContext, 2);
+
         viewHolder.teamName.setText(teamList.get(position).name);
+        viewHolder.membersList.setLayoutManager(viewHolder.mLayoutManager);
+
+        //List<Player> lstPlayers = Player.listAll(Player.class);
+        List<Player> lstPlayers = new ArrayList<>();
+
+        List<TeamPlayer> teamPlayers = TeamPlayer.find(TeamPlayer.class, "team = ?", Long.toString(teamList.get(position).getId()));
+
+        for(TeamPlayer tp : teamPlayers) {
+            Log.d("TeamListAdapater", tp.player.name);
+            lstPlayers.add(tp.player);
+        }
+
+        PlayerImageListAdapter mAdapter = new PlayerImageListAdapter(mContext, lstPlayers);
+        viewHolder.membersList.setAdapter(mAdapter);
     }
 
     @Override

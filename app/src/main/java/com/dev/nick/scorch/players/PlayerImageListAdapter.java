@@ -21,29 +21,22 @@ import java.util.List;
 /**
  * Created by Nick on 9/12/2015.
  */
-public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.ViewHolder> {
-
-    SimpleDateFormat prettyFormat = new SimpleDateFormat("MM/dd/yyyy");
-    SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+public class PlayerImageListAdapter extends RecyclerView.Adapter<PlayerImageListAdapter.ViewHolder> {
 
     List<Player> lstPlayers;
     Context mContext;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textName;
-        TextView textJoined;
         ImageView imageIcon;
 
         public ViewHolder(View itemView, int ViewType) {
             super(itemView);
-            textName = (TextView) itemView.findViewById(R.id.player_name);
-            textJoined = (TextView) itemView.findViewById(R.id.player_joined);
             imageIcon = (ImageView) itemView.findViewById(R.id.player_icon);
         }
 
     }
 
-    public PlayerListAdapter(Context context, List<Player> lstPlayers){
+    public PlayerImageListAdapter(Context context, List<Player> lstPlayers){
         this.mContext = context;
         this.lstPlayers = lstPlayers;
     }
@@ -51,7 +44,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.player_list_item,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.player_image_list_item,parent,false);
 
         ViewHolder viewHolder = new ViewHolder(v,viewType);
 
@@ -60,20 +53,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        //Player mPlayer = new Player(cursor);
-
         Player mPlayer = lstPlayers.get(position);
-
-        holder.textName.setText(mPlayer.name);
-
-        String startDate = mPlayer.created;
-
-        try {
-            holder.textJoined.setText(prettyFormat.format(format.parse(startDate)));
-        }
-        catch(Exception e) {
-            Log.w("blah", e.toString());
-        }
 
         String imageUri = mPlayer.avatar;
 
@@ -85,7 +65,6 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Vi
                 mContext.getContentResolver().takePersistableUriPermission(selectedImage, takeFlags);
 
                 Picasso.with(mContext).load(imageUri).into(holder.imageIcon);
-                //holder.imageIcon.setImageURI(selectedImage);
             } catch (Exception e) {
                 Log.w("PlayerListAdapter", e.getMessage());
             }
@@ -111,6 +90,6 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Vi
     }
 
     public void updatePlayerList(List<Player> lstPlayers) {
-        this.lstPlayers  = lstPlayers;
+        this.lstPlayers = lstPlayers;
     }
 }
