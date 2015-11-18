@@ -39,20 +39,10 @@ public class GameListFragment extends Fragment {
         Bundle extras = getArguments();
 
         if (extras != null) {
-            long pid;
-            int itype;
-
-            //itype = extras.getInt(GameFragment.GAME_TYPE);
             completed = extras.getBoolean("complete");
             Log.d("GameListFragment", Boolean.toString(completed));
 
-//            if(itype == 1) {
-//                pid = extras.getLong(PlayerDetailActivity.PLAYER_ID);
-//                games = Game.find(Game.class, "complete=?", Boolean.toString(completed));
-//            }
-//            else {
-                  games = Game.find(Game.class, "complete=?", Boolean.toString(completed));
-//            }
+            games = Game.find(Game.class, "complete = ?", (completed ? "1" : "0"));
         }
         else {
             games = Game.listAll(Game.class);

@@ -32,23 +32,17 @@ public class TeamFragment extends Fragment {
     }
 
     public TeamFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //if (getArguments() != null) {
-            //mParam1 = getArguments().getString(ARG_PARAM1);
-            //mParam2 = getArguments().getString(ARG_PARAM2);
-        //}
+
         bStarted = false;
 
         List<Team> lstTeams = Team.listAll(Team.class);
 
         mAdapter = new TeamListAdapter(getActivity(), lstTeams);
-
-        //db.close();
     }
 
     @Override
@@ -103,8 +97,7 @@ public class TeamFragment extends Fragment {
 
     public void reloadTeams() {
         if(mAdapter != null) {
-            List<Team> lstTeams = Team.listAll(Team.class);
-            mAdapter.resetTeamList(lstTeams);
+            mAdapter.resetTeamList(Team.listAll(Team.class));
             mAdapter.notifyDataSetChanged();
         }
     }

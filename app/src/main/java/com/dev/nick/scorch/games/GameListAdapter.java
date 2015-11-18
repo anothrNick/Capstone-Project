@@ -63,8 +63,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
         }
 
         holder.teamOneScore.setText(Integer.toString(games.get(position).gameTeamList.get(0).score));
-        //holder.teamTwoScore.setText(Integer.toString(games.get(position).gameTeamList.get(1).score));
-        holder.teamTwoScore.setText(Boolean.toString(games.get(position).complete));
+        holder.teamTwoScore.setText(Integer.toString(games.get(position).gameTeamList.get(1).score));
     }
 
     @Override

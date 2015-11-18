@@ -102,6 +102,10 @@ public class GameDetailActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View v) {
                 Toast.makeText(v.getContext(), "Game over! <player> wins!", Toast.LENGTH_SHORT).show();
+                if(game != null) {
+                    game.complete = true;
+                    game.save();
+                }
                 finish();
                 return true;
             }
