@@ -1,17 +1,8 @@
 package com.dev.nick.scorch.players;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.Environment;
-import android.os.ParcelFileDescriptor;
-import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,18 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dev.nick.scorch.R;
-import com.dev.nick.scorch.dao.ScorchContract;
-import com.dev.nick.scorch.dao.ScorchDbHelper;
-import com.dev.nick.scorch.dummy.DummyFragment;
 import com.dev.nick.scorch.games.GameFragment;
 import com.dev.nick.scorch.games.GameListFragment;
 import com.dev.nick.scorch.model.Player;
@@ -45,15 +30,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PlayerDetailActivity extends AppCompatActivity {

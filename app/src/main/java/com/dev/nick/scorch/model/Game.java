@@ -14,6 +14,10 @@ public class Game extends SugarRecord<Game> {
 
     @Ignore
     public List<GameTeam> gameTeamList;
+    @Ignore
+    public static int PLAYERS = 0;
+    @Ignore
+    public static int TEAMS = 0;
 
     public Game() {
 

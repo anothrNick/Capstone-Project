@@ -52,15 +52,27 @@ public class GameFragment extends Fragment {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
 
         mViewPager = (ViewPager) v.findViewById(R.id.pager);
+        tabLayout = (TabLayout) v.findViewById(R.id.tabanim_tabs);
+        newGameBtn = (FloatingActionButton) v.findViewById(R.id.newGame);
 
-        mSectionsPagerAdapter.addFrag(new GameListFragment(), "Open");
-        mSectionsPagerAdapter.addFrag(new GameListFragment(), "Finished");
+
+        Bundle openGamesData = new Bundle();
+        openGamesData.putBoolean("complete", false);
+
+        GameListFragment openGames = new GameListFragment();
+        openGames.setArguments(openGamesData);
+
+        Bundle completedGamesData = new Bundle();
+        completedGamesData.putBoolean("complete", true);
+
+        GameListFragment completedGames = new GameListFragment();
+        completedGames.setArguments(completedGamesData);
+
+        mSectionsPagerAdapter.addFrag(openGames, "Open");
+        mSectionsPagerAdapter.addFrag(completedGames, "Finished");
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        tabLayout = (TabLayout) v.findViewById(R.id.tabanim_tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-        newGameBtn = (FloatingActionButton) v.findViewById(R.id.newGame);
 
         newGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override

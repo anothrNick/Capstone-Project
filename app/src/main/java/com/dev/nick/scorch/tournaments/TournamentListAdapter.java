@@ -6,12 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dev.nick.scorch.CursorRecyclerViewAdapter;
 import com.dev.nick.scorch.R;
-import com.dev.nick.scorch.dao.ScorchContract;
 
 /**
  * Created by Nick on 10/27/2015.
@@ -44,8 +42,7 @@ public class TournamentListAdapter extends CursorRecyclerViewAdapter<TournamentL
 
     @Override
     public void onBindViewHolder(ViewHolder holder, Cursor cursor) {
-        holder.textTitle.setText(cursor.getString(cursor.getColumnIndex(ScorchContract.Tournaments.COLUMN_TITLE)));
-        holder.textCreated.setText(cursor.getString(cursor.getColumnIndex(ScorchContract.Tournaments.COLUMN_DATE)));
+
     }
 
     @Override

@@ -1,13 +1,8 @@
 package com.dev.nick.scorch.games;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,16 +10,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dev.nick.scorch.R;
-import com.dev.nick.scorch.dao.ScorchContract;
-import com.dev.nick.scorch.dao.ScorchDbHelper;
 import com.dev.nick.scorch.model.Game;
 import com.dev.nick.scorch.model.GameTeam;
+
+import java.util.List;
 
 public class GameDetailActivity extends AppCompatActivity {
 
     public static String GAME_ID = "com.dev.nick.scorch.GAME_ID";
     public static String GAME = "com.dev.nick.scorch.GAME";
-    //private ScorchDbHelper dbHelper;
 
     private Button finishGameBtn;
     private Button closeGameBtn;
@@ -40,14 +34,12 @@ public class GameDetailActivity extends AppCompatActivity {
     private TextView teamOne;
     private TextView teamTwo;
 
-    private GameBean bean;
+    private Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_detail_activity);
-
-        //dbHelper = new ScorchDbHelper(this);
 
         finishGameBtn = (Button) findViewById(R.id.finishBtn);
         closeGameBtn = (Button) findViewById(R.id.closeBtn);
@@ -125,15 +117,30 @@ public class GameDetailActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         if(i != null) {
-            Game game = Game.findById(Game.class, i.getLongExtra(GameDetailActivity.GAME_ID, 0));
+            game = Game.findById(Game.class, i.getLongExtra(GameDetailActivity.GAME_ID, 0));
 
             if(game != null) {
+                List<GameTeam> gameTeamList = null;
+                if(game.gameTeamList == null)
+                    game.loadTeamList();
 
-                teamOne.setText(game.gameTeamList.get(0).player.name);
-                teamTwo.setText(game.gameTeamList.get(1).player.name);
+                gameTeamList = game.gameTeamList;
 
-                scoreOne.setText(game.gameTeamList.get(0).score);
-                scoreTwo.setText(game.gameTeamList.get(1).score);
+                if(gameTeamList != null) {
+
+                    if(gameTeamList.get(0).type == Game.PLAYERS) {
+                        teamOne.setText(gameTeamList.get(0).player.name);
+                        teamTwo.setText(gameTeamList.get(1).player.name);
+                    }
+                    else {
+                        teamOne.setText(gameTeamList.get(0).team.name);
+                        teamTwo.setText(gameTeamList.get(1).team.name);
+                    }
+
+
+                    scoreOne.setText(Integer.toString(gameTeamList.get(0).score));
+                    scoreTwo.setText(Integer.toString(gameTeamList.get(1).score));
+                }
             }
         }
     }
@@ -141,24 +148,18 @@ public class GameDetailActivity extends AppCompatActivity {
     public void updateScoreOne(int val) {
         scoreOne.setText(Integer.toString(val));
 
-        if(bean != null) {
-            GameTeam gameTeam = GameTeam.findById(GameTeam.class, bean.teamOneId);
-            gameTeam.score = val;
-            gameTeam.save();
-
-            bean.teamOneScore = val;
+        if(game.gameTeamList != null) {
+            game.gameTeamList.get(0).score = val;
+            game.gameTeamList.get(0).save();
         }
     }
 
     public void updateScoreTwo(int val) {
         scoreTwo.setText(Integer.toString(val));
 
-        if(bean != null) {
-            GameTeam gameTeam = GameTeam.findById(GameTeam.class, bean.teamTwoId);
-            gameTeam.score = val;
-            gameTeam.save();
-
-            bean.teamTwoScore = val;
+        if(game.gameTeamList != null) {
+            game.gameTeamList.get(1).score = val;
+            game.gameTeamList.get(1).save();
         }
     }
 }

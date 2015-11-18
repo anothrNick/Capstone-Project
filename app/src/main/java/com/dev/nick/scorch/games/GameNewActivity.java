@@ -1,7 +1,5 @@
 package com.dev.nick.scorch.games;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +9,6 @@ import android.view.Menu;
 
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.adapters.ViewPagerAdapter;
-import com.dev.nick.scorch.dao.ScorchContract;
-import com.dev.nick.scorch.dao.ScorchDbHelper;
 import com.dev.nick.scorch.model.Game;
 import com.dev.nick.scorch.model.GameTeam;
 import com.dev.nick.scorch.model.Player;
@@ -29,13 +25,11 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     private GameSelectMembersFragment gameSelectMembers;
     private int type; // 0 = players, 1 = teams
     private ArrayList<String> members;
-    //private ScorchDbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_new_activity);
-        //dbHelper = new ScorchDbHelper(this);
 
         type = -1;
         mPager = (ViewPager) findViewById(R.id.new_game_pager);
@@ -102,13 +96,6 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
     }
 
     public void onStartGame() {
-        //Toast.makeText(this, "GameBean Type: " + type + ", GameBean Members: " + members.toString(), Toast.LENGTH_SHORT).show();
-
-        //SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        //ContentValues values = new ContentValues();
-
-        //values.put(ScorchContract.Game.COLUMN_CREATED, new Date().toString());
         Game game = new Game();
         game.created = new Date().toString();
         game.save();
@@ -117,9 +104,9 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
         if (id > 0) {
             for (String mid : members) {
                 GameTeam gameTeam = new GameTeam();
-                if(type == 0)
+                if(type == Game.PLAYERS)
                     gameTeam.player = Player.findById(Player.class, Long.parseLong(mid));
-                else if(type == 1)
+                else if(type == Game.TEAMS)
                     gameTeam.team = Team.findById(Team.class, Long.parseLong(mid));
                 gameTeam.type = type;
                 gameTeam.game = Game.findById(Game.class, id);

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 
 import com.dev.nick.scorch.R;
+import com.dev.nick.scorch.model.Game;
 
 public class GameSelectType extends Fragment implements View.OnClickListener {
 
@@ -89,14 +90,14 @@ public class GameSelectType extends Fragment implements View.OnClickListener {
                 break;
             case R.id.radio_players:
                 if(mListener != null) {
-                    mListener.onSelect(0);
+                    mListener.onSelect(Game.PLAYERS);
                     radioPlayer.setTextColor(getResources().getColor(R.color.white));
                     radioTeam.setTextColor(getResources().getColor(R.color.grey));
                 }
                 break;
             case R.id.radio_teams:
                 if(mListener != null) {
-                    mListener.onSelect(1);
+                    mListener.onSelect(Game.TEAMS);
                     radioTeam.setTextColor(getResources().getColor(R.color.white));
                     radioPlayer.setTextColor(getResources().getColor(R.color.grey));
                 }

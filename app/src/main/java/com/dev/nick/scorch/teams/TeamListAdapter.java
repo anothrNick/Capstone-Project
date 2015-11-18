@@ -1,16 +1,13 @@
 package com.dev.nick.scorch.teams;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.dev.nick.scorch.CursorRecyclerViewAdapter;
 import com.dev.nick.scorch.R;
-import com.dev.nick.scorch.dao.ScorchContract;
 import com.dev.nick.scorch.model.Team;
 
 import java.util.List;

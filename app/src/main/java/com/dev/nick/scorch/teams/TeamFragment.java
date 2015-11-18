@@ -1,10 +1,7 @@
 package com.dev.nick.scorch.teams;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -17,8 +14,6 @@ import android.widget.TextView;
 
 import com.dev.nick.scorch.MainActivity;
 import com.dev.nick.scorch.R;
-import com.dev.nick.scorch.dao.ScorchContract;
-import com.dev.nick.scorch.dao.ScorchDbHelper;
 import com.dev.nick.scorch.model.Team;
 
 import java.util.List;
@@ -27,7 +22,6 @@ public class TeamFragment extends Fragment {
 
     public static String TAG = TeamFragment.class.getSimpleName();
 
-    //private ScorchDbHelper dbHelper;
     private RecyclerView mRecyclerView;
     private TeamListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;

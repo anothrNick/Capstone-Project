@@ -23,11 +23,15 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView teamOne;
         TextView teamTwo;
+        TextView teamOneScore;
+        TextView teamTwoScore;
 
         public ViewHolder(View itemView, int ViewType) {
             super(itemView);
             teamOne = (TextView) itemView.findViewById(R.id.team_one);
             teamTwo = (TextView) itemView.findViewById(R.id.team_two);
+            teamOneScore = (TextView) itemView.findViewById(R.id.team_one_score);
+            teamTwoScore = (TextView) itemView.findViewById(R.id.team_two_score);
         }
 
     }
@@ -45,12 +49,22 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(GameListAdapter.ViewHolder holder, int position) {
-        if(games.get(position).gameTeamList.size() <= 0) {
+        if(games.get(position).gameTeamList == null || games.get(position).gameTeamList.size() <= 0) {
             games.get(position).loadTeamList();
         }
 
-        holder.teamOne.setText(games.get(position).gameTeamList.get(0).player.name);
-        holder.teamTwo.setText(games.get(position).gameTeamList.get(1).player.name);
+        if(games.get(position).gameTeamList.get(0).type == Game.PLAYERS) {
+            holder.teamOne.setText(games.get(position).gameTeamList.get(0).player.name);
+            holder.teamTwo.setText(games.get(position).gameTeamList.get(1).player.name);
+        }
+        else {
+            holder.teamOne.setText(games.get(position).gameTeamList.get(0).team.name);
+            holder.teamTwo.setText(games.get(position).gameTeamList.get(1).team.name);
+        }
+
+        holder.teamOneScore.setText(Integer.toString(games.get(position).gameTeamList.get(0).score));
+        //holder.teamTwoScore.setText(Integer.toString(games.get(position).gameTeamList.get(1).score));
+        holder.teamTwoScore.setText(Boolean.toString(games.get(position).complete));
     }
 
     @Override

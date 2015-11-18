@@ -1,26 +1,20 @@
 package com.dev.nick.scorch.games;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.RecyclerItemClickListener;
-import com.dev.nick.scorch.dao.ScorchContract;
-import com.dev.nick.scorch.dao.ScorchDbHelper;
 import com.dev.nick.scorch.model.Game;
-import com.dev.nick.scorch.model.Games;
 import com.dev.nick.scorch.players.PlayerDetailActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,20 +35,24 @@ public class GameListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        boolean completed = false;
         Bundle extras = getArguments();
+
         if (extras != null) {
-            long id;
+            long pid;
             int itype;
 
-            itype = extras.getInt(GameFragment.GAME_TYPE);
+            //itype = extras.getInt(GameFragment.GAME_TYPE);
+            completed = extras.getBoolean("complete");
+            Log.d("GameListFragment", Boolean.toString(completed));
 
-            if(itype == 1) {
-                id = extras.getLong(PlayerDetailActivity.PLAYER_ID);
-                games = Game.listAll(Game.class);
-            }
-            else {
-                games = Game.listAll(Game.class);
-            }
+//            if(itype == 1) {
+//                pid = extras.getLong(PlayerDetailActivity.PLAYER_ID);
+//                games = Game.find(Game.class, "complete=?", Boolean.toString(completed));
+//            }
+//            else {
+                  games = Game.find(Game.class, "complete=?", Boolean.toString(completed));
+//            }
         }
         else {
             games = Game.listAll(Game.class);

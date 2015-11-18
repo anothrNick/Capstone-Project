@@ -1,8 +1,5 @@
 package com.dev.nick.scorch.teams;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,11 +13,9 @@ import android.widget.Toast;
 
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.RecyclerItemClickListener;
-import com.dev.nick.scorch.dao.ScorchContract;
-import com.dev.nick.scorch.dao.ScorchDbHelper;
 import com.dev.nick.scorch.model.Player;
 import com.dev.nick.scorch.model.Team;
-import com.dev.nick.scorch.players.PlayerFragment;
+import com.dev.nick.scorch.model.TeamPlayer;
 import com.dev.nick.scorch.players.PlayerListAdapter;
 
 import java.util.ArrayList;
@@ -29,7 +24,6 @@ import java.util.List;
 
 public class TeamPlayerSelection extends Fragment {
 
-    private ScorchDbHelper dbHelper;
     private RecyclerView mRecyclerView;
     private PlayerListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -57,19 +51,7 @@ public class TeamPlayerSelection extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.team_player_selection_fragment, container, false);
         players = new ArrayList<>();
-        dbHelper = new ScorchDbHelper(getActivity());
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-//        Cursor cursor = db.query(
-//                ScorchContract.Players.TABLE_NAME,
-//                ScorchContract.Players.projection,
-//                null,
-//                null,
-//                null,
-//                null,
-//                ScorchContract.Players.sortOrder
-//        );
-//        mAdapter = new PlayerListAdapter(getActivity(), cursor);
         List<Player> lstPlayers = Player.listAll(Player.class);
         mAdapter = new PlayerListAdapter(getContext(), lstPlayers);
 
@@ -123,24 +105,23 @@ public class TeamPlayerSelection extends Fragment {
                     Toast.makeText(getActivity(), "At least one player must be on a team", Toast.LENGTH_SHORT).show();
                 else {
                     Toast.makeText(getActivity(), "Team created", Toast.LENGTH_SHORT).show();
-                    if (dbHelper != null) {
+                    //if (dbHelper != null) {
                         //SQLiteDatabase db = dbHelper.getWritableDatabase();
 
                         Team team = new Team();
-                        ContentValues values = new ContentValues();
-                        values.put(ScorchContract.Teams.COLUMN_NAME, tn);
-                        values.put(ScorchContract.Teams.COLUMN_CREATED, new Date().toString());
-                        long id = db.insert(ScorchContract.Teams.TABLE_NAME, "null", values);
+                        team.name = tn;
+                        team.created = new Date().toString();
+                        team.save();
+                        long id = team.getId();
 
                         if (id > 0) {
                             for (String pid : players) {
-                                values = new ContentValues();
-                                values.put(ScorchContract.TeamPlayers.COLUMN_PLAYER, pid);
-                                values.put(ScorchContract.TeamPlayers.COLUMN_TEAM, id);
-                                db.insert(ScorchContract.TeamPlayers.TABLE_NAME, "null", values);
+                                TeamPlayer teamPlayer = new TeamPlayer();
+                                teamPlayer.player = Player.findById(Player.class, Long.parseLong(pid));
+                                teamPlayer.team = team;
                             }
                         }
-                    }
+                    //}
                     getActivity().finish();
                 }
             }

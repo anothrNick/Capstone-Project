@@ -2,8 +2,6 @@ package com.dev.nick.scorch.tournaments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,8 +14,6 @@ import android.widget.ImageView;
 
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.RecyclerItemClickListener;
-import com.dev.nick.scorch.dao.ScorchContract;
-import com.dev.nick.scorch.dao.ScorchDbHelper;
 import com.dev.nick.scorch.model.Player;
 import com.dev.nick.scorch.model.Team;
 import com.dev.nick.scorch.players.PlayerListAdapter;
@@ -27,7 +23,6 @@ import java.util.List;
 
 public class TournamentSelectMembers extends Fragment implements View.OnClickListener {
 
-    private ScorchDbHelper dbHelper;
     private RecyclerView mPlayerRecyclerView;
     private RecyclerView mTeamRecyclerView;
     private PlayerListAdapter mPlayerAdapter;
@@ -81,20 +76,6 @@ public class TournamentSelectMembers extends Fragment implements View.OnClickLis
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tournament_select_members_fragment, container, false);
 
-        //players = new ArrayList<>();
-        dbHelper = new ScorchDbHelper(getActivity());
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-//        Cursor playerCursor = db.query(
-//                ScorchContract.Players.TABLE_NAME,
-//                ScorchContract.Players.projection,
-//                null,
-//                null,
-//                null,
-//                null,
-//                ScorchContract.Players.sortOrder
-//        );
-//        mPlayerAdapter = new PlayerListAdapter(getActivity(), playerCursor);
         List<Player> lstPlayers = Player.listAll(Player.class);
         mPlayerAdapter = new PlayerListAdapter(getContext(), lstPlayers);
 
