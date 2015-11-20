@@ -28,10 +28,12 @@ public class PlayerImageListAdapter extends RecyclerView.Adapter<PlayerImageList
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageIcon;
+        TextView playerName;
 
         public ViewHolder(View itemView, int ViewType) {
             super(itemView);
             imageIcon = (ImageView) itemView.findViewById(R.id.player_icon);
+            playerName = (TextView) itemView.findViewById(R.id.player_name);
         }
 
     }
@@ -54,6 +56,8 @@ public class PlayerImageListAdapter extends RecyclerView.Adapter<PlayerImageList
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Player mPlayer = lstPlayers.get(position);
+
+        holder.playerName.setText(mPlayer.name);
 
         String imageUri = mPlayer.avatar;
 

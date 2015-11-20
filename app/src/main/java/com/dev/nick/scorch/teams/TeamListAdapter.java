@@ -1,7 +1,7 @@
 package com.dev.nick.scorch.teams;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,7 +60,7 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        viewHolder.mLayoutManager = new GridLayoutManager(mContext, 2);
+        viewHolder.mLayoutManager = new LinearLayoutManager(mContext);
 
         viewHolder.teamName.setText(teamList.get(position).name);
         viewHolder.membersList.setLayoutManager(viewHolder.mLayoutManager);
@@ -70,13 +70,17 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.ViewHo
 
         List<TeamPlayer> teamPlayers = TeamPlayer.find(TeamPlayer.class, "team = ?", Long.toString(teamList.get(position).getId()));
 
+        int pCount = 0;
         for(TeamPlayer tp : teamPlayers) {
             Log.d("TeamListAdapater", tp.player.name);
             lstPlayers.add(tp.player);
+            pCount ++ ;
         }
 
         PlayerImageListAdapter mAdapter = new PlayerImageListAdapter(mContext, lstPlayers);
         viewHolder.membersList.setAdapter(mAdapter);
+
+        viewHolder.membersList.setMinimumHeight(pCount * 70);
     }
 
     @Override

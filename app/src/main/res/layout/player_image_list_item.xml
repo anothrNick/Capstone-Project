@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
-    android:drawSelectorOnTop="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="150px"
-        android:layout_height="150px"
-        android:id="@+id/player_icon"
-        android:paddingLeft="12dp"
-        android:src="@drawable/ic_player"
-        android:layout_gravity="center_vertical"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_marginBottom="1sp"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="horizontal">
 
+
+        <ImageView
+            android:layout_marginLeft="12dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/player_icon"
+            android:src="@drawable/ic_player"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Baba Booey"
+            android:id="@+id/player_name" />
+
+    </LinearLayout>
 </FrameLayout>

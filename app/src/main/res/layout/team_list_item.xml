@@ -5,13 +5,11 @@
     android:focusable="true"
     android:drawSelectorOnTop="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:layout_marginTop="16sp"
-    android:layout_marginBottom="4sp"
-    android:layout_marginLeft="8sp"
-    android:layout_marginRight="8sp"
-    android:padding="10sp"
-    android:background="#FFF"
-    android:elevation="2sp">
+    android:background="#EFEFEF"
+    android:elevation="2sp"
+    android:layout_marginTop="8dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,13 +21,19 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Team Name"
-            android:id="@+id/team_name" />
+            android:id="@+id/team_name"
+            android:gravity="center"
+            android:padding="8sp"
+            android:paddingBottom="8dp"
+            android:background="@color/primary"
+            android:textColor="@color/white"
+            android:layout_marginBottom="1dp"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/team_member_list"
             android:scrollbars="vertical"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

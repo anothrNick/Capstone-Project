@@ -115,10 +115,12 @@ public class TeamPlayerSelection extends Fragment {
                         long id = team.getId();
 
                         if (id > 0) {
+
                             for (String pid : players) {
                                 TeamPlayer teamPlayer = new TeamPlayer();
                                 teamPlayer.player = Player.findById(Player.class, Long.parseLong(pid));
                                 teamPlayer.team = team;
+                                teamPlayer.save();
                             }
                         }
                     //}
