@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
     String NAV_TITLES[] = {"Games", "Players", "Teams"};
     int NAV_ICONS[] = {R.drawable.ic_tourney, R.drawable.ic_games, R.drawable.ic_player, R.drawable.ic_team};
 
-    String NAME = "Nick Sjostrom";
-    int AVATAR = R.drawable.ic_player;
-
     //private NavigationDrawerFragment mNavigationDrawerFragment;
     private Toolbar toolbar;
     RecyclerView mRecyclerView;
@@ -49,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private CharSequence mTitle;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView); // Assigning the RecyclerView Object to the xml View
         mRecyclerView.setHasFixedSize(true);
 
-        mAdapter = new NavAdapter(NAV_TITLES,NAV_ICONS,NAME,"",AVATAR);
+        mAdapter = new NavAdapter(NAV_TITLES,NAV_ICONS,"","",0);
 
         mRecyclerView.setAdapter(mAdapter);
 
@@ -147,9 +142,30 @@ public class MainActivity extends AppCompatActivity {
         mTitle = getTitle();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlayerFragment.newInstance())
-                .commit();
+
+        if(savedInstanceState != null) {
+            mTitle = savedInstanceState.getString("title");
+            if (mTitle.equals("Games")) {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, GameFragment.newInstance())
+                        .commit();
+            }
+            else if(mTitle.equals("Players")) {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, PlayerFragment.newInstance())
+                        .commit();
+            }
+            else if(mTitle.equals("Teams")) {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, TeamFragment.newInstance())
+                        .commit();
+            }
+        }
+        else {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, PlayerFragment.newInstance())
+                    .commit();
+        }
     }
 
     public void onSectionAttached(int number) {
@@ -180,6 +196,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putCharSequence("title", mTitle);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
