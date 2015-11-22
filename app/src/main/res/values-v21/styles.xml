@@ -1,7 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="actionOverflowMenuStyle">@style/CMOptionsMenu</item>
+        <item name="android:itemTextAppearance">@style/menuItemColor</item>
+    </style>
+
+    <style name="CMOptionsMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:popupBackground">@color/white</item>
+    </style>
+
+    <style name="menuItemColor" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:actionMenuTextColor">@color/primary_text</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="actionMenuTextColor">@color/primary_text</item>
     </style>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
@@ -12,4 +25,5 @@
     <style name="AppTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.StatusBar.Title">
         <item name="android:textColor">@color/white</item>
     </style>
+
 </resources>

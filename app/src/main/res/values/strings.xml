@@ -22,4 +22,5 @@
     <string name="title_activity_game_detail">GameDetailActivity</string>
     <string name="title_activity_game_new">GameNewActivity</string>
     <string name="title_activity_tournament_new">TournamentNewActivity</string>
+    <string name="title_activity_app_preferences">Preferences</string>
 </resources>

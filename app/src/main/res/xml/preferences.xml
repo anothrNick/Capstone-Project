@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference android:title="Your Name"
+        android:key="username"
+        android:summary="Please provide your name"></EditTextPreference>
+    <ListPreference     android:title="Home Screen"
+        android:summary="Select your home screen"
+        android:key="homeScreen"
+        android:defaultValue="Players"
+        android:entries="@array/listArray"
+        android:entryValues="@array/listArray" />
+</PreferenceScreen>

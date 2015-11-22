@@ -1,6 +1,9 @@
 package com.dev.nick.scorch;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.support.v4.widget.DrawerLayout;
 
 import com.dev.nick.scorch.games.GameFragment;
+import com.dev.nick.scorch.players.PlayerDetailActivity;
 import com.dev.nick.scorch.players.PlayerFragment;
 import com.dev.nick.scorch.teams.TeamFragment;
 import com.dev.nick.scorch.tournaments.TournamentFragment;
@@ -143,27 +147,26 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        mTitle = SP.getString("homeScreen", "Players");
+
         if(savedInstanceState != null) {
             mTitle = savedInstanceState.getString("title");
-            if (mTitle.equals("Games")) {
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, GameFragment.newInstance())
-                        .commit();
-            }
-            else if(mTitle.equals("Players")) {
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, PlayerFragment.newInstance())
-                        .commit();
-            }
-            else if(mTitle.equals("Teams")) {
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, TeamFragment.newInstance())
-                        .commit();
-            }
         }
-        else {
+
+        if (mTitle.equals("Games")) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, GameFragment.newInstance())
+                    .commit();
+        }
+        else if(mTitle.equals("Players")) {
             fragmentManager.beginTransaction()
                     .replace(R.id.container, PlayerFragment.newInstance())
+                    .commit();
+        }
+        else if(mTitle.equals("Teams")) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, TeamFragment.newInstance())
                     .commit();
         }
     }
@@ -218,6 +221,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, AppPreferences.class);
+            startActivity(intent);
             return true;
         }
 

@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.dev.nick.scorch">
+    package="com.dev.nick.scorch" >
 
-    <uses-permission android:name="com.google.android.apps.photos.permission.GOOGLE_PHOTOS"/>
-    <uses-permission android:name="com.google.android.apps.photos.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.google.android.apps.photos.permission.GOOGLE_PHOTOS" />
+    <uses-permission android:name="com.google.android.apps.photos.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
+        android:name="com.orm.SugarApp"
         android:allowBackup="true"
         android:icon="@drawable/ic_scorch"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
-        android:name="com.orm.SugarApp"
-        tools:replace="android:icon">
-
-        <meta-data android:name="DATABASE" android:value="scorch.db" />
-        <meta-data android:name="VERSION" android:value="1" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.dev.nick.scorch" />
+        tools:replace="android:icon" >
+        <meta-data
+            android:name="DATABASE"
+            android:value="scorch.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.dev.nick.scorch" />
 
         <activity
             android:name=".MainActivity"
@@ -47,6 +55,10 @@
         <activity
             android:name=".tournaments.TournamentNewActivity"
             android:label="@string/title_activity_tournament_new" >
+        </activity>
+        <activity
+            android:name=".AppPreferences"
+            android:label="@string/title_activity_app_preferences" >
         </activity>
     </application>
 
