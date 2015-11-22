@@ -52,18 +52,18 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
         if(games.get(position).gameTeamList == null || games.get(position).gameTeamList.size() <= 0) {
             games.get(position).loadTeamList();
         }
+        if(games.get(position).gameTeamList != null && games.get(position).gameTeamList.size() > 0) {
+            if (games.get(position).gameTeamList.get(0).type == Game.PLAYERS) {
+                holder.teamOne.setText(games.get(position).gameTeamList.get(0).player.name);
+                holder.teamTwo.setText(games.get(position).gameTeamList.get(1).player.name);
+            } else {
+                holder.teamOne.setText(games.get(position).gameTeamList.get(0).team.name);
+                holder.teamTwo.setText(games.get(position).gameTeamList.get(1).team.name);
+            }
 
-        if(games.get(position).gameTeamList.get(0).type == Game.PLAYERS) {
-            holder.teamOne.setText(games.get(position).gameTeamList.get(0).player.name);
-            holder.teamTwo.setText(games.get(position).gameTeamList.get(1).player.name);
+            holder.teamOneScore.setText(Integer.toString(games.get(position).gameTeamList.get(0).score));
+            holder.teamTwoScore.setText(Integer.toString(games.get(position).gameTeamList.get(1).score));
         }
-        else {
-            holder.teamOne.setText(games.get(position).gameTeamList.get(0).team.name);
-            holder.teamTwo.setText(games.get(position).gameTeamList.get(1).team.name);
-        }
-
-        holder.teamOneScore.setText(Integer.toString(games.get(position).gameTeamList.get(0).score));
-        holder.teamTwoScore.setText(Integer.toString(games.get(position).gameTeamList.get(1).score));
     }
 
     @Override

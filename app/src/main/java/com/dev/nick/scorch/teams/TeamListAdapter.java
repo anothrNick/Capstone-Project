@@ -31,14 +31,10 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView teamName;
-        public RecyclerView membersList;
-
-        private RecyclerView.LayoutManager mLayoutManager;
 
         public ViewHolder(View itemView) {
             super(itemView);
             teamName = (TextView)itemView.findViewById(R.id.team_name);
-            membersList = (RecyclerView) itemView.findViewById(R.id.team_member_list);
         }
     }
 
@@ -60,27 +56,7 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        viewHolder.mLayoutManager = new LinearLayoutManager(mContext);
-
         viewHolder.teamName.setText(teamList.get(position).name);
-        viewHolder.membersList.setLayoutManager(viewHolder.mLayoutManager);
-
-        //List<Player> lstPlayers = Player.listAll(Player.class);
-        List<Player> lstPlayers = new ArrayList<>();
-
-        List<TeamPlayer> teamPlayers = TeamPlayer.find(TeamPlayer.class, "team = ?", Long.toString(teamList.get(position).getId()));
-
-        int pCount = 0;
-        for(TeamPlayer tp : teamPlayers) {
-            Log.d("TeamListAdapater", tp.player.name);
-            lstPlayers.add(tp.player);
-            pCount ++ ;
-        }
-
-        PlayerImageListAdapter mAdapter = new PlayerImageListAdapter(mContext, lstPlayers);
-        viewHolder.membersList.setAdapter(mAdapter);
-
-        viewHolder.membersList.setMinimumHeight(pCount * 70);
     }
 
     @Override

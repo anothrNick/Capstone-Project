@@ -5,7 +5,8 @@
     android:clickable="true"
     android:focusable="true"
     android:drawSelectorOnTop="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:id="@+id/player_item">
 
     <LinearLayout
         android:layout_width="match_parent"

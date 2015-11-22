@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +26,8 @@ import java.util.List;
  */
 public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.ViewHolder> {
 
+    int lastPosition = -1;
+
     SimpleDateFormat prettyFormat = new SimpleDateFormat("MM/dd/yyyy");
     SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
 
@@ -30,6 +35,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Vi
     Context mContext;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        FrameLayout container;
         TextView textName;
         TextView textJoined;
         ImageView imageIcon;
@@ -39,6 +45,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Vi
             textName = (TextView) itemView.findViewById(R.id.player_name);
             textJoined = (TextView) itemView.findViewById(R.id.player_joined);
             imageIcon = (ImageView) itemView.findViewById(R.id.player_icon);
+            container = (FrameLayout) itemView.findViewById(R.id.player_item);
         }
 
     }
@@ -90,6 +97,8 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Vi
                 Log.w("PlayerListAdapter", e.getMessage());
             }
         }
+
+        setAnimation(holder.container, position);
     }
 
     @Override
@@ -112,5 +121,16 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Vi
 
     public void updatePlayerList(List<Player> lstPlayers) {
         this.lstPlayers  = lstPlayers;
+    }
+
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 }

@@ -1,49 +1,115 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
-    android:drawSelectorOnTop="true"
-    android:foreground="?android:attr/selectableItemBackground"
     android:background="#EFEFEF"
-    android:elevation="2sp"
-    android:layout_marginTop="8dp"
-    android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        card_view:cardUseCompatPadding="true"
+        card_view:cardElevation="2dp"
+        card_view:cardCornerRadius="2dp">
 
-        <TextView
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Team Name"
-            android:id="@+id/team_name"
-            android:gravity="center"
-            android:padding="8sp"
-            android:paddingBottom="8dp"
-            android:background="@color/primary"
-            android:textColor="@color/white"
-            android:layout_marginBottom="1dp"/>
+            android:orientation="vertical"
+            android:background="#EFEFEF">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Team Name"
+                android:gravity="center"
+                android:padding="8sp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/primary_text"
+                android:background="@color/white"
+                android:layout_marginBottom="1dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/team_member_list"
-            android:scrollbars="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/selected"
+                    android:src="@drawable/ic_check"
+                    android:layout_gravity="right"
+                    android:visibility="invisible"/>
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Team Name"
+                    android:id="@+id/team_name"
+                    android:gravity="center"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/selected"
-        android:src="@drawable/ic_check"
-        android:layout_gravity="center_vertical|right"
-        android:paddingRight="16dp"
-        android:visibility="invisible"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="@color/white">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="0 - 1"
+                        android:textColor="@color/primary_text"/>
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="10/10/10"
+                        android:textColor="@color/secondary_text"/>
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="right">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:src="@drawable/ic_player"
+                        android:layout_gravity="right"
+                        android:id="@+id/player_count_image"/>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/ic_star"
+                        android:layout_gravity="right"
+                        android:id="@+id/myteam"
+                        android:layout_marginLeft="-10dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:text="4"
+                        android:textColor="@color/secondary_text"
+                        android:gravity="center|right"
+                        android:textSize="25dp"
+                        android:id="@+id/player_count"
+                        android:layout_toRightOf="@id/player_count_image"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
 
 </FrameLayout>
