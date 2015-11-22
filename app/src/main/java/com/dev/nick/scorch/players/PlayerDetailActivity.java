@@ -39,16 +39,12 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
     private String TAG = "PlayerDetailActivity";
     private TextView playerName;
-    //private TextView playerPosition;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private ImageView playerIcon;
     private Player mPlayer;
 
     private long pid;
-
-    private final List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitleList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,9 +122,6 @@ public class PlayerDetailActivity extends AppCompatActivity {
                             mPlayer.save();
                         }
 
-                        //Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(getRealPathFromURI(selectedImageURI))),
-                        //        64, 64);
-                        //playerIcon.setImageURI(selectedImage);
                         Picasso.with(this).load(selectedImage).into(playerIcon);
                     }
                     catch(Exception e) {
@@ -146,7 +139,6 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
         GameListFragment glf = new GameListFragment();
         Bundle bun = new Bundle();
-        bun.putInt(GameFragment.GAME_TYPE, 0);
         bun.putLong(PLAYER_ID, pid);
         glf.setArguments(bun);
 
@@ -178,20 +170,6 @@ public class PlayerDetailActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-
-    public static class GamesFrag extends Fragment {
-        public GamesFrag() {
-            super();
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.player_game_list, container, false);
-
-            return view;
-        }
-    }
-
 
     /**
      * stats graph

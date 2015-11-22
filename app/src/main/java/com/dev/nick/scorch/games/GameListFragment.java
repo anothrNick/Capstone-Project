@@ -13,8 +13,11 @@ import android.view.ViewGroup;
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.RecyclerItemClickListener;
 import com.dev.nick.scorch.model.Game;
+import com.dev.nick.scorch.model.GameTeam;
+import com.dev.nick.scorch.model.TeamPlayer;
 import com.dev.nick.scorch.players.PlayerDetailActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,19 +38,28 @@ public class GameListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        boolean completed = false;
         Bundle extras = getArguments();
 
         if (extras != null) {
-            completed = extras.getBoolean("complete");
-            Log.d("GameListFragment", Boolean.toString(completed));
+            boolean completed = extras.getBoolean("complete");
+            long pid = extras.getLong(PlayerDetailActivity.PLAYER_ID, 0);
 
-            games = Game.find(Game.class, "complete = ?", (completed ? "1" : "0"));
-        }
-        else {
-            games = Game.listAll(Game.class);
-        }
+            if(pid <= 0) {
+                // get all games
+                games = Game.find(Game.class, "complete = ?", (completed ? "1" : "0"));
+            }
+            else {
+                List<GameTeam> teamPlayer = TeamPlayer.find(GameTeam.class, "player = ?", Long.toString(pid));
+                games = new ArrayList<Game>();
 
+                for(GameTeam tp : teamPlayer) {
+                    Game tempGame = Game.findById(Game.class, tp.game.getId());
+                    games.add(tempGame);
+                }
+                // get games for this player
+                // games = Game.findWithQuery(Game.class, "Select * from game where complete = ? and id IN (select id from Game_Team where player = ?)", "0", Long.toString(pid));
+            }
+        }
     }
 
     @Override
