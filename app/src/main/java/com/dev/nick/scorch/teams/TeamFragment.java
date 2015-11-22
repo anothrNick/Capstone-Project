@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.dev.nick.scorch.MainActivity;
 import com.dev.nick.scorch.R;
+import com.dev.nick.scorch.RecyclerItemClickListener;
 import com.dev.nick.scorch.model.Team;
 
 import java.util.List;
@@ -75,6 +76,16 @@ public class TeamFragment extends Fragment {
             TextView empty = (TextView) v.findViewById(R.id.teams_empty);
             empty.setVisibility(View.VISIBLE);
         }
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        //long playerid = mAdapter.getItemId(position);
+                        //Intent intent = new Intent(getActivity(), );
+                        //startActivity(intent);
+                    }
+                })
+        );
 
         // Inflate the layout for this fragment
         return v;

@@ -21,7 +21,7 @@ public class GameDetailActivity extends AppCompatActivity {
     public static String GAME = "com.dev.nick.scorch.GAME";
 
     private Button finishGameBtn;
-    private Button closeGameBtn;
+    //private Button closeGameBtn;
 
     private ImageButton scoreOneUp;
     private ImageButton scoreOneDown;
@@ -42,7 +42,7 @@ public class GameDetailActivity extends AppCompatActivity {
         setContentView(R.layout.game_detail_activity);
 
         finishGameBtn = (Button) findViewById(R.id.finishBtn);
-        closeGameBtn = (Button) findViewById(R.id.closeBtn);
+        //closeGameBtn = (Button) findViewById(R.id.closeBtn);
 
         teamOne = (TextView) findViewById(R.id.team_one);
         teamTwo = (TextView) findViewById(R.id.team_two);
@@ -111,12 +111,12 @@ public class GameDetailActivity extends AppCompatActivity {
             }
         });
 
-        closeGameBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        closeGameBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
         Intent i = getIntent();
 
