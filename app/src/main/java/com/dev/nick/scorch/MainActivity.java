@@ -2,7 +2,6 @@ package com.dev.nick.scorch;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -20,14 +19,12 @@ import android.view.View;
 import android.support.v4.widget.DrawerLayout;
 
 import com.dev.nick.scorch.games.GameFragment;
-import com.dev.nick.scorch.players.PlayerDetailActivity;
 import com.dev.nick.scorch.players.PlayerFragment;
 import com.dev.nick.scorch.teams.TeamFragment;
-import com.dev.nick.scorch.tournaments.TournamentFragment;
-import com.dev.nick.scorch.tournaments.TournamentListAdapter;
-import com.dev.nick.scorch.tournaments.TournamentListFragment;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     String NAV_TITLES[] = {"Games", "Players", "Teams"};
     int NAV_ICONS[] = {R.drawable.ic_tourney, R.drawable.ic_games, R.drawable.ic_player, R.drawable.ic_team};
 
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private Tracker mTracker;
     //private NavigationDrawerFragment mNavigationDrawerFragment;
     private Toolbar toolbar;
     RecyclerView mRecyclerView;
@@ -175,6 +174,9 @@ public class MainActivity extends AppCompatActivity {
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("690BC96A091C29907A5B2B23A24CB37B").build();
         mAdView.loadAd(adRequest);
+
+        ScorchApp application = (ScorchApp) getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
     public void onSectionAttached(int number) {
@@ -233,5 +235,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mTracker.setScreenName("Screen~" + TAG);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 }

@@ -21,7 +21,6 @@ import com.dev.nick.scorch.RecyclerItemClickListener;
 import com.dev.nick.scorch.model.Player;
 
 import java.util.Date;
-import java.util.List;
 
 public class PlayerFragment extends Fragment{
 
