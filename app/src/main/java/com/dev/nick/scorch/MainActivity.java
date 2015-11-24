@@ -26,6 +26,8 @@ import com.dev.nick.scorch.teams.TeamFragment;
 import com.dev.nick.scorch.tournaments.TournamentFragment;
 import com.dev.nick.scorch.tournaments.TournamentListAdapter;
 import com.dev.nick.scorch.tournaments.TournamentListFragment;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -169,6 +171,10 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.container, TeamFragment.newInstance())
                     .commit();
         }
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("690BC96A091C29907A5B2B23A24CB37B").build();
+        mAdView.loadAd(adRequest);
     }
 
     public void onSectionAttached(int number) {

@@ -23,4 +23,6 @@
     <string name="title_activity_game_new">GameNewActivity</string>
     <string name="title_activity_tournament_new">TournamentNewActivity</string>
     <string name="title_activity_app_preferences">Preferences</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-7916371821283566/3245936533</string>
 </resources>
