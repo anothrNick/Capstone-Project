@@ -160,7 +160,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
         bun.putLong(PLAYER_ID, pid);
         glf.setArguments(bun);
 
-        adapter.addFrag(new StatsFrag(), "Stats");
+        //adapter.addFrag(new StatsFrag(), "Stats");
         adapter.addFrag(glf, "Games");
         viewPager.setAdapter(adapter);
     }
