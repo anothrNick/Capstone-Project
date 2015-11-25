@@ -3,22 +3,25 @@ package com.dev.nick.scorch.players;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dev.nick.scorch.R;
-import com.dev.nick.scorch.games.GameFragment;
 import com.dev.nick.scorch.games.GameListFragment;
 import com.dev.nick.scorch.model.Player;
 import com.github.mikephil.charting.animation.Easing;
@@ -38,7 +41,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
     public static String PLAYER_ID = "com.dev.nick.scorch.PLAYER_ID";
 
     private String TAG = "PlayerDetailActivity";
-    private TextView playerName;
+    //private TextView playerName;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private ImageView playerIcon;
@@ -52,8 +55,14 @@ public class PlayerDetailActivity extends AppCompatActivity {
         setContentView(R.layout.player_detail_activity);
 
         playerIcon = (ImageView) findViewById(R.id.player_icon);
-        playerName = (TextView) findViewById(R.id.player_name);
+        //playerName = (TextView) findViewById(R.id.player_name);
         //playerPosition = (TextView) findViewById(R.id.player_position);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        CollapsingToolbarLayout collapsingToolbar =
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -66,7 +75,8 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
                 if(mPlayer != null) {
 
-                    playerName.setText(mPlayer.name);
+                    //playerName.setText(mPlayer.name);
+                    collapsingToolbar.setTitle(mPlayer.name);
                     String imageUri = mPlayer.avatar;
 
                     if (imageUri != null && !imageUri.isEmpty()) {
@@ -134,6 +144,14 @@ public class PlayerDetailActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(menuItem);
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
@@ -177,6 +195,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
     public static class StatsFrag extends Fragment {
 
         private LineChart mChart;
+        private LineChart mChart2;
 
         public StatsFrag() {
             super();
@@ -187,6 +206,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
             View view = inflater.inflate(R.layout.player_detail_fragment, container, false);
 
             mChart = (LineChart) view.findViewById(R.id.chart);
+            mChart2 = (LineChart) view.findViewById(R.id.chart2);
 
             dummyChart();
 
@@ -273,6 +293,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
             // set data
             mChart.setData(data);
+            mChart2.setData(data);
         }
     }
 

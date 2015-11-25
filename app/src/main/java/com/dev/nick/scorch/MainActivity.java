@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("690BC96A091C29907A5B2B23A24CB37B").build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("690BC96A091C29907A5B2B23A24CB37B").addTestDevice("718C1F933B51FD04535F917DF8D43639").build();
         mAdView.loadAd(adRequest);
 
         ScorchApp application = (ScorchApp) getApplication();
