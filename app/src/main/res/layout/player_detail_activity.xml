@@ -12,7 +12,6 @@
         android:layout_marginTop="?attr/actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-
     <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,84 +67,8 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-
         </android.support.design.widget.CollapsingToolbarLayout>
 
-
     </android.support.design.widget.AppBarLayout>
-
-    <!--
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true" >
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/player_info"
-                android:orientation="vertical"
-                android:background="#FFF">
-
-                <android.support.design.widget.TabLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tabanim_tabs"
-                    app:tabIndicatorColor="@color/primary"/>
-
-                <android.support.v4.view.ViewPager
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    android:id="@+id/tabanim_viewpager" />
-
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="fill_parent"
-                android:background="#EFEFEF"
-                android:layout_height="wrap_content"
-                android:id="@+id/player_info">
-
-                <FrameLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="192dp"
-                    android:background="@drawable/beam_center"
-                    android:id="@+id/colorHeader" />
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-
-                    <ImageView
-                        android:id="@+id/player_icon"
-                        android:src="@drawable/ic_player"
-                        android:layout_marginTop="60dp"
-                        android:layout_marginLeft="16dp"
-                        android:background="#FFF"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:elevation="2dp"
-                        android:padding="3dp"
-                        android:translationZ="4dp"/>
-                    <TextView android:text="no player"
-                        android:layout_toRightOf="@+id/player_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="60dp"
-                        android:layout_marginLeft="10dp"
-                        android:id="@+id/player_name"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"/>
-
-                </RelativeLayout>
-            </FrameLayout>
-        </RelativeLayout>
-    </ScrollView>-->
 
 </android.support.design.widget.CoordinatorLayout>

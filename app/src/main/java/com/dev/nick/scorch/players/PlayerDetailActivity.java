@@ -195,7 +195,6 @@ public class PlayerDetailActivity extends AppCompatActivity {
     public static class StatsFrag extends Fragment {
 
         private LineChart mChart;
-        private LineChart mChart2;
 
         public StatsFrag() {
             super();
@@ -206,7 +205,6 @@ public class PlayerDetailActivity extends AppCompatActivity {
             View view = inflater.inflate(R.layout.player_detail_fragment, container, false);
 
             mChart = (LineChart) view.findViewById(R.id.chart);
-            mChart2 = (LineChart) view.findViewById(R.id.chart2);
 
             dummyChart();
 
@@ -293,7 +291,6 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
             // set data
             mChart.setData(data);
-            mChart2.setData(data);
         }
     }
 

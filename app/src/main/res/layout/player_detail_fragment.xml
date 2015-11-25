@@ -14,9 +14,4 @@
         android:layout_width="fill_parent"
         android:layout_height="200dp" />
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart2"
-        android:layout_width="fill_parent"
-        android:layout_height="200dp" />
-
 </LinearLayout>

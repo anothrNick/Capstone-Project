@@ -54,10 +54,9 @@ public class GameListFragment extends Fragment {
 
                 for(GameTeam tp : teamPlayer) {
                     Game tempGame = Game.findById(Game.class, tp.game.getId());
-                    games.add(tempGame);
+                    if(!tempGame.complete)
+                        games.add(tempGame);
                 }
-                // get games for this player
-                // games = Game.findWithQuery(Game.class, "Select * from game where complete = ? and id IN (select id from Game_Team where player = ?)", "0", Long.toString(pid));
             }
         }
     }

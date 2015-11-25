@@ -130,7 +130,7 @@ public class GameDetailActivity extends AppCompatActivity {
 
                 gameTeamList = game.gameTeamList;
 
-                if(gameTeamList != null) {
+                if(gameTeamList != null && gameTeamList.size() > 0) {
 
                     if(gameTeamList.get(0).type == Game.PLAYERS) {
                         teamOne.setText(gameTeamList.get(0).player.name);
