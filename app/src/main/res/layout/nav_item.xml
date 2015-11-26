@@ -20,13 +20,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rowIcon"
-            android:paddingLeft="16dp"
+            android:paddingStart="16dp"
             android:src="@drawable/ic_team"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
             android:paddingTop="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Medium Text"

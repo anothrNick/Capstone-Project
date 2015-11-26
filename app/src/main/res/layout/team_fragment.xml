@@ -19,8 +19,8 @@
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="4sp"
-        android:paddingRight="4sp"/>
+        android:paddingStart="4sp"
+        android:paddingEnd="4sp"/>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

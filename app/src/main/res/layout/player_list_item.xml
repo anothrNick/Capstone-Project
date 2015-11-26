@@ -22,7 +22,7 @@
             android:layout_width="150px"
             android:layout_height="150px"
             android:id="@+id/player_icon"
-            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
             android:src="@drawable/ic_player"
             android:layout_gravity="center_vertical"/>
 
@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="12dp"
+                android:paddingStart="12dp"
                 android:paddingTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Baba Booey"
@@ -41,7 +41,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="12dp"
+                android:paddingStart="12dp"
                 android:paddingTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Baba Booey"
@@ -58,6 +58,6 @@
         android:id="@+id/selected"
         android:src="@drawable/ic_check"
         android:layout_gravity="center_vertical|right"
-        android:paddingRight="16dp"
+        android:paddingEnd="16dp"
         android:visibility="invisible"/>
 </FrameLayout>
