@@ -47,6 +47,7 @@
     <string name="team_create_text">Create</string>
     <string name="team_name_cancel">Cancel</string>
     <string name="team_name_next">Next</string>
+    <string name="new_team">New Team</string>
     <string name="team_name_hint">Team Name</string>
     <string name="team_myteam">My Team</string>
     <string name="team_playercount">Player Count</string>

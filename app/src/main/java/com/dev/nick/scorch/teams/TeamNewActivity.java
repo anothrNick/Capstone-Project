@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.adapters.ViewPagerAdapter;
@@ -21,7 +22,6 @@ public class TeamNewActivity extends AppCompatActivity {
 
     public static String teamName;
     public static ViewPager mPager;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +30,21 @@ public class TeamNewActivity extends AppCompatActivity {
 
         teamName = "";
         mPager = (ViewPager) findViewById(R.id.new_team_pager);
-        toolbar = (Toolbar) findViewById(R.id.new_team_toolbar);
 
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.new_team_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.new_team);
+
         setupViewPager(mPager);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -53,17 +64,5 @@ public class TeamNewActivity extends AppCompatActivity {
         if(mPager != null) {
             mPager.setCurrentItem(0);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_team_new, menu);
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle(R.string.title_activity_team_new);
-        }
-        return true;
     }
 }

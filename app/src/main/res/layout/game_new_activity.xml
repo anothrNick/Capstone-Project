@@ -6,14 +6,22 @@
     tools:context="com.dev.nick.scorch.games.GameNewActivity"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/new_game_toolbar"
-        android:layout_height="?actionBarSize"
+    <!-- I don't think this screen should have a collapsing toolbar, but there is one in player_detail_activity.xml -->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Light"
-        android:text=""
-        android:elevation="3dp"/>
+        android:layout_height="?actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:fitsSystemWindows="true">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/new_game_toolbar"
+            android:layout_height="?actionBarSize"
+            android:layout_width="match_parent"
+            android:background="@color/primary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            android:text=""
+            android:elevation="3dp"/>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"

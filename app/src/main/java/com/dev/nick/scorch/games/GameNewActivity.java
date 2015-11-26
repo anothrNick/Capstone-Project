@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.dev.nick.scorch.R;
 import com.dev.nick.scorch.adapters.ViewPagerAdapter;
@@ -20,7 +21,6 @@ import java.util.Date;
 public class GameNewActivity extends AppCompatActivity implements GameSelectType.OnFragmentInteractionListener, GameSelectMembersFragment.OnFragmentInteractionListener {
 
     private ViewPager mPager;
-    private Toolbar toolbar;
     private GameSelectType gameSelectType;
     private GameSelectMembersFragment gameSelectMembers;
     private int type; // 0 = players, 1 = teams
@@ -31,30 +31,28 @@ public class GameNewActivity extends AppCompatActivity implements GameSelectType
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_new_activity);
 
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.new_game_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.new_game);
+
         type = -1;
         mPager = (ViewPager) findViewById(R.id.new_game_pager);
-        toolbar = (Toolbar) findViewById(R.id.new_game_toolbar);
 
         gameSelectType = new GameSelectType();
         gameSelectMembers = new GameSelectMembersFragment();
 
         members = new ArrayList<>();
 
-        setSupportActionBar(toolbar);
         setupViewPager(mPager);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_game_new, menu);
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle("New Game");
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            finish();
         }
-
-        return true;
+        return super.onOptionsItemSelected(menuItem);
     }
 
     public int memberCount() {
