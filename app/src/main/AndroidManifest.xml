@@ -63,6 +63,18 @@
             android:name=".AppPreferences"
             android:label="@string/title_activity_app_preferences" >
         </activity>
+
+        <receiver
+            android:label="Game Scores"
+            android:name=".games.GameWidgetProvider" >
+            <intent-filter >
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/game_widget_info" />
+        </receiver>
     </application>
 
 </manifest>
