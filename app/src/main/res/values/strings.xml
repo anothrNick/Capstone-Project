@@ -13,16 +13,44 @@
 
     <string name="action_settings">Settings</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_player_detail">PlayerDetailActivity</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_team_new">New Team</string>
     <string name="title_activity_game_detail">GameDetailActivity</string>
     <string name="title_activity_game_new">GameNewActivity</string>
     <string name="title_activity_tournament_new">TournamentNewActivity</string>
     <string name="title_activity_app_preferences">Preferences</string>
+
+    <string name="placeholder_text">Dobwow</string>
+
+    <!-- PLAYERS -->
+    <string name="player_name_label">player name</string>
+    <string name="new_player">Create New Player</string>
+
+    <!-- GAMES -->
+    <string name="game_back">Back</string>
+    <string name="game_start">Start Game</string>
+    <string name="game_cancel">Cancel</string>
+    <string name="game_next">Next</string>
+    <string name="teams">Teams</string>
+    <string name="players">Players</string>
+    <string name="vs">vs</string>
+    <string name="new_game">New Game</string>
+    <string name="finish_game">Finish Game</string>
+    <string name="increment_points">Increment Points</string>
+    <string name="decrement_points">Decrement Points</string>
+
+    <!-- TEAMS -->
+    <string name="team_back">Go Back</string>
+    <string name="team_create">Create Team</string>
+    <string name="team_back_text">Back</string>
+    <string name="team_create_text">Create</string>
+    <string name="team_name_cancel">Cancel</string>
+    <string name="team_name_next">Next</string>
+    <string name="team_name_hint">Team Name</string>
+    <string name="team_myteam">My Team</string>
+    <string name="team_playercount">Player Count</string>
+    <string name="team_noteams">No teams :(</string>
 
     <string name="banner_ad_unit_id">ca-app-pub-7916371821283566/3245936533</string>
 </resources>

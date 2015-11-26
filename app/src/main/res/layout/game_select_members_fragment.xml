@@ -32,19 +32,20 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
             android:layout_weight="1"
             android:elevation="2dp">
 
             <Button
-                android:text="Back"
+                android:text="@string/game_back"
+                android:contentDescription="@string/game_back"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:background="@drawable/btnborder"
                 android:id="@+id/cancelBtn"/>
             <Button
-                android:text="Start Game"
+                android:text="@string/game_start"
+                android:contentDescription="@string/game_start"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"

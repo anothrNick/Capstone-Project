@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             app:navigationIcon="@drawable/ic_drawer"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
-            android:layout_above="@+id/container"
             android:elevation="3dp"
             android:color="#FFF"
             android:background="@color/primary"/>
@@ -53,7 +52,7 @@
         android:id="@+id/RecyclerView"
         android:layout_width="320dp"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:background="#ffffff"
         android:scrollbars="vertical">
 

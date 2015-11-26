@@ -18,5 +18,6 @@
         android:clickable="true"
         android:src="@drawable/ic_action"
         android:id="@+id/newPlayer"
+        android:contentDescription="@string/new_player"
         app:backgroundTint="@color/accent"/>
 </FrameLayout>

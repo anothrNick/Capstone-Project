@@ -15,14 +15,6 @@
             android:layout_height="0dp"
             android:layout_weight="9">
 
-            <!--
-            <ImageView
-                android:id="@+id/team_one_image"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/beam_centerer"
-                android:alpha="0.6"/>-->
-
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -49,6 +41,7 @@
                             android:layout_gravity="center_vertical"
                             android:backgroundTint="@color/accent_orange"
                             android:tint="@color/white"
+                            android:contentDescription="@string/decrement_points"
                             />
 
                         <RelativeLayout
@@ -58,7 +51,7 @@
                             android:gravity="center">
 
                             <TextView android:id="@+id/team_one"
-                                android:text="Team One"
+                                android:text="@string/team_name_hint"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="20dp"
@@ -85,7 +78,8 @@
                             android:background="@drawable/ripple"
                             android:layout_gravity="center_vertical"
                             android:backgroundTint="@color/primary"
-                            android:tint="@color/white"/>
+                            android:tint="@color/white"
+                            android:contentDescription="@string/increment_points"/>
 
                     </LinearLayout>
 
@@ -108,7 +102,8 @@
                         android:background="@drawable/ripple"
                         android:layout_gravity="center_vertical"
                         android:backgroundTint="@color/accent_orange"
-                        android:tint="@color/white"/>
+                        android:tint="@color/white"
+                        android:contentDescription="@string/decrement_points"/>
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -117,10 +112,10 @@
                         android:gravity="center">
 
                         <TextView android:id="@+id/team_two"
-                            android:text="Team Two"
+                            android:text="@string/team_name_hint"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="20dp"
+                            android:textSize="20sp"
                             android:layout_gravity="center"
                             android:gravity="center"/>
 
@@ -130,7 +125,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/team_two"
-                            android:textSize="50dp"
+                            android:textSize="50sp"
                             android:layout_gravity="center"
                             android:gravity="center"/>
 
@@ -145,7 +140,8 @@
                         android:background="@drawable/ripple"
                         android:layout_gravity="center_vertical"
                         android:backgroundTint="@color/primary"
-                        android:tint="@color/white"/>
+                        android:tint="@color/white"
+                        android:contentDescription="@string/increment_points"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -155,8 +151,8 @@
                 android:layout_height="fill_parent"
                 android:gravity="center_vertical|center_horizontal">
                 <TextView
-                    android:textSize="30dp"
-                    android:text="vs"
+                    android:textSize="30sp"
+                    android:text="@string/vs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/circle"
@@ -173,20 +169,10 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
             android:layout_weight="1">
 
-            <!--
             <Button
-                android:text="Close"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:background="@drawable/btnborder"
-                android:id="@+id/closeBtn"/>-->
-
-            <Button
-                android:text="Finish Game"
+                android:text="@string/finish_game"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="@drawable/btnborder"

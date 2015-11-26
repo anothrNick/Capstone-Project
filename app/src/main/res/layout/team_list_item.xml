@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Team Name"
+                android:text="@string/team_name_hint"
                 android:gravity="center"
                 android:padding="8sp"
                 android:paddingBottom="8dp"
@@ -40,14 +40,14 @@
                     android:layout_height="20dp"
                     android:id="@+id/selected"
                     android:src="@drawable/ic_check"
-                    android:layout_gravity="right"
+                    android:layout_gravity="end"
                     android:visibility="invisible"/>
 
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Team Name"
+                    android:text="@string/team_name_hint"
                     android:id="@+id/team_name"
                     android:gravity="center"/>
 
@@ -58,7 +58,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="8dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:baselineAligned="false">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -82,29 +83,31 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:gravity="right">
+                    android:gravity="end">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:src="@drawable/ic_player"
-                        android:layout_gravity="right"
-                        android:id="@+id/player_count_image"/>
+                        android:layout_gravity="end"
+                        android:id="@+id/player_count_image"
+                        android:contentDescription="@string/team_myteam"/>
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@mipmap/ic_star"
-                        android:layout_gravity="right"
+                        android:layout_gravity="end"
                         android:id="@+id/myteam"
-                        android:layout_marginStart="-10dp"/>
+                        android:layout_marginStart="-10dp"
+                        android:contentDescription="@string/team_playercount"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:text="4"
                         android:textColor="@color/secondary_text"
-                        android:gravity="center|right"
+                        android:gravity="center|end"
                         android:textSize="25dp"
                         android:id="@+id/player_count"
-                        android:layout_toRightOf="@id/player_count_image"/>
+                        android:layout_toEndOf="@id/player_count_image"/>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

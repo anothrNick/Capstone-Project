@@ -35,7 +35,7 @@
                 android:paddingStart="12dp"
                 android:paddingTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Baba Booey"
+                android:text="@string/placeholder_text"
                 android:id="@+id/player_name" />
 
             <TextView
@@ -44,7 +44,7 @@
                 android:paddingStart="12dp"
                 android:paddingTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Baba Booey"
+                android:text="@string/placeholder_text"
                 android:id="@+id/player_joined"
                 android:layout_below="@+id/player_name"/>
 

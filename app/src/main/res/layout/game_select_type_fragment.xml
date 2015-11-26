@@ -19,7 +19,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Players"
+                    android:text="@string/players"
                     android:button="@android:color/transparent"
                     android:background="@drawable/radio"
                     android:gravity="center"
@@ -29,7 +29,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Teams"
+                    android:text="@string/teams"
                     android:button="@android:color/transparent"
                     android:background="@drawable/radio"
                     android:gravity="center"
@@ -42,19 +42,20 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
             android:layout_weight="1"
             android:elevation="2dp">
 
             <Button
-                android:text="Cancel"
+                android:text="@string/game_cancel"
+                android:contentDescription="@string/game_cancel"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:background="@drawable/btnborder"
                 android:id="@+id/cancelBtn"/>
             <Button
-                android:text="Next"
+                android:text="@string/game_next"
+                android:contentDescription="@string/game_next"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"

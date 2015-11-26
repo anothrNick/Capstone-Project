@@ -16,7 +16,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:hint="Team Name"
+                android:hint="@string/team_name_hint"
                 android:id="@+id/teamName"/>
 
         </LinearLayout>
@@ -30,19 +30,21 @@
             android:elevation="2dp">
 
             <Button
-                android:text="Cancel"
+                android:text="@string/team_name_cancel"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:background="@drawable/btnborder"
-                android:id="@+id/cancelBtn"/>
+                android:id="@+id/cancelBtn"
+                android:contentDescription="@string/team_name_cancel"/>
             <Button
-                android:text="Next"
+                android:text="@string/team_name_next"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:background="@drawable/btnborder"
-                android:id="@+id/nextBtn"/>
+                android:id="@+id/nextBtn"
+                android:contentDescription="@string/team_name_next"/>
 
         </LinearLayout>
 

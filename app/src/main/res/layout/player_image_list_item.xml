@@ -27,7 +27,7 @@
             android:layout_gravity="center_vertical"
             android:paddingStart="12dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Baba Booey"
+            android:text="@string/placeholder_text"
             android:id="@+id/player_name" />
 
     </LinearLayout>

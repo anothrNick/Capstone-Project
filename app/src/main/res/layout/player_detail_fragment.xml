@@ -6,8 +6,7 @@
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Player stuff"/>
+        android:layout_height="wrap_content"/>
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
