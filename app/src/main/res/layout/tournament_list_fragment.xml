@@ -15,6 +15,7 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android:src="@drawable/ic_action"
-        android:id="@+id/newTourney"/>
+        android:id="@+id/newTourney"
+        android:contentDescription="@string/tourn_new"/>
 
 </FrameLayout>

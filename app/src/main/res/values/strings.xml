@@ -53,5 +53,13 @@
     <string name="team_playercount">Player Count</string>
     <string name="team_noteams">No teams :(</string>
 
+    <!-- TOURNAMENTS -->
+    <string name="tourn_cancel">Cancel</string>
+    <string name="tourn_back">Back</string>
+    <string name="tourn_next">Next</string>
+    <string name="tourn_start">Start Game</string>
+    <string name="tourn_title">Tournament Title</string>
+    <string name="tourn_new">New Tournament</string>
+
     <string name="banner_ad_unit_id">ca-app-pub-7916371821283566/3245936533</string>
 </resources>

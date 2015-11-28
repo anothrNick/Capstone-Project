@@ -16,7 +16,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:hint="Tournament Title"
+                android:hint="@string/tourn_title"
                 android:id="@+id/tourneyName"/>
 
         </LinearLayout>
@@ -25,19 +25,20 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
             android:layout_weight="1"
             android:elevation="2dp">
 
             <Button
-                android:text="Cancel"
+                android:text="@string/tourn_cancel"
+                android:contentDescription="@string/tourn_cancel"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:background="@drawable/btnborder"
                 android:id="@+id/cancelBtn"/>
             <Button
-                android:text="Next"
+                android:text="@string/tourn_next"
+                android:contentDescription="@string/tourn_next"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"

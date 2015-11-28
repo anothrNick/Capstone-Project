@@ -47,19 +47,21 @@
             android:elevation="2dp">
 
             <Button
-                android:text="Back"
+                android:text="@string/tourn_back"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:background="@drawable/btnborder"
-                android:id="@+id/backBtn"/>
+                android:id="@+id/backBtn"
+                android:contentDescription="@string/tourn_back"/>
             <Button
-                android:text="Next"
+                android:text="@string/tourn_next"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:background="@drawable/btnborder"
-                android:id="@+id/nextBtn"/>
+                android:id="@+id/nextBtn"
+                android:contentDescription="@string/tourn_next"/>
 
         </LinearLayout>
 
